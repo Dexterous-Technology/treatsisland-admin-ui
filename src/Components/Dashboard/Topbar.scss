@@ -1,0 +1,14 @@
+.createEventBtn {
+    margin-top: 18px;
+    height: 30px;
+    border: none;
+    background-color: var(--color-hot-pink);
+    color: white;
+    padding: 0px 15px;
+    border-radius: 5px;
+    
+    &:disabled {
+        background-color: #d3d3d3;
+
+    }
+}

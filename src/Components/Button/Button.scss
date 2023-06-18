@@ -1,0 +1,37 @@
+.button {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &.small {
+        padding: 4px 12px;
+        font-size: 14px;
+    }
+    
+    &.big {
+        padding: 8px 16px;
+        font-size: 24px;
+    }
+
+    &.dark {
+        background-color: #000;
+        color: #fff;
+
+        &:hover {
+            background-color: var(--color-secondary-light);
+        }
+    }
+
+    &.light {
+        background-color: var(--color-secondary-lightest);
+        color: #fff;
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
+}

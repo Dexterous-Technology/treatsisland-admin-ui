@@ -1,0 +1,42 @@
+.buttonOuterWrapper {
+    button {
+        border: none;
+        background-color: transparent;
+    }
+
+    text-align: end;
+    // background-color: aqua;
+    position: relative;
+    min-width: 200px;
+
+    &:hover {
+        .shareOptions {
+            display: unset;
+        }
+    }
+
+    .shareOptions {
+        display: none;
+        text-align: left;
+        position: absolute;
+        top: 19px;
+        border-radius: 4px;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+        right: 0px;
+        z-index: 999;
+        background-color: var(--color-hot-pink);
+
+        .option {
+            text-transform: none;
+            font-size: 0.8rem;
+            border-bottom: 1px solid white;
+            color: white;
+            padding: 5px 15px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #606060;
+            }
+        }
+    }
+}

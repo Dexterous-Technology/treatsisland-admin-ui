@@ -1,0 +1,12 @@
+.bg-gradient-custom {
+    background: rgb(2,0,36);
+    background: -moz-linear-gradient(180deg, rgba(2,0,36,1) 0%, var(--color-hot-pink) 0%, rgba(55,55,55,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(2,0,36,1) 0%, var(--color-hot-pink) 0%, rgba(55,55,55,1) 100%);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, var(--color-hot-pink) 0%, rgba(55,55,55,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#373737",GradientType=1);
+}
+
+.btn-primary {
+    background: var(--color-hot-pink);
+    border-color: inherit;
+}

@@ -1,0 +1,51 @@
+.invoice-wrapper {
+    .site-header {
+        position: relative;
+
+        .inner-wrapper .right .nav-menu .nav .nav-item:not(.cta-btn) {
+            color: #000;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+
+
+    @media (max-width: 767px) {
+        &.noPrint {
+            table.topDetails tr {
+                display: grid;
+            }
+
+            .purchaseDetails {
+                // background: red;
+                width: 100%;
+                // padding: 10px;
+                overflow-x: scroll;
+                overflow-y: hidden;
+
+                table {
+                    min-width: 700px;
+                }
+            }
+
+            table.totalDetails tr {
+                display: grid;
+            }
+        }
+    }
+
+
+
+    @media print {
+        &.noPrint {
+            display:none;
+        }
+    }
+    @media screen {
+        &.onlyPrint {
+            display: none;
+        }
+    }
+}

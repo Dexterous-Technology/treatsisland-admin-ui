@@ -1,0 +1,113 @@
+.formWrapper {
+    padding: 2rem 0;
+}
+.productSelectorWrapper {
+    padding: 2rem 40px;
+    h3 {
+        width: 100%;
+        text-align: center;
+    }
+    .productResults {
+        max-height: 60vh;
+        width: 100%;
+        padding: 2rem 20px;
+        // background-color: aliceblue;
+        overflow-y: scroll;
+        .product {
+            margin-bottom: 25px;
+            width: 100%;
+            background-color: white;
+            // box-shadow: 6px 6px 9px rgba(0,0,0,0.3);
+            border-radius: 5px;
+            padding: 15px 15px;
+            cursor: pointer;
+            border: 1px solid rgb(205, 205, 205);
+            &:hover {
+                background-color: rgba(0, 185, 80, 0.267);
+                color: white;
+            }
+            &.selected {
+                background-color: rgb(0, 186, 81);
+                color: white;
+            }
+        }
+    }
+}
+
+.modal-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .title {
+        font-family: var(--font-heading);
+        color: #000;
+        font-size: 20px;
+        text-transform: uppercase;
+    }
+
+    .modal-close {
+        font-size: 30px;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+            color: #000;
+        }
+    }
+}
+
+
+.inner-content {
+    .section {
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        label {
+            color: #000;
+            font-weight: bold;
+        }
+
+        &.input-error {
+            label {
+                font-weight: 800;
+                color: red;
+            }
+            .form-control {
+                border: 2px solid red;
+
+                &::placeholder {
+                    color: red;
+                }
+            }
+            .error-text {
+                color: red;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .buttons {
+        text-align: right;
+
+        .button {
+            padding: 16px 32px;
+            border-radius: 0;
+            font-size: 16px;
+            font-family: var(--font-heading);
+            margin-left: 16px;
+            margin-bottom: 16px;
+
+            &.secondary {
+                background-color: var(--color-secondary-light);
+                color: #fff;
+            }
+            &.primary {
+                background-color: var(--color-hot-pink);
+                color: #fff;
+            }
+        }
+    }
+}

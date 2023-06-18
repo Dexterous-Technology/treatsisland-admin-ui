@@ -1,0 +1,26 @@
+.loginBg {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: rgb(220, 59, 0) !important;
+    background-image: unset;
+}
+
+.bg-register-image {
+    background-image: url('https://www.snackandbakery.com/ext/resources/ci/Everyday/2021/AdobeStock_110429241_web.jpg?1670344457');
+}
+
+.registerWrapper {
+    // margin-top: 50px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    min-height: 100vh;
+}
+
+
+.errorText {
+    margin-top: -8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: red;
+    // line-height: 0.8rem;
+}
