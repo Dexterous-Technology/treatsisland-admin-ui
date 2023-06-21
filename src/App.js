@@ -31,6 +31,7 @@ import SiteDownPage from "./Pages/site-down-page/site-down-page";
 import SuperAdminLogin from "./Pages/super-admin-login/super-admin-login";
 import SuperAdminAllEvents from "./Pages/super-admin-all-events/super-admin-all-events";
 import SuperAdminProductManagement from "./Pages/super-admin-product-management/super-admin-product-management";
+import SuperAdminForgotPassword from "./Pages/super-admin-forgot-password/super-admin-forgot-password";
 
 function App() {
   useEffect(() => {
@@ -104,9 +105,10 @@ function App() {
           <Route exact path="/about-us/" component={AboutUsPage} />
           <Route exact path="/site-down/" component={SiteDownPage} />
 
-          <Route exact path="/super-login/" component={SuperAdminLogin} />
+          <Route exact path="/super-login" component={SuperAdminLogin} />
           <Route exact path="/super-all-events/" component={SuperAdminAllEvents} />
           <Route exact path="/super-product-management/" component={SuperAdminProductManagement} />
+          <Route exact path="/super-admin-forgot-password" component={SuperAdminForgotPassword} />
           
           <ProtectedRoute
             exact

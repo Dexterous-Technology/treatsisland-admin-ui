@@ -1,50 +1,39 @@
 import React, { useEffect, useState } from "react";
 import Topbar from "../../Components/Dashboard/Topbar";
 import "../super-admin-all-events/super-admin-dashboard.scss";
+import Sidebar from "../../Components/SuperDashboard/Sidebar";
+
+import ListingAllProduct from "../../entities/product-management/components/all-product/all-product";
+import EditProductPopup from "../../entities/product-management/components/edit-product/edit-product";
+
 
 const SuperAdminProductManagement = () => {
-    const [modalProductEdit, setModalProductEdit] = useState(false);
+   
+    const [eventVisibleProductEditModel, setEventVisibleProductEditModel] = useState({
+        modalProductEdit: false,
+        productId: null,
+    });
+
+    const _productEditModel = (event) => {
+        setEventVisibleProductEditModel({
+          modalProductEdit: event.modalProductEdit,
+          productId:event.productId
+        });
+    };
+
+    const onProductEditModelDismiss = (event) => {
+        setEventVisibleProductEditModel({
+          modalProductEdit: false,
+          productId: null,
+        });
+    };
     
-    
-    const ToggleButton = () => {
-        const [toggleState, setToggleState] = useState(true);
-        return (
-            <div className={"activeToggle " + (toggleState ? "on" : "off")} onClick={(e) => setToggleState(!toggleState)}>
-                {
-                    toggleState ?
-                    <>
-                        <i className="fas fa-toggle-on"></i>
-                        <span>Active</span>
-                    </>
-                    :
-                    <>
-                        <i className="fas fa-toggle-off"></i>
-                        <span>Deactive</span>
-                    </>
-                }
-            </div>
-        );
-    }
-    
+
     return (
         <div id="wrapper" className="superAdminDashboardWrapper product-management">
+            
             {/* ************************** SIDEBAR */}
-            <div className="sidebar">
-                <div
-                    id="sidemenuClose"
-                    className="d-block d-md-none"
-                    onClick={(e) => document.body.classList.remove("openAdminSideMenu")}
-                >
-                    <i className="fa fa-times" />
-                </div>
-
-                <div className="logo"><img src={require("../../assets/images/logo.png")} alt="" /></div>
-
-                <div className="menu-items">
-                    <div className="item">All events</div>
-                    <div className="item active">Product management</div>
-                </div>
-            </div>
+            <Sidebar />
             {/* ************************** /SIDEBAR */}
 
 
@@ -72,11 +61,11 @@ const SuperAdminProductManagement = () => {
 
 
                                         <thead>
+
                                             <tr>
                                                 <th scope="col" className="small font-weight-bold text-center"> # </th>
                                                 <th scope="col" className="small font-weight-bold text-center">
                                                     <div className="innerWrapper d-flex align-center">
-                                                        {/* <div className="image-wrapper"><img src="https://picsum.photos/id/237/200/300" alt="" /></div> */}
                                                     </div>
                                                 </th>
                                                 <th scope="col" className="small font-weight-bold text-left">
@@ -135,118 +124,20 @@ const SuperAdminProductManagement = () => {
                                                 </th>
                                                 <th scope="col" className="small font-weight-bold text-center">Action</th>
                                             </tr>
+
                                         </thead>
 
 
                                         <tbody>
-                                            <tr>
-                                                <td className="text-center">1</td>
-                                                <td className="text-center">
-                                                    <div className="innerWrapper d-flex align-center">
-                                                        <div className="image-wrapper"><img src="https://picsum.photos/id/237/200/300" alt="" /></div>
-                                                    </div>
-                                                </td>
-                                                <td className="text-left">Chamoy Peach Rings</td>
-                                                <td className="text-left"><span className="small">Lorem ipsum dolor sit, amet consectetur adipiscing elit, tristique interdum.</span></td>
-                                                <td className="text-center">Candy</td>
-                                                <td className="text-center">5th January, 2023</td>
-                                                <td className="text-center">$ 20</td>
-                                                <td className="text-center">15</td>
-                                                <td className="text-center">
-                                                    <div className="actionWrapper">
-                                                        <div className="editProductButton">
-                                                            <div className="btn btn-info btn-sm" onClick={(e) => setModalProductEdit(true)}>Edit</div>
-                                                        </div>
-
-                                                        <ToggleButton />
-                                                    </div>
-                                                </td>
-                                            </tr>
-
+                                            <ListingAllProduct onDismiss={_productEditModel}/>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
 
-
-
                             {/* **************************************** MODALS - PRODUCT EDIT */}
-                            <div className={"modalProductEdit " + (modalProductEdit ? "show" : "")}>
-                                <div className="modalTop" onClick={(e) => setModalProductEdit(false)}><i className="fa fa-arrow-left"></i> <span>Go back</span></div>
-
-                                <div className="modalHeader">Edit product</div>
-
-
-                                <div className="modalContent">
-                                    <div className="row align-items-center">
-                                        <div className="col-md-4">
-                                            <div className="image-wrapper">
-                                                <img src="https://picsum.photos/id/237/200/300" alt="" />
-
-                                                <div className="editIcon"><i className="fa fa-edit"></i></div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="col-md-8">
-                                            <div className="row">
-                                                <div className="col-md-10">
-                                                    <div className="form-group">
-                                                        <label htmlFor="">Product name</label>
-                                                        <input type="text" className="form-control" value="Chamoy peach rings" />
-                                                    </div>
-                                                </div>
-
-                                                <div className="col-md-2">
-                                                    <ToggleButton />
-                                                </div>
-
-                                                <div className="col-md-4">
-                                                    <div className="form-group">
-                                                        <label htmlFor="">Price ($)</label>
-                                                        <input type="text" className="form-control" value="1000" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <div className="form-group">
-                                                        <label htmlFor="">Discount (%)</label>
-                                                        <input type="text" className="form-control" value="10" />
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-4">
-                                                    <div className="form-group">
-                                                        <label htmlFor="">Sale price (calculated)</label>
-                                                        <input type="text" className="form-control" value="900" />
-                                                    </div>
-                                                </div>
-
-
-                                                <div className="col-md-12">
-                                                    <div className="form-check p-0">
-                                                        <input type="checkbox" className="mr-2" />
-                                                        <label htmlFor="instock">In stock</label>
-                                                    </div>
-                                                </div>
-
-
-                                                <div className="col-md-12">
-                                                    <div className="form-group">
-                                                        <label htmlFor="">Description</label>
-                                                        <textarea name="" id="" rows="5" className="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div className="buttons text-right">
-                                                <div className="btn btn-light mr-3">Cancel</div>
-                                                <div className="btn btn-primary">Update</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <EditProductPopup {...eventVisibleProductEditModel}  onDismiss={onProductEditModelDismiss}/>
 
                         </div>
                     </div>
