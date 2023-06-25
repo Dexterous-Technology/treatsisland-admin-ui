@@ -4,7 +4,13 @@ const ToggleButton = ({ onToggle = () => {}, isEnabled = "true" }) => {
   return (
     <div
       className={"activeToggle " + (isEnabled === "true" ? "on" : "off")}
-      onClick={(e) => onToggle(!isEnabled)}
+      onClick={(e) => {
+        if (isEnabled === "true") {
+          onToggle("false");
+        } else {
+          onToggle("true");
+        }
+      }}
     >
       {isEnabled === "true" ? (
         <>

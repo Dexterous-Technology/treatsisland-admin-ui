@@ -23,13 +23,13 @@ const ProductEditor = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [generalFormError, setGeneralFormError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState("true");
 
   const _setFormValues = (product) => {
     setValue("Product", product?.Product || "");
     setValue("Price", product?.Price || "");
     setValue("Description", product?.Description || "");
-    setIsActive(JSON.parse(product?.isActive) || true);
+    setIsActive(product?.isActive || "true");
   };
 
   const _resetForm = () => {
@@ -40,7 +40,7 @@ const ProductEditor = ({
     });
     setIsEditing(false);
     setActiveProduct(null);
-    setIsActive(true);
+    setIsActive("true");
   };
 
   const _resetAndClose = () => {
@@ -49,9 +49,11 @@ const ProductEditor = ({
   };
 
   const _handleToggle = (isActive) => {
+    console.log('isActive after:>> ', isActive);
     setIsActive(isActive);
   };
-
+  
+  console.log('isActive before:>> ', isActive);
   const _subscribeToEvents = () => {
     EventEmitter.subscribe(
       EventNames.adminProductEditPopup.show,
@@ -120,7 +122,7 @@ const ProductEditor = ({
 
                   <div className="col-md-2">
                     <ToggleButton
-                      isEnabled={activeProduct?.isActive}
+                      isEnabled={isActive}
                       onToggle={_handleToggle}
                     />
                   </div>
