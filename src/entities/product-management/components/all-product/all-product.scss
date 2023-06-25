@@ -635,14 +635,6 @@ body.openAdminSideMenu {
     }
 
 
-    @media (max-width: 767px) {
-        .activeToggle {
-            justify-content: flex-start;
-            flex-direction: row;
-            gap: 10px;
-            margin: 20px 0;
-        }
-    }
 }
 
 
@@ -670,27 +662,3 @@ body.openAdminSideMenu {
 }
 
 
-
-.activeToggle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    span {
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    &.on {
-        i, span {
-            color: #00a757;
-        }
-    }
-    &.off {
-        i, span {
-            color: #909090;
-        }
-    }
-}

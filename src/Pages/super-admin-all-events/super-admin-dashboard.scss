@@ -1,6 +1,6 @@
 .superAdminDashboardWrapper {
     .sidebar {
-        width: 300px!important;
+        width: 300px !important;
         background-color: var(--color-hot-pink);
         transition: 0.2s;
 
@@ -51,7 +51,7 @@
 
                 &:hover,
                 &.active {
-                    background-color: rgba(0,0,0,0.1);
+                    background-color: rgba(0, 0, 0, 0.1);
 
                     &::after {
                         opacity: 1;
@@ -96,7 +96,8 @@
                 cursor: pointer;
             }
 
-            .table td, .table th {
+            .table td,
+            .table th {
                 padding: 10px;
             }
         }
@@ -112,15 +113,16 @@
                 .table {
                     min-width: 1300px;
 
-                    th, td {
+                    th,
+                    td {
                         vertical-align: middle;
                     }
-        
+
                     .image-wrapper {
                         width: 40px;
                         height: 40px;
                         overflow: hidden;
-        
+
                         img {
                             width: 100%;
                             height: 100%;
@@ -194,7 +196,7 @@ body.openAdminSideMenu {
     opacity: 0;
     pointer-events: none;
     padding: 20px;
-    
+
     &.show {
         opacity: 1;
         pointer-events: all;
@@ -207,7 +209,7 @@ body.openAdminSideMenu {
         padding: 20px;
         color: #000;
         font-size: 16px;
-        background-color: rgba(0,0,0,0.1);
+        background-color: rgba(0, 0, 0, 0.1);
         padding: 4px 8px;
         display: inline-block;
         cursor: pointer;
@@ -238,7 +240,7 @@ body.openAdminSideMenu {
         .storeCard {
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.25);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
             overflow: hidden;
             transition: 0.2s;
             cursor: pointer;
@@ -288,7 +290,7 @@ body.openAdminSideMenu {
                         overflow: hidden;
                         display: flex;
                         padding: 4px;
-                        
+
                         .progressMade {
                             display: inline-block;
                             background-color: var(--color-hot-pink);
@@ -301,7 +303,7 @@ body.openAdminSideMenu {
             }
 
             &:hover {
-                box-shadow: 0 0 5px rgba(0,0,0,0.25);
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
             }
         }
     }
@@ -329,7 +331,7 @@ body.openAdminSideMenu {
         }
 
 
-        
+
         .intro {
             margin: auto;
             margin-top: -100px;
@@ -343,7 +345,7 @@ body.openAdminSideMenu {
                 border-radius: 100%;
                 border: 5px solid #fff;
                 margin: auto;
-    
+
                 img {
                     width: 100%;
                     height: 100%;
@@ -368,7 +370,7 @@ body.openAdminSideMenu {
                 font-weight: 600;
                 font-size: 24px;
             }
-            
+
             .amountRaised {
                 .amount {
                     color: #000;
@@ -388,7 +390,7 @@ body.openAdminSideMenu {
                     overflow: hidden;
                     display: flex;
                     padding: 4px;
-                    
+
                     .progressMade {
                         display: inline-block;
                         background-color: var(--color-hot-pink);
@@ -406,7 +408,7 @@ body.openAdminSideMenu {
             margin: 64px auto;
             background-color: #fff;
             padding: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
             border-radius: 10px;
 
             .supporterTitle {
@@ -425,6 +427,7 @@ body.openAdminSideMenu {
                     padding: 4px 8px;
                     background-color: #efefef;
                     margin-bottom: 8px;
+
                     b {
                         color: #000;
                         margin-left: 4px;
@@ -458,7 +461,7 @@ body.openAdminSideMenu {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -489,7 +492,7 @@ body.openAdminSideMenu {
                 &.closeModal {
                     width: 50px;
                     height: 50px;
-                    background-color: rgba(0,0,0,0.1);
+                    background-color: rgba(0, 0, 0, 0.1);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -517,9 +520,11 @@ body.openAdminSideMenu {
                 span:nth-child(1) {
                     text-align: right;
                 }
+
                 span:nth-child(2) {
                     text-align: center;
                 }
+
                 span:nth-child(3) {
                     text-align: left;
                     font-weight: 600;
@@ -536,15 +541,17 @@ body.openAdminSideMenu {
                     font-size: 24px;
                 }
             }
+
             .modalContent {
                 .item {
                     grid-template-columns: 1fr;
                     gap: 0;
-                    
+
                     span {
                         font-size: 16px;
-                        text-align: left!important;
+                        text-align: left !important;
                     }
+
                     span:nth-child(2) {
                         display: none;
                     }
@@ -569,7 +576,7 @@ body.openAdminSideMenu {
     opacity: 0;
     pointer-events: none;
     padding: 20px;
-    
+
     &.show {
         opacity: 1;
         pointer-events: all;
@@ -582,7 +589,7 @@ body.openAdminSideMenu {
         padding: 20px;
         color: #000;
         font-size: 16px;
-        background-color: rgba(0,0,0,0.1);
+        background-color: rgba(0, 0, 0, 0.1);
         padding: 4px 8px;
         display: inline-block;
         cursor: pointer;
@@ -628,21 +635,12 @@ body.openAdminSideMenu {
             color: #fff
         }
     }
-    
 
 
-    @media (max-width: 991px) {
-    }
+
+    @media (max-width: 991px) {}
 
 
-    @media (max-width: 767px) {
-        .activeToggle {
-            justify-content: flex-start;
-            flex-direction: row;
-            gap: 10px;
-            margin: 20px 0;
-        }
-    }
 }
 
 
@@ -665,32 +663,6 @@ body.openAdminSideMenu {
     &:hover {
         i {
             opacity: 1;
-        }
-    }
-}
-
-
-
-.activeToggle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    span {
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    &.on {
-        i, span {
-            color: #00a757;
-        }
-    }
-    &.off {
-        i, span {
-            color: #909090;
         }
     }
 }

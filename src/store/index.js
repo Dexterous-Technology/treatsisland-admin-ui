@@ -6,6 +6,7 @@ import eventReducer from "./event-store";
 import cartReducer from "./cart-store";
 
 import storage from "redux-persist/lib/storage";
+import { adminStoreSlice } from "./admin-store";
 
 const persistConfig = {
   key: "root",
@@ -20,5 +21,6 @@ export const store = configureStore({
     org: orgReducer,
     event: eventReducer,
     cart: cartReducer,
+    adminStore: adminStoreSlice.reducer,
   },
 });
