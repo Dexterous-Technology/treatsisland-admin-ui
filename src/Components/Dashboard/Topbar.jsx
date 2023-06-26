@@ -6,6 +6,7 @@ import { EventEmitter } from "../../utils/event-emitter";
 import "./Topbar.scss";
 import moment from "moment";
 import { toast } from "react-toastify";
+import SessionUtils from "../../utils/session-utils";
 
 const Sidebar = () => {
   const history = useHistory();
@@ -13,8 +14,8 @@ const Sidebar = () => {
 
   const _logout = (e) => {
     e.preventDefault();
-    AuthHelper.logout();
-    history.push("/home");
+    SessionUtils.removeToken();
+    window.location.href = "/";
     // window.location.reload();
   };
   const { user } = useSelector((state) => state.user);
@@ -49,7 +50,7 @@ const Sidebar = () => {
     // if (hasActiveEvents) {
     //   toast.error("You already have an active event!");
     // } else {
-      EventEmitter.dispatch("SHOW_QUICK_WIZARD");
+    EventEmitter.dispatch("SHOW_QUICK_WIZARD");
     // }
   };
 
@@ -66,15 +67,12 @@ const Sidebar = () => {
           <i className="fa fa-bars" />
         </button>
 
-        <NavLink
-          to="/home"
-        >
+        <NavLink to="/home">
           <div className="mobileLogo d-block d-md-none">
             <img src={require("../../assets/images/logo.png")} alt="" />
           </div>
         </NavLink>
 
-        
         {/* Topbar Search */}
         {/* <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
           <div className="input-group">
@@ -100,7 +98,11 @@ const Sidebar = () => {
           <div className="topbar-divider d-none d-sm-block" />
           {/* Nav Item - User Information */}
           <li className="nav-item">
-            <a className="btn btn-sm btn-dark logoutButton" href="#" onClick={_logout}>
+            <a
+              className="btn btn-sm btn-dark logoutButton"
+              href="#"
+              onClick={_logout}
+            >
               <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
               <span>Logout</span>
             </a>

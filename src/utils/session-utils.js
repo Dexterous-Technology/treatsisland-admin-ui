@@ -16,6 +16,10 @@ class SessionUtils {
       // console.log('token :>> ', token);
       return token;
     }
+
+    static removeToken() {
+      localStorage.removeItem("tokenKey");
+    }
   }
   
   export default SessionUtils;
