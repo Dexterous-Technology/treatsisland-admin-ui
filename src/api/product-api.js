@@ -8,9 +8,7 @@ const ProductApi = {
     updateProduct: (data) =>
       PublicHttpClient.put(`/update-product`, data),
     addProduct: (data) =>
-      PublicHttpClient.post(`/add-product`, {
-        product: data,
-      }),
+      PublicHttpClient.post(`/create-product`, data),
   },
   private: {
     getAllProducts: () => ProtectedHttpClient.get(`/get-all-products`),

@@ -1,31 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Topbar from "../../Components/Dashboard/Topbar";
-import "../super-admin-all-events/super-admin-dashboard.scss";
 import Sidebar from "../../Components/SuperDashboard/Sidebar";
+import "../super-admin-all-events/super-admin-dashboard.scss";
 
 import ListingAllProduct from "../../entities/product-management/components/all-product/all-product";
-import EditProductPopup from "../../entities/product-management/components/edit-product/edit-product";
 import ProductEditor from "../../entities/product-management/components/product-editor/product-editor";
+import ProductUtils from "../../entities/product-management/product-utils";
 
 const SuperAdminProductManagement = () => {
-  const [eventVisibleProductEditModel, setEventVisibleProductEditModel] =
-    useState({
-      modalProductEdit: false,
-      productId: null,
-    });
-
-  const _productEditModel = (event) => {
-    setEventVisibleProductEditModel({
-      modalProductEdit: event.modalProductEdit,
-      productId: event.productId,
-    });
-  };
-
-  const onProductEditModelDismiss = (event) => {
-    setEventVisibleProductEditModel({
-      modalProductEdit: false,
-      productId: null,
-    });
+  const _addProduct = () => {
+    ProductUtils.showProductEditorToAdd();
   };
 
   return (
@@ -41,7 +25,16 @@ const SuperAdminProductManagement = () => {
           {/* ************************** CONTENT */}
           <div className="container-fluid">
             <div className="contentInnerWrapper">
-              <div className="pageTitle">Product management</div>
+              <div className="titleBar">
+                <div className="leftSide">
+                  <div className="pageTitle">Product management</div>
+                </div>
+                <div className="rightSide">
+                  <button onClick={_addProduct}>
+                    <i className="fa fa-plus"></i> Add new product
+                  </button>
+                </div>
+              </div>
 
               <div className="innerWrapper">
                 <div class="table-responsive">

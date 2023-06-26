@@ -1,0 +1,10 @@
+.form-error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0rem;
+    margin-bottom: 0.2rem;
+    &.reduce-top-margin {
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+    }
+}

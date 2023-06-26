@@ -47,6 +47,9 @@ const ProductUtils = {
   openProductInEditor: (product) => {
     EventEmitter.dispatch(EventNames.adminProductEditPopup.show, product);
   },
+  showProductEditorToAdd: () => {
+    EventEmitter.dispatch(EventNames.adminProductEditPopup.show);
+  },
   updateProduct: async ({ productId, product }) => {
     store.dispatch(toggleAdminLoader(true));
     try {

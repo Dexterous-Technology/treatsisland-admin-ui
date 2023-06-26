@@ -58,9 +58,7 @@ const ProductEditor = ({
     setIsActive(isActive);
   };
 
-  const _preparePayload = async ({
-    Product, Price, Description
-  }) => {
+  const _preparePayload = async ({ Product, Price, Description }) => {
     let payload = {};
     if (isEditing) {
       payload = {
@@ -71,27 +69,41 @@ const ProductEditor = ({
         Description,
       };
     } else {
+      payload = {
+        isActive,
+        Product,
+        Price,
+        Description,
+        ProductTypeID: 1,
+        ShippingCost: 0,
+        Taxed: 0,
+        isLatestVersion: "true",
+        imageLink: "",
+        originatedFrom: 0,
+      };
     }
     if (selectedImage) {
       const image = await MediaUploader.uploadImage(selectedImage);
       payload.imageLink = image;
     }
     return payload;
-  }
+  };
 
   const _handleImageChange = (image) => {
     setSelectedImage(image);
   };
 
   const onSubmit = async ({ Product, Price, Description }) => {
-    setGeneralFormError('');
+    setGeneralFormError("");
     const payload = await _preparePayload({
-      Product, Price, Description
+      Product,
+      Price,
+      Description,
     });
     if (isEditing) {
       await ProductUtils.updateProduct({
         productId: activeProduct.ProductID,
-        product: payload, 
+        product: payload,
       });
     } else {
       await ProductUtils.addProduct(payload);
@@ -100,12 +112,15 @@ const ProductEditor = ({
     _resetAndClose();
   };
 
+  const _scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   const _subscribeToEvents = () => {
     EventEmitter.subscribe(
       EventNames.adminProductEditPopup.show,
       (productToEdit) => {
         if (productToEdit) {
-          console.log("productToEdit :>> ", productToEdit);
           _setFormValues(productToEdit);
           setActiveProduct(productToEdit);
           setIsEditing(true);
@@ -120,6 +135,12 @@ const ProductEditor = ({
   const _unsubscribeEvents = () => {
     EventEmitter.cancelAll(EventNames.adminProductEditPopup.show);
   };
+
+  useEffect(() => {
+    if (isModalVisible) {
+      _scrollToTop();
+    }
+  }, [isModalVisible])
 
   useEffect(() => {
     _subscribeToEvents();
@@ -162,9 +183,10 @@ const ProductEditor = ({
                           })}
                         />
                       </div>
-                      <span className="error">{
-                        errors.Product?.type === "required" && "Product name is required" 
-                      }</span>
+                      <div className="form-error reduce-top-margin">
+                        {errors.Product?.type === "required" &&
+                          "Product name is required"}
+                      </div>
                     </div>
 
                     <div className="col-md-2">
@@ -185,6 +207,10 @@ const ProductEditor = ({
                             minLength: 2,
                           })}
                         />
+                        <div className="form-error">
+                          {errors.Price?.type === "required" &&
+                            "Price is required"}
+                        </div>
                       </div>
                     </div>
                     {/* <div className="col-md-4">
@@ -220,15 +246,24 @@ const ProductEditor = ({
                             minLength: 2,
                           })}
                         ></textarea>
+                        <div className="form-error">
+                          {errors.Description?.type === "required" &&
+                            "Description is required"}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="buttons text-right">
-                    <div className="btn btn-light mr-3" onClick={_resetAndClose}>
-                      Cancel
+                    <div className="buttons text-right">
+                      <div
+                        className="btn btn-light mr-3"
+                        onClick={_resetAndClose}
+                      >
+                        Cancel
+                      </div>
+                      <button className="btn btn-primary" type="submit">
+                        Update
+                      </button>
                     </div>
-                    <button className="btn btn-primary" type="submit" >Update</button>
                   </div>
                 </div>
               </div>
