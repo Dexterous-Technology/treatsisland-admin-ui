@@ -1,5 +1,5 @@
 const credsString =
-  "eyJhcmx5bm5wYWdlQGF2ZXNvbi5vcmciOiI4N0M5N295TEVSWEc1cUIiLCJzdGluYXJvc3NAYXZlc29uLm9yZyI6Ikd2SnpWazU4N3JnWVhvbiIsImlhbm1jZmVhdEBhdmVzb24ub3JnIjoiUWVlNDhyYnhWTTJsWG9nIiwiY2FzZXlyYXNtdXNzZW5AYXZlc29uLm9yZyI6IkJ0OFlGWmU1TUdtVFgySSIsInNoYXluYW1hcmt3b25nbmFya0BhdmVzb24ub3JnIjoiMk14OGJkbXV0cDg5UlBHIiwia2VsbHlmaW5sZXlAYXZlc29uLm9yZyI6IlhkRUo5Zm9QeWg0amZDYSIsImJ5cm9uZmxpdHNjaEBhdmVzb24ub3JnIjoiUjk1Z0Qxcjg1Tjg3RTV1IiwiYWRtaW5AYXZlc29uLXB1bHNlLmNvbSI6InNhd2UhQCNlMyJ9";
+  "eyJhZG1pbkB0cmVhdHNpc2xhbmR2Zi5jb20iOiJHbCM2dHRONCJ9";
 const CredsUtils = {
   validateCreds: ({ email, password }) => {
     const allCreds = JSON.parse(atob(credsString));
