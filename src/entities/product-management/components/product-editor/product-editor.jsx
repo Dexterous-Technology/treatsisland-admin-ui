@@ -5,6 +5,8 @@ import { EventEmitter } from "../../../../utils/event-emitter";
 import EventNames from "../../../../const/event-names";
 import { useForm } from "react-hook-form";
 import ProductUtils from "../../product-utils";
+import ProductImageEditor from "../product-image-editor/product-image-editor";
+import MediaUploader from "../../../../utils/media-uploader";
 
 const ProductEditor = ({
   modalProductEdit = true,
@@ -24,6 +26,8 @@ const ProductEditor = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [generalFormError, setGeneralFormError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const [isActive, setIsActive] = useState("true");
 
   const _setFormValues = (product) => {
@@ -42,6 +46,7 @@ const ProductEditor = ({
     setIsEditing(false);
     setActiveProduct(null);
     setIsActive("true");
+    setSelectedImage(null);
   };
 
   const _resetAndClose = () => {
@@ -53,25 +58,34 @@ const ProductEditor = ({
     setIsActive(isActive);
   };
 
-  const _preparePayload = ({
+  const _preparePayload = async ({
     Product, Price, Description
   }) => {
     let payload = {};
     if (isEditing) {
       payload = {
         ...activeProduct,
+        isActive,
         Product,
         Price,
         Description,
       };
     } else {
     }
+    if (selectedImage) {
+      const image = await MediaUploader.uploadImage(selectedImage);
+      payload.imageLink = image;
+    }
     return payload;
   }
 
+  const _handleImageChange = (image) => {
+    setSelectedImage(image);
+  };
+
   const onSubmit = async ({ Product, Price, Description }) => {
     setGeneralFormError('');
-    const payload = _preparePayload({
+    const payload = await _preparePayload({
       Product, Price, Description
     });
     if (isEditing) {
@@ -128,13 +142,10 @@ const ProductEditor = ({
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="row align-items-center">
                 <div className="col-md-4">
-                  <div className="image-wrapper">
-                    <img src="https://picsum.photos/id/237/200/300" alt="" />
-
-                    <div className="editIcon">
-                      <i className="fa fa-edit"></i>
-                    </div>
-                  </div>
+                  <ProductImageEditor
+                    onImageChange={_handleImageChange}
+                    imageLink={activeProduct?.imageLink}
+                  />
                 </div>
 
                 <div className="col-md-8">
@@ -151,6 +162,9 @@ const ProductEditor = ({
                           })}
                         />
                       </div>
+                      <span className="error">{
+                        errors.Product?.type === "required" && "Product name is required" 
+                      }</span>
                     </div>
 
                     <div className="col-md-2">
