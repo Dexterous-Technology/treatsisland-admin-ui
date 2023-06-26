@@ -4,6 +4,7 @@ import "./product-editor.scss";
 import { EventEmitter } from "../../../../utils/event-emitter";
 import EventNames from "../../../../const/event-names";
 import { useForm } from "react-hook-form";
+import ProductUtils from "../../product-utils";
 
 const ProductEditor = ({
   modalProductEdit = true,
@@ -49,11 +50,42 @@ const ProductEditor = ({
   };
 
   const _handleToggle = (isActive) => {
-    console.log('isActive after:>> ', isActive);
     setIsActive(isActive);
   };
-  
-  console.log('isActive before:>> ', isActive);
+
+  const _preparePayload = ({
+    Product, Price, Description
+  }) => {
+    let payload = {};
+    if (isEditing) {
+      payload = {
+        ...activeProduct,
+        Product,
+        Price,
+        Description,
+      };
+    } else {
+    }
+    return payload;
+  }
+
+  const onSubmit = async ({ Product, Price, Description }) => {
+    setGeneralFormError('');
+    const payload = _preparePayload({
+      Product, Price, Description
+    });
+    if (isEditing) {
+      await ProductUtils.updateProduct({
+        productId: activeProduct.ProductID,
+        product: payload, 
+      });
+    } else {
+      await ProductUtils.addProduct(payload);
+    }
+    // After submit, navigate to product list
+    _resetAndClose();
+  };
+
   const _subscribeToEvents = () => {
     EventEmitter.subscribe(
       EventNames.adminProductEditPopup.show,
@@ -93,98 +125,100 @@ const ProductEditor = ({
           <div className="modalHeader">Edit product</div>
 
           <div className="modalContent">
-            <div className="row align-items-center">
-              <div className="col-md-4">
-                <div className="image-wrapper">
-                  <img src="https://picsum.photos/id/237/200/300" alt="" />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="row align-items-center">
+                <div className="col-md-4">
+                  <div className="image-wrapper">
+                    <img src="https://picsum.photos/id/237/200/300" alt="" />
 
-                  <div className="editIcon">
-                    <i className="fa fa-edit"></i>
+                    <div className="editIcon">
+                      <i className="fa fa-edit"></i>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-md-8">
-                <div className="row">
-                  <div className="col-md-10">
-                    <div className="form-group">
-                      <label htmlFor="">Product name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        {...register("Product", {
-                          required: true,
-                          minLength: 2,
-                        })}
+                <div className="col-md-8">
+                  <div className="row">
+                    <div className="col-md-10">
+                      <div className="form-group">
+                        <label htmlFor="">Product name</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          {...register("Product", {
+                            required: true,
+                            minLength: 2,
+                          })}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-md-2">
+                      <ToggleButton
+                        isEnabled={isActive}
+                        onToggle={_handleToggle}
                       />
                     </div>
-                  </div>
 
-                  <div className="col-md-2">
-                    <ToggleButton
-                      isEnabled={isActive}
-                      onToggle={_handleToggle}
-                    />
-                  </div>
-
-                  <div className="col-md-4">
-                    <div className="form-group">
-                      <label htmlFor="">Price ($)</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        {...register("Price", {
-                          required: true,
-                          minLength: 2,
-                        })}
-                      />
+                    <div className="col-md-4">
+                      <div className="form-group">
+                        <label htmlFor="">Price ($)</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          {...register("Price", {
+                            required: true,
+                            minLength: 2,
+                          })}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  {/* <div className="col-md-4">
+                    {/* <div className="col-md-4">
                       <div className="form-group">
                         <label htmlFor="">Discount (%)</label>
                         <input type="text" className="form-control" value="0" disabled />
                       </div>
                     </div> */}
-                  {/* <div className="col-md-4">
+                    {/* <div className="col-md-4">
                       <div className="form-group">
                         <label htmlFor="">Sale price (calculated)</label>
                         <input type="text" className="form-control" value="900" />
                       </div>
                     </div> */}
 
-                  {/* <div className="col-md-12">
+                    {/* <div className="col-md-12">
                       <div className="form-check p-0">
                         <input type="checkbox" className="mr-2" />
                         <label htmlFor="instock">In stock</label>
                       </div>
                     </div> */}
 
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label htmlFor="">Description</label>
-                      <textarea
-                        name=""
-                        id=""
-                        rows="5"
-                        className="form-control"
-                        {...register("Description", {
-                          required: true,
-                          minLength: 2,
-                        })}
-                      ></textarea>
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label htmlFor="">Description</label>
+                        <textarea
+                          name=""
+                          id=""
+                          rows="5"
+                          className="form-control"
+                          {...register("Description", {
+                            required: true,
+                            minLength: 2,
+                          })}
+                        ></textarea>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="buttons text-right">
-                  <div className="btn btn-light mr-3" onClick={onDismiss}>
-                    Cancel
+                  <div className="buttons text-right">
+                    <div className="btn btn-light mr-3" onClick={_resetAndClose}>
+                      Cancel
+                    </div>
+                    <button className="btn btn-primary" type="submit" >Update</button>
                   </div>
-                  <div className="btn btn-primary">Update</div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </>

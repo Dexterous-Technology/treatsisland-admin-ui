@@ -90,7 +90,7 @@ const ProductUtils = {
   },
   _sortAndStoreProducts: (products) => {
     // Filter out the inactive products
-    products = products.filter((product) => product.isLatestVersion);
+    products = products.filter((product) => product.isLatestVersion === "true");
     // Sort the products by ProductName
     const sortedProducts = ProductUtils._sortProducts(products);
     store.dispatch(setProducts(sortedProducts));
