@@ -4,6 +4,10 @@ const initialState = {
   products: [],
   events: [],
   isLoaderActive: false,
+  productSotringOptions: {
+    sortBy: "Product",
+    sortOrder: "asc",
+  },
 };
 
 export const adminStoreSlice = createSlice({
@@ -16,6 +20,9 @@ export const adminStoreSlice = createSlice({
     setEvents: (state, action) => {
       state.events = action.payload;
     },
+    setProductSortingOptions: (state, action) => {
+      state.productSotringOptions = action.payload;
+    },
     toggleAdminLoader: (state, action) => {
       state.isLoaderActive = action.payload;
     },
@@ -26,7 +33,7 @@ export const adminStoreSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setProducts, setEvents, clearAdminStore, toggleAdminLoader } =
+export const { setProducts, setEvents, clearAdminStore, toggleAdminLoader, setProductSortingOptions } =
   adminStoreSlice.actions;
 
 export default adminStoreSlice.reducer;
