@@ -6,6 +6,7 @@ import HomePage from "./Pages/home-page";
 import { ToastContainer } from "react-toastify";
 import SuperAdminLogin from "./Pages/super-admin-login/super-admin-login";
 import SuperAdminProductManagement from "./Pages/super-admin-product-management/super-admin-product-management";
+import SuperAdminAllEvents from "./Pages/super-admin-all-events/super-admin-all-events";
 import ProtectedRoute from "./core/route/protected-route/protected-route";
 import PublicRoute from "./core/route/public-route/public-route";
 import AuthHelper from "./utils/auth-helper";
@@ -95,6 +96,11 @@ function App() {
           <Route exact path="/invoice/:orderId" component={InvoicePage} />
 
           <Route path="*" component={HomePage} /> */}
+          <Route 
+            path="/events" 
+            exact 
+            component={SuperAdminAllEvents} 
+          />
 
           <ProtectedRoute
             path="/home"

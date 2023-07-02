@@ -9,9 +9,15 @@ const privateAxiosConfig = {
   baseURL: `${process.env.REACT_APP_API_BASE_URL}/private`,
 };
 
+const baseUrlAxiosConfig = {
+  baseURL: `${process.env.REACT_APP_API_BASE_URL}/`,
+};
+
 let PublicHttpClient = axios.create(publicAxiosConfig);
 
 let ProtectedHttpClient = axios.create(privateAxiosConfig);
+
+let UrlHttpClient = axios.create(baseUrlAxiosConfig);
 
 // Set the AUTH token for any request
 ProtectedHttpClient.interceptors.request.use(function (config) {
@@ -23,4 +29,5 @@ ProtectedHttpClient.interceptors.request.use(function (config) {
 export const HttpClient = {
   ProtectedHttpClient,
   PublicHttpClient,
+  UrlHttpClient,
 };
