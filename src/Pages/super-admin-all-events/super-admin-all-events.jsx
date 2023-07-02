@@ -5,8 +5,12 @@ import ListingAllEvent from "../../entities/all-events/components/all-event/list
 import "./super-admin-dashboard.scss";
 import BankInfoPopup from "../../entities/all-events/components/bank-info/bank-info";
 import PopupStore from "../../entities/all-events/components/popup-store/popup-store";
+import ApiCalls from "../../api";
 
 const SuperAdminAllEvents = () => {
+
+    // API call to get all events for super admin
+    // ApiCalls.event.admin.loadAllEvents()
     
 
     const [eventVisibleBankInfoModel, setEventVisibleBankInfoModel] = useState({

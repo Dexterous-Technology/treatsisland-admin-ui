@@ -1,6 +1,6 @@
 import { HttpClient } from "../clients/http-client";
 
-const { ProtectedHttpClient, PublicHttpClient } = HttpClient;
+const { ProtectedHttpClient, PublicHttpClient, AdminHttpClient } = HttpClient;
 
 const EventApi = {
   public: {
@@ -24,6 +24,9 @@ const EventApi = {
       ProtectedHttpClient.get(`/get-payout?eventId=${eventId}`),
     setEventPayoutDetails: (payload) =>
       ProtectedHttpClient.post(`/set-payout`, payload),
+  },
+  admin: {
+    loadAllEvents: () => AdminHttpClient.get(`/get-all-events`),
   },
 };
 export default EventApi;
