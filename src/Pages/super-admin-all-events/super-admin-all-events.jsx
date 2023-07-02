@@ -68,8 +68,8 @@ const SuperAdminAllEvents = () => {
                             <div className="pageTitle">All events</div>
 
                             <div className="innerWrapper">
-                                <div class="table-responsive">
-                                    <table class="table">
+                                <div className="table-responsive">
+                                    <table className="table">
                                         <col width="50px" />
                                         <col width="30px" />
                                         <col width="348px" />
