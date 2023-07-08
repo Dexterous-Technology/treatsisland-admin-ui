@@ -98,7 +98,7 @@ const SuperAdminAllEvents = () => {
                                                 <th scope="col" className="small font-weight-bold text-center"> # </th>
                                                 <th scope="col" className="small font-weight-bold text-center">
                                                     <div className="innerWrapper d-flex align-center">
-                                                        Event name
+                                                        Event organizer
                                                         <div className="tableSort ml-1 d-grid">
                                                             <i className="fa fa-chevron-up"></i>
                                                             <i className="fa fa-chevron-down"></i>

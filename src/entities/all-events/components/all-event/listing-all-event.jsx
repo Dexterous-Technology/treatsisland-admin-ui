@@ -3,6 +3,8 @@ import BankInfoPopup from "../bank-info/bank-info";
 import PopupStore from "../popup-store/popup-store";
 import EventUtils from "../../utils/event-utils";
 import { useSelector } from "react-redux";
+import moment from "moment";
+import Standard from "../../../../const/standards";
 
 const ListingAllEvent = ({ 
   onClickBankInfo = () => {},
@@ -50,15 +52,20 @@ const ListingAllEvent = ({
               <b>{event.EventName}</b>
           </td>
           <td className="text-center">{event.EventCode}</td>
-          <td className="text-center">5 Jan, 2023</td>
-          <td className="text-center"><span className="badge badge-secondary">Expired</span></td>
+          <td className="text-center">
+          {event._formattedDate} <br />
+          ({event._daysAgo})
+          </td>
+          <td className="text-center"><span className="badge badge-secondary">{
+            event._status
+          }</span></td>
           <td className="text-center"><input type="date" className="form-control" /></td>
           <td className="text-center"><input type="text" className="form-control" placeholder="Enter" /></td>
           <td className="text-center">
-              <b className="m-0">$ 1000</b>
+              <b className="m-0">$ {event.totalSales}</b>
           </td>
-          <td className="text-center">$ 900</td>
-          <td className="text-center">$ 100</td>
+          <td className="text-center">$ {event.ownerEarnings}</td>
+          <td className="text-center">$ {event.platformEarnings}</td>
           <td className="text-center">
             <div className="popupStoreButton"><div className="btn btn-light btn-sm" onClick={_showAllPopupStore}>View</div></div>
           </td>
