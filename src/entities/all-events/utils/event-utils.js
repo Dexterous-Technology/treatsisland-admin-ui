@@ -19,10 +19,11 @@ const EventUtils = {
       if (data?.data?.allEvents?.length) {
         const formattedEvents = EventUtils._formatEvents(data?.data?.allEvents);
         // Sort and store
-
+        console.log("formattedEvents :>> ", formattedEvents);
         EventUtils._sortAndStoreEvents(formattedEvents);
       }
     } catch (error) {
+      console.log('error :>> ', error);
       store.dispatch(setEvents([]));
     }
     store.dispatch(toggleAdminLoader(false));
@@ -66,13 +67,12 @@ const EventUtils = {
       };
       if (formattedEvent?._storeDetails?.length) {
         for (let store of formattedEvent._storeDetails) {
+          console.log('store :>> ', store);
           store._totalFromAllOrders = EventUtils._generateTotalFromAllOrders(
-            store.Orders
+            store.orders
           );
-          for (let order of store.Orders) {
-            order._totalOrderValue = EventUtils._generateTotalOrderValue(
-              order
-            );
+          for (let order of store.orders) {
+            order._totalOrderValue = EventUtils._generateTotalOrderValue(order);
           }
         }
       }

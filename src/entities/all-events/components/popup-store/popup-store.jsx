@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { useSelector, useStore } from "react-redux";
+import EventUtils from "../../utils/event-utils";
 
 const MODAL_VIEWS = {
   ALL_POPUP_STORES: "ALL_POPUP_STORES",
@@ -7,14 +8,15 @@ const MODAL_VIEWS = {
 };
 
 const PopupStore = ({
-  eventVisiblePopupStore = true,
-  popupStoreId = null,
-  onPopupStoreModalDismiss = () => {},
 }) => {
   const [selectedPopupStore, setSelectedPopupStore] = useState(null);
   const [activeView, setActiveView] = useState(MODAL_VIEWS.ALL_POPUP_STORES);
   const { selectedEvent, selectedPopUp, isPopupStoreModalVisible } =
     useSelector((state) => state.adminStore);
+
+    const onPopupStoreModalDismiss = () => {
+      EventUtils.hideEventPopups();
+    }
 
   const _showPopupDetails = (store) => {
     setSelectedPopupStore(store);
@@ -65,11 +67,13 @@ const PopupStore = ({
                     <div className="storeDesc">{store?.PopupDesc}</div>
 
                     <div className="amountRaised">
-                      <div className="amount"> $50 raised of $150 </div>
+                      <div className="amount"> ${store?._totalFromAllOrders} raised of ${store?.PopupGoal} ({
+                        (store?._totalFromAllOrders*100)/store?.PopupGoal
+                      }%) </div>
                       <div className="progressWrapper">
                         <span
                           className="progressMade"
-                          style={{ width: "30%" }}
+                          style={{ width: `${(store?._totalFromAllOrders*100)/store?.PopupGoal}%` }}
                         ></span>
                       </div>
                     </div>
@@ -99,28 +103,28 @@ const PopupStore = ({
 
             <div className="innerWrapper">
               <div className="image-wrapper cover">
-                <img src="https://picsum.photos/id/33/1200/300" alt="" />
+                <img src={selectedPopupStore?.storeCover} alt="" />
               </div>
 
               <div className="intro">
                 <div className="image-wrapper icon">
-                  <img src="https://picsum.photos/id/237/200/300" alt="" />
+                  <img src={selectedPopupStore?.storeLogo} alt="" />
                 </div>
 
                 <div className="storeName">{selectedPopupStore?.PopupName}</div>
                 <div className="storeDesc">{selectedPopupStore?.PopupDesc}</div>
 
-                <div className="totalSales">Total sales: $50</div>
+                <div className="totalSales">Total sales: ${selectedPopupStore?._totalFromAllOrders}</div>
 
                 <div className="amountRaised">
                   <div className="amount">
                     {" "}
-                    <span>$50 raised</span> <span>of $150</span>{" "}
+                    <span>${selectedPopupStore?._totalFromAllOrders} raised</span> <span>of ${selectedPopupStore?.PopupGoal}</span>{" "}
                   </div>
                   <div className="progressWrapper">
                     <span
                       className="progressMade"
-                      style={{ width: "30%" }}
+                      style={{ width: `${(selectedPopupStore?._totalFromAllOrders*100)/selectedPopupStore?.PopupGoal}%`}}
                     ></span>
                   </div>
                 </div>
@@ -136,7 +140,7 @@ const PopupStore = ({
                         {" "}
                         <span>{index + 1}</span> <b>{order?.customer?.Name}</b>{" "}
                       </div>
-                      <div className="right">${order?.total}</div>
+                      <div className="right">${order?._totalOrderValue}</div>
                     </div>
                   ))}
                 </div>
