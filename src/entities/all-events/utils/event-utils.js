@@ -2,7 +2,7 @@ import moment from "moment";
 import ApiCalls from "../../../api";
 import { store } from "../../../store";
 // import { setEvents } from "../../../store/event-store";
-import { setEvents, toggleAdminLoader } from "../../../store/admin-store";
+import { setEvents, setSelectedEvent, setSelectedOrder, setSelectedPopupStore, toggleAdminLoader } from "../../../store/admin-store";
 import { EventEmitter } from "../../../utils/event-emitter";
 import Standard from "../../../const/standards";
 
@@ -21,6 +21,15 @@ const EventUtils = {
       store.dispatch(setEvents([]));
     }
     store.dispatch(toggleAdminLoader(false));
+  },
+  setSelectedEvent: (event) => {
+    store.dispatch(setSelectedEvent(event));
+  },
+  setSelectedPopupStore: (store) => {
+    store.dispatch(setSelectedPopupStore(store));
+  },
+  setSelectedOrder: (order) => {
+    store.dispatch(setSelectedOrder(order));
   },
   _sortAndStoreEvents: (events) => {
     // Sort the events by ProductName
