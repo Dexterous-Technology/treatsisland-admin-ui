@@ -31,6 +31,10 @@ const EventUtils = {
     store.dispatch(setSelectedEvent(event));
     store.dispatch(togglePopupStoreModal(true));
   },
+  hideEventPopups: (event) => {
+    store.dispatch(togglePopupStoreModal(false));
+    store.dispatch(setSelectedEvent(null));
+  },
   _sortAndStoreEvents: (events) => {
     // Sort the events by ProductName
     const sortedEvents = EventUtils._sortEvent(events);
@@ -60,6 +64,18 @@ const EventUtils = {
         _status: EventUtils._getStatus(event.StartDate, event.EndDate),
         _daysAgo: EventUtils._getDaysAgo(parseInt(event.CreatedOn)),
       };
+      if (formattedEvent?._storeDetails?.length) {
+        for (let store of formattedEvent._storeDetails) {
+          store._totalFromAllOrders = EventUtils._generateTotalFromAllOrders(
+            store.Orders
+          );
+          for (let order of store.Orders) {
+            order._totalOrderValue = EventUtils._generateTotalOrderValue(
+              order
+            );
+          }
+        }
+      }
       return formattedEvent;
     });
   },
@@ -78,6 +94,20 @@ const EventUtils = {
   _getDaysAgo: (createdOn) => {
     // Use moment js
     return moment(createdOn).fromNow();
+  },
+  _generateTotalOrderValue: (order) => {
+    let total = 0;
+    order.orderItems.forEach((orderItem) => {
+      total += orderItem.Quantity * orderItem.product.Price;
+    });
+    return total;
+  },
+  _generateTotalFromAllOrders: (orders) => {
+    let total = 0;
+    orders.forEach((order) => {
+      total += EventUtils._generateTotalOrderValue(order);
+    });
+    return total;
   },
 };
 

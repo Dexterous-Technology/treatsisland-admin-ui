@@ -218,7 +218,7 @@ const SuperAdminAllEvents = () => {
               </div>
 
               {/* **************************************** MODALS - POPUP STORE */}
-              {/* <PopupStore {...eventVisiblePopupStoreModel}   onPopupStoreModalDismiss={_popupStoreModelDismiss}/> */}
+              <PopupStore />
 
               {/* **************************************** MODAL - BANK INFO */}
               <BankInfoPopup
