@@ -57,6 +57,7 @@ export const {
   setProductSortingOptions,
   setSelectedEvent,
   setSelectedPopUp,
+  togglePopupStoreModal,
   setSelectedOrder,
 } = adminStoreSlice.actions;
 
