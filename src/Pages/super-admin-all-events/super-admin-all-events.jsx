@@ -31,10 +31,8 @@ const SuperAdminAllEvents = () => {
   };
 
   const _showPopupStoreModal = (event) => {
-    EventUtils.setSelectedEvent(event);
-    setIsPopupStoreModalVisible(true);
+    EventUtils.showEventPopups(event);
   };
-
   const _loadEvents = () => {
     EventUtils.loadAllEvents();
   };
@@ -61,14 +59,14 @@ const SuperAdminAllEvents = () => {
               <div className="innerWrapper">
                 <div className="table-responsive">
                   <table className="table">
-                    <col width="50px" />
+                    {/* <col width="50px" /> */}
                     <col width="30px" />
                     <col width="348px" />
                     <col width="150px" />
                     <col width="150px" />
                     <col width="100px" />
-                    <col width="100px" />
-                    <col width="100px" />
+                    {/* <col width="100px" /> */}
+                    {/* <col width="100px" /> */}
                     <col width="100px" />
                     <col width="150px" />
                     <col width="100px" />
@@ -77,7 +75,7 @@ const SuperAdminAllEvents = () => {
 
                     <thead>
                       <tr>
-                        <th
+                        {/* <th
                           scope="col"
                           className="small font-weight-bold text-center"
                         >
@@ -88,7 +86,7 @@ const SuperAdminAllEvents = () => {
                               <i className="fa fa-chevron-down"></i>
                             </div>
                           </div>
-                        </th>
+                        </th> */}
                         <th
                           scope="col"
                           className="small font-weight-bold text-center"
@@ -144,7 +142,7 @@ const SuperAdminAllEvents = () => {
                             </div>
                           </div>
                         </th>
-                        <th
+                        {/* <th
                           scope="col"
                           className="small font-weight-bold text-center"
                         >
@@ -155,8 +153,8 @@ const SuperAdminAllEvents = () => {
                               <i className="fa fa-chevron-down"></i>
                             </div>
                           </div>
-                        </th>
-                        <th
+                        </th> */}
+                        {/* <th
                           scope="col"
                           className="small font-weight-bold text-center"
                         >
@@ -167,7 +165,7 @@ const SuperAdminAllEvents = () => {
                               <i className="fa fa-chevron-down"></i>
                             </div>
                           </div>
-                        </th>
+                        </th> */}
                         <th
                           scope="col"
                           className="small font-weight-bold text-center"

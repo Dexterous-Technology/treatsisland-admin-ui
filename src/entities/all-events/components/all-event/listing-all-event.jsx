@@ -11,9 +11,9 @@ const ListingAllEvent = ({
     <>
       {events.map((event, index) => (
         <tr key={event.EventID}>
-          <td className="text-center">
-            <input type="checkbox" />
-          </td>
+          {/* <td className="text-center">
+            <input type="checkbox" disabled/>
+          </td> */}
           <td className="text-center">{index + 1}</td>
           <td className="text-left">
             <b>{event.EventName}</b>
@@ -25,12 +25,12 @@ const ListingAllEvent = ({
           <td className="text-center">
             <span className="badge badge-secondary">{event._status}</span>
           </td>
-          <td className="text-center">
+          {/* <td className="text-center">
             <input type="date" className="form-control" />
           </td>
           <td className="text-center">
             <input type="text" className="form-control" placeholder="Enter" />
-          </td>
+          </td> */}
           <td className="text-center">
             <b className="m-0">$ {event.totalSales}</b>
           </td>
