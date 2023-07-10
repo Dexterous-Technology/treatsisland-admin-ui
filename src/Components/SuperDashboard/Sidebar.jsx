@@ -6,7 +6,7 @@ const Sidebar = () => {
   
   const _allEvents = (e) => {
     e.preventDefault();
-    history.push("/super-all-events");
+    history.push("/events");
   };
 
   const _allProduct = (e) => {
@@ -29,7 +29,7 @@ const Sidebar = () => {
             <div className="logo"><img src={require("../../assets/images/logo.png")} alt="" /></div>
 
             <div className="menu-items">
-                <div className={ history?.location?.pathname == '/super-all-events' ? 'item active' : 'item' } onClick={_allEvents}>All events</div>
+                <div className={ history?.location?.pathname == '/events' ? 'item active' : 'item' } onClick={_allEvents}>All events</div>
                 <div className={ history?.location?.pathname == '/super-product-management' ? 'item active' : 'item' }  onClick={_allProduct}>Product management</div>
             </div>
         </div>

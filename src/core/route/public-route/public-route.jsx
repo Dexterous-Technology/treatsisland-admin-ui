@@ -1,16 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
+import SessionUtils from "../../../utils/session-utils";
 
 const PublicRoute = ({ component: Component, ...rest }) => {
-  const { user } = useSelector((state) => state.user);
-  console.log('user :>> ', user);
-
+  const sessionToken = SessionUtils.getToken();
+  console.log('sessionToken :>> ', sessionToken);
   return (
     <Route
       {...rest}
       render={(props) =>
-        !user ? (
+        !sessionToken?.length ? (
           <Component {...props} />
         ) : (
           <Redirect
