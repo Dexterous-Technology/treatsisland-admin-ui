@@ -2,7 +2,11 @@ import moment from "moment";
 import ApiCalls from "../../../api";
 import { store } from "../../../store";
 // import { setEvents } from "../../../store/event-store";
-import { setEvents, toggleAdminLoader } from "../../../store/admin-store";
+import {
+  setEvents,
+  setSelectedEvent,
+  toggleAdminLoader,
+} from "../../../store/admin-store";
 import { EventEmitter } from "../../../utils/event-emitter";
 import Standard from "../../../const/standards";
 
@@ -21,6 +25,10 @@ const EventUtils = {
       store.dispatch(setEvents([]));
     }
     store.dispatch(toggleAdminLoader(false));
+  },
+  showEventPopups: (event) => {
+    store.dispatch(setSelectedEvent(event));
+    store.dispatch(togglePopupStoreModal(true));
   },
   _sortAndStoreEvents: (events) => {
     // Sort the events by ProductName
@@ -45,7 +53,9 @@ const EventUtils = {
     return events.map((event) => {
       const formattedEvent = {
         ...event,
-        _formattedDate: moment(parseInt(event.CreatedOn)).format(Standard.dateFormat),
+        _formattedDate: moment(parseInt(event.CreatedOn)).format(
+          Standard.dateFormat
+        ),
         _status: EventUtils._getStatus(event.StartDate, event.EndDate),
         _daysAgo: EventUtils._getDaysAgo(parseInt(event.CreatedOn)),
       };
