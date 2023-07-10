@@ -8,27 +8,31 @@ import PopupStore from "../../entities/all-events/components/popup-store/popup-s
 import EventUtils from "../../entities/all-events/utils/event-utils";
 
 const SuperAdminAllEvents = () => {
-  const [bankModalOptions, setBankModalOptions] = useState({
+  const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
+    useState(false);
+
+  const [bankInfoModalOptions, setBankInfoModalOptions] = useState({
     isVisible: false,
     selectedEvent: null,
   });
 
-  const _dismissBankInfoModal = () => {
-    setBankModalOptions({
-      isVisible: false,
-      selectedEvent: null,
-    });
-  };
-
   const _showBankInfoModal = (event) => {
-    setBankModalOptions({
+    setBankInfoModalOptions({
       isVisible: true,
       selectedEvent: event,
     });
   };
 
+  const _hideBankInfoModal = () => {
+    setBankInfoModalOptions({
+      isVisible: false,
+      selectedEvent: null,
+    });
+  };
+
   const _showPopupStoreModal = (event) => {
-    EventUtils.showEventPopups(event);
+    EventUtils.setSelectedEvent(event);
+    setIsPopupStoreModalVisible(true);
   };
 
   const _loadEvents = () => {
@@ -222,9 +226,9 @@ const SuperAdminAllEvents = () => {
 
               {/* **************************************** MODAL - BANK INFO */}
               <BankInfoPopup
-                event={bankModalOptions.selectedEvent}
-                isVisible={bankModalOptions.isVisible}
-                onBankInfoModalDismiss={_dismissBankInfoModal}
+                isVisible={bankInfoModalOptions.isVisible}
+                onModalDismiss={_hideBankInfoModal}
+                selectedEvent={bankInfoModalOptions.selectedEvent}
               />
             </div>
           </div>
