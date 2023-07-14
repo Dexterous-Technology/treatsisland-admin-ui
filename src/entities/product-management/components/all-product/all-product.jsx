@@ -26,8 +26,6 @@ const ListingAllProduct = ({ onDismiss = () => {} }) => {
   };
 
   const _handleToggle = ({ isActive = false, productId = 0 }) => {
-    console.log("isActive :>> ", isActive);
-    console.log("productId :>> ", productId);
     ProductUtils.toggleProduct({
       isActive,
       productId,
@@ -37,8 +35,6 @@ const ListingAllProduct = ({ onDismiss = () => {} }) => {
   useEffect(() => {
     _loadProducts();
   }, []);
-
-  console.log("products 2121221:>> ", products);
 
   return (
     <>

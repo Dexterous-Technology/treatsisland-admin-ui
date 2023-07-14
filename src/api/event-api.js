@@ -1,6 +1,6 @@
 import { HttpClient } from "../clients/http-client";
 
-const { ProtectedHttpClient, PublicHttpClient, AdminHttpClient } = HttpClient;
+const { ProtectedHttpClient, PublicHttpClient, AdminHttpClient, UrlHttpClient } = HttpClient;
 
 const EventApi = {
   public: {
@@ -28,5 +28,8 @@ const EventApi = {
   admin: {
     loadAllEvents: () => AdminHttpClient.get(`/get-all-events`),
   },
+
+  //super admin all events
+  loadAllAdminEvents: () => UrlHttpClient.get(`/admin/get-all-events`),
 };
 export default EventApi;
