@@ -98,11 +98,10 @@ function App() {
 
           <Route path="*" component={HomePage} /> */}
 
-          <PublicRoute
+          <ProtectedRoute
             path="/home"
-            // exact
-            // component={SuperAdminProductManagement}
-            component={SuperAdminAllEvents}
+            exact
+            component={SuperAdminProductManagement}
             redirectRoute={"/login"}
           />
           <PublicRoute
