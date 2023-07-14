@@ -10,8 +10,6 @@ import ProtectedRoute from "./core/route/protected-route/protected-route";
 import PublicRoute from "./core/route/public-route/public-route";
 import AuthHelper from "./utils/auth-helper";
 
-import SuperAdminAllEvents from "./Pages/super-admin-all-events/super-admin-all-events";
-
 function App() {
   useEffect(() => {
     // AuthHelper.initialize();
@@ -98,11 +96,10 @@ function App() {
 
           <Route path="*" component={HomePage} /> */}
 
-          <PublicRoute
+          <ProtectedRoute
             path="/home"
-            // exact
-            // component={SuperAdminProductManagement}
-            component={SuperAdminAllEvents}
+            exact
+            component={SuperAdminProductManagement}
             redirectRoute={"/login"}
           />
           <PublicRoute
