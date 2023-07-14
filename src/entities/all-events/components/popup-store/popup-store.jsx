@@ -23,6 +23,13 @@ const PopupStore = ({
     setActiveView(MODAL_VIEWS.SINGLE_POPUP_STORE_DETAILS);
   };
 
+  useEffect(() => {
+    if (selectedEvent?.EventID) {
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+  }, [selectedEvent?.EventID]);
+
   // console.log('isPopupStoreModalVisible :>> ', isPopupStoreModalVisible);
 
   if (selectedEvent) {
