@@ -6,6 +6,7 @@ import "./super-admin-dashboard.scss";
 import BankInfoPopup from "../../entities/all-events/components/bank-info/bank-info";
 import PopupStore from "../../entities/all-events/components/popup-store/popup-store";
 import EventUtils from "../../entities/all-events/utils/event-utils";
+import SalesInfoModal from "../../entities/all-events/components/sales-info-modal/sales-info-modal";
 
 const SuperAdminAllEvents = () => {
   const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
@@ -33,6 +34,11 @@ const SuperAdminAllEvents = () => {
   const _showPopupStoreModal = (event) => {
     EventUtils.showEventPopups(event);
   };
+
+  const _showSalesInfoModal = (event) => {
+    EventUtils.showSalesInfoModal(event);
+  };
+
   const _loadEvents = () => {
     EventUtils.loadAllEvents();
   };
@@ -206,6 +212,13 @@ const SuperAdminAllEvents = () => {
                           {" "}
                           Bank info{" "}
                         </th>
+                        <th
+                          scope="col"
+                          className="small font-weight-bold text-center"
+                        >
+                          {" "}
+                          Sales{" "}
+                        </th>
                       </tr>
                     </thead>
 
@@ -213,11 +226,13 @@ const SuperAdminAllEvents = () => {
                       <ListingAllEvent
                         onClickBankInfo={_showBankInfoModal}
                         onClickAllPopupStore={_showPopupStoreModal}
+                        onSalesInfoClick={_showSalesInfoModal}
                       />
                     </tbody>
                   </table>
                 </div>
               </div>
+              <SalesInfoModal />
 
               {/* **************************************** MODALS - POPUP STORE */}
               <PopupStore />

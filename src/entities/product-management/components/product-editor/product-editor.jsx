@@ -100,6 +100,12 @@ const ProductEditor = ({
       Price,
       Description,
     });
+    // Don't allow to submit if either image file or image link is not provided
+    if (!(payload.imageLink || selectedImage)) {
+      // setGeneralFormError("Please provide an image for the product");
+      alert("Please provide an image for the product");
+      return;
+    }
     if (isEditing) {
       await ProductUtils.updateProduct({
         productId: activeProduct.ProductID,

@@ -9,6 +9,8 @@ import ProtectedRoute from "./core/route/protected-route/protected-route";
 import PublicRoute from "./core/route/public-route/public-route";
 import AuthHelper from "./utils/auth-helper";
 
+// import SuperAdminAllEvents from "./Pages/super-admin-all-events/super-admin-all-events";
+
 function App() {
   useEffect(() => {
     // AuthHelper.initialize();
