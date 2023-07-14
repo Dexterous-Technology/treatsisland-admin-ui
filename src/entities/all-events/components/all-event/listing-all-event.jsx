@@ -72,6 +72,10 @@ const ListingAllEvent = ({
 
     }, []);
 
+  
+  const [showSelectDateModal, setShowSelectDateModal] = useState(false);
+  const [showSelectCodeModal, setShowSelectCodeModal] = useState(false);
+
   return (
     <>
         <tr>
@@ -85,8 +89,59 @@ const ListingAllEvent = ({
           <td className="text-center">John Doe</td>
           <td className="text-center">5 Jan, 2023</td>
           <td className="text-center"><span className="badge badge-secondary">Expired</span></td>
-          <td className="text-center"><input type="date" className="form-control" /></td>
-          <td className="text-center"><input type="text" className="form-control" placeholder="Enter" /></td>
+          <td className="text-center payDate">
+            <div
+              className="btnSelectDate"
+              onClick={(e) => setShowSelectDateModal(true)}
+            >Select a date</div>
+
+            {/* <div className="btnSelectedDate">
+              <span className="date">13/09/2023</span>
+              <span className="clear"><i className="fa fa-times"></i></span>
+            </div> */}
+
+
+            { showSelectDateModal ?
+              <div className="modalSelectDate">
+                <div className="inner">
+                  <div className="title">
+                    <span>Select a pay date</span>
+                    <i className="fa fa-times" onClick={(e) => setShowSelectDateModal(false)}></i>
+                  </div>
+                  <div className="inputWrapper">
+                    <input type="date" className="form-control" />
+                    <div className="btn">Save</div>
+                  </div>
+                </div>
+              </div>
+              : "" }
+          </td>
+          <td className="text-center payCode">
+            <div
+              className="btnSelectCode"
+              onClick={(e) => setShowSelectCodeModal(true)}
+            >Add code</div>
+
+            {/* <div className="btnSelectedCode">
+              <span className="code">65986598</span>
+              <span className="clear"><i className="fa fa-times"></i></span>
+            </div> */}
+
+            { showSelectCodeModal ?
+              <div className="modalSelectCode">
+                <div className="inner">
+                  <div className="title">
+                    <span>Select a pay code</span>
+                    <i className="fa fa-times" onClick={(e) => setShowSelectCodeModal(false)}></i>
+                  </div>
+                  <div className="inputWrapper">
+                    <input type="text" className="form-control" placeholder="Enter code here" />
+                    <div className="btn">Save</div>
+                  </div>
+                </div>
+              </div>
+              : "" }
+          </td>
           <td className="text-center">
               <b className="m-0">$ 1000</b>
           </td>

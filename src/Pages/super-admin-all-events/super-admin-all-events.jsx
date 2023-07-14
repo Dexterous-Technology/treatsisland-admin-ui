@@ -76,7 +76,7 @@ const SuperAdminAllEvents = () => {
                                     <table class="table">
                                         <col width="50px" />
                                         <col width="30px" />
-                                        <col width="348px" />
+                                        <col width="250px" />
                                         <col width="150px" />
                                         <col width="150px" />
                                         <col width="100px" />
