@@ -37,8 +37,8 @@ const SuperAdminProductManagement = () => {
               </div>
 
               <div className="innerWrapper">
-                <div class="table-responsive">
-                  <table class="table">
+                <div className="table-responsive">
+                  <table className="table">
                     <col width="40px" />
                     <col width="40px" />
                     <col width="320px" />
