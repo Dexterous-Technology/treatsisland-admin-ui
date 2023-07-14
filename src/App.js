@@ -96,9 +96,9 @@ function App() {
 
           <Route path="*" component={HomePage} /> */}
 
-          <ProtectedRoute
+          <PublicRoute
             path="/home"
-            exact
+            // exact
             component={SuperAdminProductManagement}
             redirectRoute={"/login"}
           />
