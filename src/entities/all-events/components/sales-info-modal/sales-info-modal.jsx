@@ -1,48 +1,15 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import "./sales-info-modal.scss";
 import { EventEmitter } from "../../../../utils/event-emitter";
 import moment from "moment";
 import Standard from "../../../../const/standards";
+import { useReactToPrint } from 'react-to-print';
 
-/**
- * Listen to event emitter
- * No connection needed to redux store
- */
 
-const SalesInfoModal = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
-  const _showSalesInfoModal = (data) => {
-    setSelectedEvent(data);
-    setIsModalVisible(true);
-  };
-
-  const _hideSalesInfoModal = () => {
-    setIsModalVisible(false);
-  };
-
-  const _subscribeToEvents = () => {
-    EventEmitter.subscribe("showSalesInfoModal", _showSalesInfoModal);
-  };
-
-  const _unsubscribeToEvents = () => {
-    EventEmitter.cancelAll("showSalesInfoModal");
-  };
-
-  useEffect(() => {
-    _subscribeToEvents();
-    return () => {
-      _unsubscribeToEvents();
-    };
-  }, []);
-
-  console.log("selectedEvent :>> ", selectedEvent);
-
-  if (!isModalVisible || !selectedEvent) return null;
+const SalesModalContent = React.forwardRef(
+({ selectedEvent, print, hideSalesInfoModal }, ref) => {
   return (
-    <>
-      <div className="popupSalesWrapper">
+    <div className="popupSalesWrapper" ref={ref}>
         <div className="popupInner">
           <div className="popupHeader">
             <div className="left">
@@ -50,12 +17,12 @@ const SalesInfoModal = () => {
             </div>
 
             <div className="right">
-              <i className="fa fa-times" onClick={_hideSalesInfoModal} />
+              <i className="fa fa-times" onClick={hideSalesInfoModal} />
             </div>
           </div>
 
           <div className="buttons text-right">
-            <div className="btn btn-primary">Print list</div>
+            <div className="btn btn-primary" onClick={print}>Print list</div>
           </div>
 
           <div className="tableInnerWrapper">
@@ -124,10 +91,10 @@ const SalesInfoModal = () => {
                     >
                       <div className="innerWrapper d-flex align-center justify-content-center">
                         Ship station order ID
-                        <div className="tableSort ml-1 d-grid">
+                        {/* <div className="tableSort ml-1 d-grid">
                           <i className="fa fa-chevron-up"></i>
                           <i className="fa fa-chevron-down"></i>
-                        </div>
+                        </div> */}
                       </div>
                     </th>
                   </tr>
@@ -178,6 +145,58 @@ const SalesInfoModal = () => {
           </div>
         </div>
       </div>
+  )
+});
+
+/**
+ * Listen to event emitter
+ * No connection needed to redux store
+ */
+
+const SalesInfoModal = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  const _showSalesInfoModal = (data) => {
+    setSelectedEvent(data);
+    setIsModalVisible(true);
+  };
+
+  const _hideSalesInfoModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const _subscribeToEvents = () => {
+    EventEmitter.subscribe("showSalesInfoModal", _showSalesInfoModal);
+  };
+
+  const _unsubscribeToEvents = () => {
+    EventEmitter.cancelAll("showSalesInfoModal");
+  };
+
+  useEffect(() => {
+    _subscribeToEvents();
+    return () => {
+      _unsubscribeToEvents();
+    };
+  }, []);
+
+  console.log("selectedEvent :>> ", selectedEvent);
+
+  if (!isModalVisible || !selectedEvent) return null;
+  return (
+    <>
+      <SalesModalContent 
+        selectedEvent={selectedEvent}
+        print={handlePrint}
+        hideSalesInfoModal={_hideSalesInfoModal}
+        ref={componentRef}
+      />
     </>
   );
 };
