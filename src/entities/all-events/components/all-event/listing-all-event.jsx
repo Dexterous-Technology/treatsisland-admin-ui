@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 const ListingAllEvent = ({
   onClickBankInfo = () => {},
   onClickAllPopupStore = () => {},
+  onSalesInfoClick = () => {},
 }) => {
   const { events } = useSelector((state) => state.adminStore);
 
@@ -57,7 +58,7 @@ const ListingAllEvent = ({
             </div>
           </td>
           <td className="text-center">
-            <div className="bankInfoButton"><div className="btn btn-light btn-sm" >View</div></div>
+            <div className="bankInfoButton"><div className="btn btn-light btn-sm" onClick={(e) => onSalesInfoClick(event)} >View</div></div>
           </td>
         </tr>
       ))}

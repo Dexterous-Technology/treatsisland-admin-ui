@@ -36,6 +36,9 @@ const EventUtils = {
     store.dispatch(togglePopupStoreModal(false));
     store.dispatch(setSelectedEvent(null));
   },
+  showSalesInfoModal: (event) => {
+    EventEmitter.dispatch("showSalesInfoModal", event);
+  },
   _sortAndStoreEvents: (events) => {
     // Sort the events by ProductName
     const sortedEvents = EventUtils._sortEvent(events);
@@ -65,6 +68,11 @@ const EventUtils = {
         _status: EventUtils._getStatus(event.StartDate, event.EndDate),
         _daysAgo: EventUtils._getDaysAgo(parseInt(event.CreatedOn)),
       };
+      if (formattedEvent.orders?.length) {
+        for (let order of formattedEvent.orders) {
+          order._totalOrderValue = EventUtils._generateTotalOrderValue(order);
+        }
+      }
       if (formattedEvent?._storeDetails?.length) {
         for (let store of formattedEvent._storeDetails) {
           console.log('store :>> ', store);

@@ -6,6 +6,7 @@ import "./super-admin-dashboard.scss";
 import BankInfoPopup from "../../entities/all-events/components/bank-info/bank-info";
 import PopupStore from "../../entities/all-events/components/popup-store/popup-store";
 import EventUtils from "../../entities/all-events/utils/event-utils";
+import SalesInfoModal from "../../entities/all-events/components/sales-info-modal/sales-info-modal";
 
 const SuperAdminAllEvents = () => {
   const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
@@ -33,6 +34,11 @@ const SuperAdminAllEvents = () => {
   const _showPopupStoreModal = (event) => {
     EventUtils.showEventPopups(event);
   };
+
+  const _showSalesInfoModal = (event) => {
+    EventUtils.showSalesInfoModal(event);
+  };
+
   const _loadEvents = () => {
     EventUtils.loadAllEvents();
   };
@@ -206,6 +212,13 @@ const SuperAdminAllEvents = () => {
                           {" "}
                           Bank info{" "}
                         </th>
+                        <th
+                          scope="col"
+                          className="small font-weight-bold text-center"
+                        >
+                          {" "}
+                          Sales{" "}
+                        </th>
                       </tr>
                     </thead>
 
@@ -213,263 +226,13 @@ const SuperAdminAllEvents = () => {
                       <ListingAllEvent
                         onClickBankInfo={_showBankInfoModal}
                         onClickAllPopupStore={_showPopupStoreModal}
+                        onSalesInfoClick={_showSalesInfoModal}
                       />
                     </tbody>
                   </table>
                 </div>
               </div>
-
-              <div className="popupSalesWrapper">
-                <div className="popupInner">
-                  <div className="popupHeader">
-                    <div className="left">All sales for “Event name” event</div>
-
-                    <div className="right">
-                      <i className="fa fa-times" />
-                    </div>
-                  </div>
-
-                  <div className="buttons text-right">
-                    <div className="btn btn-primary">Print list</div>
-                  </div>
-
-                  <div className="tableInnerWrapper">
-                    <div class="table-responsive">
-                      <table class="table">
-                        <col width="40px" />
-                        <col width="200px" />
-                        <col width="200px" />
-                        <col width="40%" />
-                        <col width="200px" />
-                        <col width="300px" />
-
-                        <thead>
-                          <tr>
-                            <th
-                              scope="col"
-                              className="small font-weight-bold text-center"
-                            >
-                              {" "}
-                              #{" "}
-                            </th>
-                            <th
-                              scope="col"
-                              className="small font-weight-bold text-left"
-                            >
-                              <div className="innerWrapper d-flex align-center">
-                                Supporter name
-                                <div className="tableSort ml-1 d-grid">
-                                  <i className="fa fa-chevron-up"></i>
-                                  <i className="fa fa-chevron-down"></i>
-                                </div>
-                              </div>
-                            </th>
-                            <th scope="col" className="small font-weight-bold">
-                              <div className="innerWrapper d-flex align-center justify-content-center">
-                                Purchase date
-                                <div className="tableSort ml-1 d-grid">
-                                  <i className="fa fa-chevron-up"></i>
-                                  <i className="fa fa-chevron-down"></i>
-                                </div>
-                              </div>
-                            </th>
-                            <th
-                              scope="col"
-                              className="small font-weight-bold text-center"
-                            >
-                              <div className="innerWrapper d-flex align-center justify-content-flex-start">
-                                Items purchased
-                              </div>
-                            </th>
-                            <th
-                              scope="col"
-                              className="small font-weight-bold text-center"
-                            >
-                              <div className="innerWrapper d-flex align-center justify-content-center">
-                                Total amount
-                                <div className="tableSort ml-1 d-grid">
-                                  <i className="fa fa-chevron-up"></i>
-                                  <i className="fa fa-chevron-down"></i>
-                                </div>
-                              </div>
-                            </th>
-                            <th
-                              scope="col"
-                              className="small font-weight-bold text-center"
-                            >
-                              <div className="innerWrapper d-flex align-center justify-content-center">
-                                Ship station order ID
-                                <div className="tableSort ml-1 d-grid">
-                                  <i className="fa fa-chevron-up"></i>
-                                  <i className="fa fa-chevron-down"></i>
-                                </div>
-                              </div>
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td className="text-left">John doe</td>
-                            <td>5th December, 2023</td>
-                            <td>
-                              <div className="itemsPurchased">
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Chamoy Peach Rings
-                                  </div>
-                                  <div className="qty">x 2</div>
-                                </div>
-
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Chamoy Sour Twin Cherries
-                                  </div>
-                                  <div className="qty">x 2</div>
-                                </div>
-
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Strawberry Belts
-                                  </div>
-                                  <div className="qty">x 1</div>
-                                </div>
-
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Strawberry, Apple Sour Power Belts
-                                  </div>
-                                  <div className="qty">x 3</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="totalAmount">$ 99999</div>
-                            </td>
-                            <td>91919191</td>
-                          </tr>
-
-                          <tr>
-                            <td>2</td>
-                            <td className="text-left">John doe</td>
-                            <td>5th December, 2023</td>
-                            <td>
-                              <div className="itemsPurchased">
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Chamoy Peach Rings
-                                  </div>
-                                  <div className="qty">x 2</div>
-                                </div>
-
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Strawberry, Apple Sour Power Belts
-                                  </div>
-                                  <div className="qty">x 3</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="totalAmount">$ 99999</div>
-                            </td>
-                            <td>91919191</td>
-                          </tr>
-
-                          <tr>
-                            <td>3</td>
-                            <td className="text-left">John doe</td>
-                            <td>5th December, 2023</td>
-                            <td>
-                              <div className="itemsPurchased">
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Chamoy Peach Rings
-                                  </div>
-                                  <div className="qty">x 2</div>
-                                </div>
-
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Strawberry Belts
-                                  </div>
-                                  <div className="qty">x 1</div>
-                                </div>
-
-                                <div className="item">
-                                  <div className="image-wrapper">
-                                    <img
-                                      src="https://placehold.co/600x400"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="productName">
-                                    Strawberry, Apple Sour Power Belts
-                                  </div>
-                                  <div className="qty">x 3</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="totalAmount">$ 99999</div>
-                            </td>
-                            <td>91919191</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <SalesInfoModal />
 
               {/* **************************************** MODALS - POPUP STORE */}
               <PopupStore />
