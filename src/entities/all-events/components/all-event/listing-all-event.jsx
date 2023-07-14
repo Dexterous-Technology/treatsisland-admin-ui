@@ -98,6 +98,9 @@ const ListingAllEvent = ({
           <td className="text-center">
             <div className="bankInfoButton"><div className="btn btn-light btn-sm" onClick={_showPopupToBankInfo}>View</div></div>
           </td>
+          <td className="text-center">
+            <div className="bankInfoButton"><div className="btn btn-light btn-sm" >View</div></div>
+          </td>
         </tr>
 
         {/* **************************************** MODALS - POPUP STORE */}
