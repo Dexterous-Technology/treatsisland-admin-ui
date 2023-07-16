@@ -67,7 +67,7 @@ const PopupStore = ({
                   onClick={(e) => _showPopupDetails(store)}
                 >
                   <div className="image-wrapper">
-                    <img src={store?.storeCover} alt="" />
+                    <img src={store?.storeCover?.length? store.storeCover: require("../../../../assets/images/popup-header_default-cover.jpg")} alt="" />
                   </div>
                   <div className="storeDetails">
                     <div className="storeName">{store?.PopupName}</div>
@@ -110,7 +110,7 @@ const PopupStore = ({
 
             <div className="innerWrapper">
               <div className="image-wrapper cover">
-                <img src={selectedPopupStore?.storeCover} alt="" />
+              <img src={selectedPopupStore?.storeCover?.length? selectedPopupStore.storeCover: require("../../../../assets/images/popup-header_default-cover.jpg")} alt="" />
               </div>
 
               <div className="intro">
