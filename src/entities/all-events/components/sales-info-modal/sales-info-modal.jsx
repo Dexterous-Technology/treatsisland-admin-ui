@@ -34,6 +34,8 @@ const SalesModalContent = React.forwardRef(
                 <col width="200px" />
                 <col width="40%" />
                 <col width="200px" />
+                <col width="200px" />
+                <col width="200px" />
                 <col width="300px" />
 
                 <thead>
@@ -72,6 +74,22 @@ const SalesModalContent = React.forwardRef(
                     >
                       <div className="innerWrapper d-flex align-center justify-content-flex-start">
                         Items purchased
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        Candy price
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        Shipping fee
                       </div>
                     </th>
                     <th
@@ -153,8 +171,33 @@ const SalesModalContent = React.forwardRef(
                       </div>
                     </td>
                     <td>demo</td>
-                    <td>demo</td>
-                    <td>demo</td>
+                    <td>
+                      <div className="itemsPurchased">
+                        <div className="item">
+                          <div className="image-wrapper">
+                            <img src="https://placehold.co/600x400" alt="" />
+                          </div>
+                          <div className="productName">
+                            Product name
+                          </div>
+                          <div className="qty">x 5</div>
+                        </div>
+                        <div className="item">
+                          <div className="image-wrapper">
+                            <img src="https://placehold.co/600x400" alt="" />
+                          </div>
+                          <div className="productName">
+                            Product name
+                          </div>
+                          <div className="qty">x 5</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>$ 990</td>
+                    <td>$ 9</td>
+                    <td>
+                      <div className="totalAmount"> $ 999 </div>
+                    </td>
                     <td>demo</td>
                   </tr>
                   {/* /demo row */}
