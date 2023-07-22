@@ -8,6 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 
 const SalesModalContent = React.forwardRef(
 ({ selectedEvent, print, hideSalesInfoModal }, ref) => {
+  const [showCustomerDetails, setShowCustomerDetails] = useState(false);
   return (
     <div className="popupSalesWrapper" ref={ref}>
         <div className="popupInner">
@@ -139,6 +140,26 @@ const SalesModalContent = React.forwardRef(
                       <td>{order?.ShipstationOrderId}</td>
                     </tr>
                   ))}
+
+                  {/* demo row */}
+                  <tr>
+                    <td>demo</td>
+                    <td className="text-left customerNameWrapper" onClick={(e) => setShowCustomerDetails(!showCustomerDetails)}>
+                      <span className="customerName"><i className="fa fa-info iconInfo"></i> John doe</span>
+
+                      <div className={"customerDetails " + (showCustomerDetails ? " d-block " : " d-none ")}>
+                        <div className="email"><i className="fa fa-envelope"></i> email@address.com</div>
+                        <div className="phno"><i className="fa fa-phone"></i> 99999999</div>
+                      </div>
+                    </td>
+                    <td>demo</td>
+                    <td>demo</td>
+                    <td>demo</td>
+                    <td>demo</td>
+                  </tr>
+                  {/* /demo row */}
+
+
                 </tbody>
               </table>
             </div>
@@ -188,7 +209,7 @@ const SalesInfoModal = () => {
 
   console.log("selectedEvent :>> ", selectedEvent);
 
-  if (!isModalVisible || !selectedEvent) return null;
+  if (!isModalVisible || !selectedEvent) return null; // remove comment
   return (
     <>
       <SalesModalContent 
