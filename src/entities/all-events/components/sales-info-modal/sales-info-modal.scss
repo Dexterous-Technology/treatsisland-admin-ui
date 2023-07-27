@@ -78,6 +78,47 @@
 				vertical-align: middle;
 				border: 0;
 
+				&.customerNameWrapper {
+					cursor: pointer;
+
+					.customerName {
+						display: grid;
+						grid-template-columns: auto 1fr;
+						align-items: center;
+	
+						.iconInfo {
+							width: 14px;
+							height: 14px;
+							background-color: #dfdfdf;
+							color: #606060;
+							border-radius: 100%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							margin-right: 8px;
+							font-size: 8px;
+							transition: 0.2s;
+						}
+					}
+
+					.customerDetails {
+						background-color: rgba(0,0,0,0.05);
+						padding: 6px 10px;
+						margin-top: 8px;
+
+						div {
+							font-size: 10px;
+						}
+					}
+
+					&:hover {
+						.iconInfo {
+							background-color: var(--color-hot-pink);
+							color: #fff;
+						}
+					}
+				}
+
 				.itemsPurchased {
 					.item {
 						display: flex;

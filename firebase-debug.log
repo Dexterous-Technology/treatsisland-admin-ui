@@ -1,0 +1,100 @@
+[debug] [2023-07-14T21:08:41.007Z] ----------------------------------------------------------------------
+[debug] [2023-07-14T21:08:41.009Z] Command:       /home/debojyoti-t5/.nvm/versions/node/v18.16.0/bin/node /home/debojyoti-t5/.nvm/versions/node/v18.16.0/bin/firebase deploy
+[debug] [2023-07-14T21:08:41.010Z] CLI Version:   12.1.0
+[debug] [2023-07-14T21:08:41.010Z] Platform:      linux
+[debug] [2023-07-14T21:08:41.010Z] Node Version:  v18.16.0
+[debug] [2023-07-14T21:08:41.011Z] Time:          Sat Jul 15 2023 02:38:41 GMT+0530 (India Standard Time)
+[debug] [2023-07-14T21:08:41.011Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-07-14T21:08:41.067Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-07-14T21:08:41.067Z] > authorizing via signed-in user (debojyoti.js@gmail.com)
+[debug] [2023-07-14T21:08:41.067Z] [iam] checking project treatsisland-d238a for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-07-14T21:08:41.069Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/treatsisland-d238a:testIamPermissions [none]
+[debug] [2023-07-14T21:08:41.069Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/treatsisland-d238a:testIamPermissions x-goog-quota-user=projects/treatsisland-d238a
+[debug] [2023-07-14T21:08:41.069Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/treatsisland-d238a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-07-14T21:08:42.635Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/treatsisland-d238a:testIamPermissions 200
+[debug] [2023-07-14T21:08:42.635Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/treatsisland-d238a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-07-14T21:08:42.636Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/treatsisland-d238a [none]
+[debug] [2023-07-14T21:08:43.357Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/treatsisland-d238a 200
+[debug] [2023-07-14T21:08:43.358Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/treatsisland-d238a {"projectId":"treatsisland-d238a","projectNumber":"290959564489","displayName":"TreatsIsland","name":"projects/treatsisland-d238a","resources":{"hostingSite":"treatsisland-d238a","realtimeDatabaseInstance":"treatsisland-d238a-default-rtdb"},"state":"ACTIVE","etag":"1_1928c51d-6165-4914-af93-f03e4bfbb095"}
+[info] 
+[info] === Deploying to 'treatsisland-d238a'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2023-07-14T21:08:43.379Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions [none]
+[debug] [2023-07-14T21:08:43.379Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2023-07-14T21:08:44.988Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions 200
+[debug] [2023-07-14T21:08:44.988Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions {"name":"projects/290959564489/sites/treatsisland-admin/versions/77935c2ecbd2ad1d","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[treatsisland-admin]: beginning deploy... 
+[info] i  hosting[treatsisland-admin]: found 23 files in build 
+[debug] [2023-07-14T21:08:44.996Z] [hosting] uploading with 200 concurrency
+[debug] [2023-07-14T21:08:45.004Z] [hosting] hash cache [YnVpbGQ] not populated
+[debug] [2023-07-14T21:08:45.853Z] [hosting] hash cache [YnVpbGQ] stored for 23 files
+[debug] [2023-07-14T21:08:45.853Z] [hosting][hash queue][FINAL] {"max":844,"min":14,"avg":57.34782608695652,"active":0,"complete":23,"success":23,"errored":0,"retried":0,"total":23,"elapsed":848}
+[debug] [2023-07-14T21:08:45.854Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/290959564489/sites/treatsisland-admin/versions/77935c2ecbd2ad1d:populateFiles [none]
+[debug] [2023-07-14T21:08:45.854Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/290959564489/sites/treatsisland-admin/versions/77935c2ecbd2ad1d:populateFiles {"files":{"/asset-manifest.json":"a00c6969cf7da13cb08ed903740bf391256b5f1b10dfff84a2e3a53261e7a977","/favicon-32x32.png":"efbaef855f219c0caec4f32802f0dcf33e1cd49b89bd20dbe999140e02c79bf6","/favicon-16x16.png":"9eb92ec1a387ac28dca3b11d5aa14e2412fce06fa105b7a75654f7ed02852e7f","/favicon.png":"0d081b0b603305a72dfb435ee39084288756eb668610947825ba90d78c74dd6e","/index.html":"e97556688cdef35088785c594b47988b120784d4c67e3121d16f013261129f5c","/manifest.json":"c877f72a57712f11c9d279d1ac5c3484c57393093ea3e53525076174a114fa52","/logo192.png":"76c449ccb9cd117c2f2338f091b18f7050f3210e249b2228f5c81b23f34377cd","/robots.txt":"2544ca049f223a42bff01f72ad930a5edba75bbb7199d0f8430a02ff5aca16ec","/site.webmanifest":"ba93e6f8e15ab9d2d88aabcdf0c3b5b1ff027951a36b4ce0c15713f0acbc931c","/worker.js":"923ba3f6f87a4b5cd46818885a49021c4034eb4dbde5891b969233ef7d5cbf8c","/logo512.png":"7779210d56c1f3741e2e487799fe3092def4fa6ac450a60532b807c3a8971205","/favicon.ico":"5c85c564b5da0966eac39fddb5a58977dd1da07a49ed8cac4025bd5e1825feb7","/static/js/787.8f386508.chunk.js":"2943ddcaa29e652217b98bcfe7878755d0af13752640137fc314ee0414ce281c","/static/js/787.8f386508.chunk.js.map":"adcbccc0d95a5d2b0739d60efe9f72c6fd8323dfc8d629d9eef5d38751f2f1b4","/static/js/main.b10ff55f.js.LICENSE.txt":"f1208cf9a6899bf36d62a666cf145e7fa8def253dc6159f72e11b093a998604a","/android-chrome-192x192.png":"f77a991d7f4d493fa32b5f6471b0b671a92027db7db09d6e0c4367b9facaadb6","/apple-touch-icon.png":"3438dd58ac305f8f64a164b9a062b5682c6f7379cf8b18cbf169bc0548623a04","/static/css/main.b7f9262c.css":"4c9890173a83e0f00a770d826588bf970ac013af774b12d30f3399594df35172","/static/css/main.b7f9262c.css.map":"4840ef5f2ae1e8b457afb2b2a99012e6100eef4cdbd1624d39a109b540fff2e3","/static/media/logo.0a363d8842b12752c181.png":"b2fea8eaa031c5548e147f599306cf5a10cf1d85cf2197e96aee3dfd31c3a52b","/android-chrome-512x512.png":"259fb8336502783ba7fa0cab848490a5a556969b043312fa5199ce0fdece074d","/static/js/main.b10ff55f.js":"3fc1213884e4d496dda2cefc9ec68231c0be32f59f34b77dff1414c4f2a57064","/static/js/main.b10ff55f.js.map":"2ac8a4976b1899eb541902d11444ce29ef19c0fded0c5d5bd30125a3eb8757f0"}}
+[debug] [2023-07-14T21:08:47.034Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/290959564489/sites/treatsisland-admin/versions/77935c2ecbd2ad1d:populateFiles 200
+[debug] [2023-07-14T21:08:47.034Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/290959564489/sites/treatsisland-admin/versions/77935c2ecbd2ad1d:populateFiles {"uploadRequiredHashes":["2ac8a4976b1899eb541902d11444ce29ef19c0fded0c5d5bd30125a3eb8757f0","3fc1213884e4d496dda2cefc9ec68231c0be32f59f34b77dff1414c4f2a57064","a00c6969cf7da13cb08ed903740bf391256b5f1b10dfff84a2e3a53261e7a977","4840ef5f2ae1e8b457afb2b2a99012e6100eef4cdbd1624d39a109b540fff2e3","f1208cf9a6899bf36d62a666cf145e7fa8def253dc6159f72e11b093a998604a","4c9890173a83e0f00a770d826588bf970ac013af774b12d30f3399594df35172","e97556688cdef35088785c594b47988b120784d4c67e3121d16f013261129f5c"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files"}
+[debug] [2023-07-14T21:08:47.036Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/2ac8a4976b1899eb541902d11444ce29ef19c0fded0c5d5bd30125a3eb8757f0 [none]
+[debug] [2023-07-14T21:08:47.036Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/2ac8a4976b1899eb541902d11444ce29ef19c0fded0c5d5bd30125a3eb8757f0 [stream]
+[debug] [2023-07-14T21:08:47.038Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/3fc1213884e4d496dda2cefc9ec68231c0be32f59f34b77dff1414c4f2a57064 [none]
+[debug] [2023-07-14T21:08:47.038Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/3fc1213884e4d496dda2cefc9ec68231c0be32f59f34b77dff1414c4f2a57064 [stream]
+[debug] [2023-07-14T21:08:47.039Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/a00c6969cf7da13cb08ed903740bf391256b5f1b10dfff84a2e3a53261e7a977 [none]
+[debug] [2023-07-14T21:08:47.039Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/a00c6969cf7da13cb08ed903740bf391256b5f1b10dfff84a2e3a53261e7a977 [stream]
+[debug] [2023-07-14T21:08:47.040Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4840ef5f2ae1e8b457afb2b2a99012e6100eef4cdbd1624d39a109b540fff2e3 [none]
+[debug] [2023-07-14T21:08:47.040Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4840ef5f2ae1e8b457afb2b2a99012e6100eef4cdbd1624d39a109b540fff2e3 [stream]
+[debug] [2023-07-14T21:08:47.041Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/f1208cf9a6899bf36d62a666cf145e7fa8def253dc6159f72e11b093a998604a [none]
+[debug] [2023-07-14T21:08:47.041Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/f1208cf9a6899bf36d62a666cf145e7fa8def253dc6159f72e11b093a998604a [stream]
+[debug] [2023-07-14T21:08:47.042Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4c9890173a83e0f00a770d826588bf970ac013af774b12d30f3399594df35172 [none]
+[debug] [2023-07-14T21:08:47.042Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4c9890173a83e0f00a770d826588bf970ac013af774b12d30f3399594df35172 [stream]
+[debug] [2023-07-14T21:08:47.044Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/e97556688cdef35088785c594b47988b120784d4c67e3121d16f013261129f5c [none]
+[debug] [2023-07-14T21:08:47.044Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/e97556688cdef35088785c594b47988b120784d4c67e3121d16f013261129f5c [stream]
+[debug] [2023-07-14T21:08:47.044Z] [hosting][populate queue][FINAL] {"max":1184,"min":1184,"avg":1184,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1192}
+[debug] [2023-07-14T21:08:47.044Z] [hosting] uploads queued: 7
+[debug] [2023-07-14T21:08:48.492Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/f1208cf9a6899bf36d62a666cf145e7fa8def253dc6159f72e11b093a998604a 200
+[debug] [2023-07-14T21:08:48.492Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/f1208cf9a6899bf36d62a666cf145e7fa8def253dc6159f72e11b093a998604a [stream]
+[debug] [2023-07-14T21:08:49.117Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/a00c6969cf7da13cb08ed903740bf391256b5f1b10dfff84a2e3a53261e7a977 200
+[debug] [2023-07-14T21:08:49.117Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/a00c6969cf7da13cb08ed903740bf391256b5f1b10dfff84a2e3a53261e7a977 [stream]
+[debug] [2023-07-14T21:08:49.162Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4840ef5f2ae1e8b457afb2b2a99012e6100eef4cdbd1624d39a109b540fff2e3 200
+[debug] [2023-07-14T21:08:49.162Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4840ef5f2ae1e8b457afb2b2a99012e6100eef4cdbd1624d39a109b540fff2e3 [stream]
+[debug] [2023-07-14T21:08:49.726Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4c9890173a83e0f00a770d826588bf970ac013af774b12d30f3399594df35172 200
+[debug] [2023-07-14T21:08:49.726Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/4c9890173a83e0f00a770d826588bf970ac013af774b12d30f3399594df35172 [stream]
+[debug] [2023-07-14T21:08:49.731Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/e97556688cdef35088785c594b47988b120784d4c67e3121d16f013261129f5c 200
+[debug] [2023-07-14T21:08:49.731Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/e97556688cdef35088785c594b47988b120784d4c67e3121d16f013261129f5c [stream]
+[debug] [2023-07-14T21:08:49.843Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/3fc1213884e4d496dda2cefc9ec68231c0be32f59f34b77dff1414c4f2a57064 200
+[debug] [2023-07-14T21:08:49.843Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/3fc1213884e4d496dda2cefc9ec68231c0be32f59f34b77dff1414c4f2a57064 [stream]
+[debug] [2023-07-14T21:08:50.477Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/2ac8a4976b1899eb541902d11444ce29ef19c0fded0c5d5bd30125a3eb8757f0 200
+[debug] [2023-07-14T21:08:50.477Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/treatsisland-admin/versions/77935c2ecbd2ad1d/files/2ac8a4976b1899eb541902d11444ce29ef19c0fded0c5d5bd30125a3eb8757f0 [stream]
+[debug] [2023-07-14T21:08:50.478Z] [hosting][upload queue][FINAL] {"max":3443,"min":1456,"avg":2471.714285714286,"active":0,"complete":7,"success":7,"errored":0,"retried":0,"total":7,"elapsed":3444}
+[info] ✔  hosting[treatsisland-admin]: file upload complete 
+[debug] [2023-07-14T21:08:50.481Z] [hosting] deploy completed after 5491ms
+[debug] [2023-07-14T21:08:50.488Z] [
+  {
+    "config": {
+      "public": "build",
+      "site": "treatsisland-admin",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    "version": "projects/290959564489/sites/treatsisland-admin/versions/77935c2ecbd2ad1d"
+  }
+]
+[info] i  hosting[treatsisland-admin]: finalizing version... 
+[debug] [2023-07-14T21:08:50.496Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions/77935c2ecbd2ad1d updateMask=status%2Cconfig
+[debug] [2023-07-14T21:08:50.496Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions/77935c2ecbd2ad1d {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2023-07-14T21:08:51.714Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions/77935c2ecbd2ad1d 200
+[debug] [2023-07-14T21:08:51.714Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/versions/77935c2ecbd2ad1d {"name":"projects/290959564489/sites/treatsisland-admin/versions/77935c2ecbd2ad1d","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2023-07-14T21:08:44.549222Z","createUser":{"email":"debojyoti.js@gmail.com"},"finalizeTime":"2023-07-14T21:08:51.542921Z","finalizeUser":{"email":"debojyoti.js@gmail.com"}}
+[debug] [2023-07-14T21:08:51.714Z] [hosting] finalized version for treatsisland-admin:[object Object]
+[info] ✔  hosting[treatsisland-admin]: version finalized 
+[info] i  hosting[treatsisland-admin]: releasing new version... 
+[debug] [2023-07-14T21:08:51.716Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/channels/live/releases versionName=projects%2F290959564489%2Fsites%2Ftreatsisland-admin%2Fversions%2F77935c2ecbd2ad1d
+[debug] [2023-07-14T21:08:51.716Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/treatsisland-admin/channels/live/releases {}

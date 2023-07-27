@@ -8,6 +8,7 @@ import { useReactToPrint } from 'react-to-print';
 
 const SalesModalContent = React.forwardRef(
 ({ selectedEvent, print, hideSalesInfoModal }, ref) => {
+  const [showCustomerDetails, setShowCustomerDetails] = useState(false);
   return (
     <div className="popupSalesWrapper" ref={ref}>
         <div className="popupInner">
@@ -32,6 +33,8 @@ const SalesModalContent = React.forwardRef(
                 <col width="200px" />
                 <col width="200px" />
                 <col width="40%" />
+                <col width="200px" />
+                <col width="200px" />
                 <col width="200px" />
                 <col width="300px" />
 
@@ -71,6 +74,22 @@ const SalesModalContent = React.forwardRef(
                     >
                       <div className="innerWrapper d-flex align-center justify-content-flex-start">
                         Items purchased
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        Candy price
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        Shipping fee
                       </div>
                     </th>
                     <th
@@ -139,6 +158,51 @@ const SalesModalContent = React.forwardRef(
                       <td>{order?.ShipstationOrderId}</td>
                     </tr>
                   ))}
+
+                  {/* demo row */}
+                  <tr>
+                    <td>demo</td>
+                    <td className="text-left customerNameWrapper" onClick={(e) => setShowCustomerDetails(!showCustomerDetails)}>
+                      <span className="customerName"><i className="fa fa-info iconInfo"></i> John doe</span>
+
+                      <div className={"customerDetails " + (showCustomerDetails ? " d-block " : " d-none ")}>
+                        <div className="email"><i className="fa fa-envelope"></i> email@address.com</div>
+                        <div className="phno"><i className="fa fa-phone"></i> 99999999</div>
+                      </div>
+                    </td>
+                    <td>demo</td>
+                    <td>
+                      <div className="itemsPurchased">
+                        <div className="item">
+                          <div className="image-wrapper">
+                            <img src="https://placehold.co/600x400" alt="" />
+                          </div>
+                          <div className="productName">
+                            Product name
+                          </div>
+                          <div className="qty">x 5</div>
+                        </div>
+                        <div className="item">
+                          <div className="image-wrapper">
+                            <img src="https://placehold.co/600x400" alt="" />
+                          </div>
+                          <div className="productName">
+                            Product name
+                          </div>
+                          <div className="qty">x 5</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>$ 990</td>
+                    <td>$ 9</td>
+                    <td>
+                      <div className="totalAmount"> $ 999 </div>
+                    </td>
+                    <td>demo</td>
+                  </tr>
+                  {/* /demo row */}
+
+
                 </tbody>
               </table>
             </div>
@@ -188,7 +252,7 @@ const SalesInfoModal = () => {
 
   console.log("selectedEvent :>> ", selectedEvent);
 
-  if (!isModalVisible || !selectedEvent) return null;
+  if (!isModalVisible || !selectedEvent) return null; // remove comment
   return (
     <>
       <SalesModalContent 
