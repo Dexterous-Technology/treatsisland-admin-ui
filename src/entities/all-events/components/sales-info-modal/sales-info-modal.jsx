@@ -3,13 +3,14 @@ import "./sales-info-modal.scss";
 import { EventEmitter } from "../../../../utils/event-emitter";
 import moment from "moment";
 import Standard from "../../../../const/standards";
-import { useReactToPrint } from 'react-to-print';
-
+import { useReactToPrint } from "react-to-print";
+import CustomerViewer from "./components/customer-viewer/customer-viewer";
 
 const SalesModalContent = React.forwardRef(
-({ selectedEvent, print, hideSalesInfoModal }, ref) => {
-  return (
-    <div className="popupSalesWrapper" ref={ref}>
+  ({ selectedEvent, print, hideSalesInfoModal }, ref) => {
+    const [showCustomerDetails, setShowCustomerDetails] = useState(false);
+    return (
+      <div className="popupSalesWrapper" ref={ref}>
         <div className="popupInner">
           <div className="popupHeader">
             <div className="left">
@@ -22,16 +23,21 @@ const SalesModalContent = React.forwardRef(
           </div>
 
           <div className="buttons text-right">
-            <div className="btn btn-primary" onClick={print}>Print list</div>
+            <div className="btn btn-primary" onClick={print}>
+              Print list
+            </div>
           </div>
 
           <div className="tableInnerWrapper">
             <div class="table-responsive">
               <table class="table">
                 <col width="40px" />
+                <col width="350px" />
+                <col width="200px" />
+                <col width="20%" />
                 <col width="200px" />
                 <col width="200px" />
-                <col width="40%" />
+                <col width="200px" />
                 <col width="200px" />
                 <col width="300px" />
 
@@ -78,6 +84,30 @@ const SalesModalContent = React.forwardRef(
                       className="small font-weight-bold text-center"
                     >
                       <div className="innerWrapper d-flex align-center justify-content-center">
+                        Candy price
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        Shipping fee
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        Stripe fee
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
                         Total amount
                         <div className="tableSort ml-1 d-grid">
                           {/* <i className="fa fa-chevron-up"></i>
@@ -104,7 +134,13 @@ const SalesModalContent = React.forwardRef(
                   {selectedEvent?.orders.map((order, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td className="text-left">{order?.customer?.Name}</td>
+                      <td className="text-left customerNameWrapper">
+                        <CustomerViewer
+                          customerName={order?.customer?.Name}
+                          email={order?.customer?.Email}
+                          phone={order?.customer?.Phone}
+                        />
+                      </td>
                       <td>
                         {moment(parseInt(order?.customer?.CreatedOn)).format(
                           Standard.dateTimeFormat
@@ -132,21 +168,103 @@ const SalesModalContent = React.forwardRef(
                         </div>
                       </td>
                       <td>
-                        <div className="totalAmount">
+                        <div className="totalAmountSmall">
                           $ {order?._totalOrderValue || 0}
                         </div>
                       </td>
-                      <td>{order?.ShipstationOrderId}</td>
+                      <td>
+                        <div className="totalAmountSmall">
+                          $ {order?.DeliveryCost || 0}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="totalAmountSmall">
+                          $ {order?.PaymentGatewayCharges || 0}
+                        </div>
+                      </td>
+                      <td>
+                      <div className="totalAmount">
+                      $ {
+                        // Round off to 2 decimal places
+                        (Math.round((
+                          (parseFloat(parseFloat(order?._totalOrderValue) || 0) + (parseFloat(order?.DeliveryCost) || 0) + (parseFloat(order?.PaymentGatewayCharges) || 0))
+                        ) * 100) / 100)
+                        
+                          
+                        }
+                        </div>
+                        </td>
+                        <td>
+                        <div className="totalAmount">
+                          {order?.ShipstationOrderId || "N/A"}
+                        </div>
+                      </td>
                     </tr>
                   ))}
+
+                  {/* demo row */}
+                  {/* <tr>
+                    <td>demo</td>
+                    <td
+                      className="text-left customerNameWrapper"
+                      onClick={(e) =>
+                        setShowCustomerDetails(!showCustomerDetails)
+                      }
+                    >
+                      <span className="customerName">
+                        <i className="fa fa-info iconInfo"></i> John doe
+                      </span>
+
+                      <div
+                        className={
+                          "customerDetails " +
+                          (showCustomerDetails ? " d-block " : " d-none ")
+                        }
+                      >
+                        <div className="email">
+                          <i className="fa fa-envelope"></i> email@address.com
+                        </div>
+                        <div className="phno">
+                          <i className="fa fa-phone"></i> 99999999
+                        </div>
+                      </div>
+                    </td>
+                    <td>demo</td>
+                    <td>
+                      <div className="itemsPurchased">
+                        <div className="item">
+                          <div className="image-wrapper">
+                            <img src="https://placehold.co/600x400" alt="" />
+                          </div>
+                          <div className="productName">Product name</div>
+                          <div className="qty">x 5</div>
+                        </div>
+                        <div className="item">
+                          <div className="image-wrapper">
+                            <img src="https://placehold.co/600x400" alt="" />
+                          </div>
+                          <div className="productName">Product name</div>
+                          <div className="qty">x 5</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>$ 990</td>
+                    <td>$ 9</td>
+                    <td>
+                      <div className="totalAmount"> $ 999 </div>
+                    </td>
+                    <td>demo</td>
+                  </tr> */}
+                  {/* /demo row */}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-  )
-});
+    );
+  }
+);
 
 /**
  * Listen to event emitter
@@ -188,10 +306,10 @@ const SalesInfoModal = () => {
 
   console.log("selectedEvent :>> ", selectedEvent);
 
-  if (!isModalVisible || !selectedEvent) return null;
+  if (!isModalVisible || !selectedEvent) return null; // remove comment
   return (
     <>
-      <SalesModalContent 
+      <SalesModalContent
         selectedEvent={selectedEvent}
         print={handlePrint}
         hideSalesInfoModal={_hideSalesInfoModal}
