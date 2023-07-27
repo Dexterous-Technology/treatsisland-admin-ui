@@ -34,7 +34,8 @@ const SalesModalContent = React.forwardRef(
                 <col width="40px" />
                 <col width="350px" />
                 <col width="200px" />
-                <col width="40%" />
+                <col width="20%" />
+                <col width="200px" />
                 <col width="200px" />
                 <col width="200px" />
                 <col width="200px" />
@@ -92,6 +93,14 @@ const SalesModalContent = React.forwardRef(
                     >
                       <div className="innerWrapper d-flex align-center justify-content-center">
                         Shipping fee
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        Stripe fee
                       </div>
                     </th>
                     <th
@@ -159,16 +168,42 @@ const SalesModalContent = React.forwardRef(
                         </div>
                       </td>
                       <td>
-                        <div className="totalAmount">
+                        <div className="totalAmountSmall">
                           $ {order?._totalOrderValue || 0}
                         </div>
                       </td>
-                      <td>{order?.ShipstationOrderId}</td>
+                      <td>
+                        <div className="totalAmountSmall">
+                          $ {order?.DeliveryCost || 0}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="totalAmountSmall">
+                          $ {order?.PaymentGatewayCharges || 0}
+                        </div>
+                      </td>
+                      <td>
+                      <div className="totalAmount">
+                      $ {
+                        // Round off to 2 decimal places
+                        (Math.round((
+                          (parseFloat(parseFloat(order?._totalOrderValue) || 0) + (parseFloat(order?.DeliveryCost) || 0) + (parseFloat(order?.PaymentGatewayCharges) || 0))
+                        ) * 100) / 100)
+                        
+                          
+                        }
+                        </div>
+                        </td>
+                        <td>
+                        <div className="totalAmount">
+                          {order?.ShipstationOrderId || "N/A"}
+                        </div>
+                      </td>
                     </tr>
                   ))}
 
                   {/* demo row */}
-                  <tr>
+                  {/* <tr>
                     <td>demo</td>
                     <td
                       className="text-left customerNameWrapper"
@@ -219,7 +254,7 @@ const SalesModalContent = React.forwardRef(
                       <div className="totalAmount"> $ 999 </div>
                     </td>
                     <td>demo</td>
-                  </tr>
+                  </tr> */}
                   {/* /demo row */}
                 </tbody>
               </table>
