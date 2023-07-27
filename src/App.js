@@ -25,7 +25,7 @@ function App() {
             component={SuperAdminAllEvents} 
           />
 
-          <PublicRoute // to protected
+          <ProtectedRoute // to protected
             path="/home"
             exact
             component={SuperAdminProductManagement}
