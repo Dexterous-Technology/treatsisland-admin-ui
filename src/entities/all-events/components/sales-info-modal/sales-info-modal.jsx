@@ -9,9 +9,20 @@ import CustomerViewer from "./components/customer-viewer/customer-viewer";
 const SalesModalContent = React.forwardRef(
   ({ selectedEvent, print, hideSalesInfoModal }, ref) => {
     const [showCustomerDetails, setShowCustomerDetails] = useState(false);
+    const [isPrinting, setIsPrinting] = useState(false);
+
+    const _onPrint = () => {
+      setIsPrinting(true);
+      setTimeout(() => {
+        print();
+      }, 2000);
+      setTimeout(() => {
+        setIsPrinting(false);
+      }, 5000);
+    };
     return (
-      <div className="popupSalesWrapper" ref={ref}>
-        <div className="popupInner">
+      <div className="popupSalesWrapper" >
+        <div className="popupInner" ref={ref}>
           <div className="popupHeader">
             <div className="left">
               All sales for "{selectedEvent?.EventName}" event
@@ -23,12 +34,12 @@ const SalesModalContent = React.forwardRef(
           </div>
 
           <div className="buttons text-right">
-            <div className="btn btn-primary" onClick={print}>
+            <div className="btn btn-primary" onClick={_onPrint}>
               Print list
             </div>
           </div>
 
-          <div className="tableInnerWrapper">
+          <div className="tableInnerWrapper" >
             <div class="table-responsive">
               <table class="table">
                 <col width="40px" />
@@ -151,13 +162,17 @@ const SalesModalContent = React.forwardRef(
                           {order?.orderItems.map((orderItem, index) => (
                             <div className="item" key={index}>
                               <div className="image-wrapper">
-                                <img
-                                  src={
-                                    orderItem?.product?.imageLink ||
-                                    "https://placehold.co/600x400"
-                                  }
-                                  alt=""
-                                />
+                                {
+                                  isPrinting? (<></>): (
+                                    <img
+                                      src={
+                                        orderItem?.product?.imageLink ||
+                                        "https://placehold.co/600x400"
+                                      }
+                                      alt=""
+                                    />
+                                  )
+                                }
                               </div>
                               <div className="productName">
                                 {orderItem?.product?.Product}
