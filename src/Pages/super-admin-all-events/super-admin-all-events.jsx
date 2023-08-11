@@ -71,6 +71,7 @@ const SuperAdminAllEvents = () => {
                     <col width="150px" />
                     <col width="150px" />
                     <col width="100px" />
+                    <col width="100px" />
                     {/* <col width="100px" /> */}
                     {/* <col width="100px" /> */}
                     <col width="100px" />
@@ -130,6 +131,18 @@ const SuperAdminAllEvents = () => {
                         >
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Created
+                            <div className="tableSort ml-1 d-grid">
+                              <i className="fa fa-chevron-up"></i>
+                              <i className="fa fa-chevron-down"></i>
+                            </div>
+                          </div>
+                        </th>
+                        <th
+                          scope="col"
+                          className="small font-weight-bold text-center"
+                        >
+                          <div className="innerWrapper d-flex align-center justify-content-center">
+                            End date
                             <div className="tableSort ml-1 d-grid">
                               <i className="fa fa-chevron-up"></i>
                               <i className="fa fa-chevron-down"></i>

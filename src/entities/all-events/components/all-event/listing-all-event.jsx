@@ -24,6 +24,9 @@ const ListingAllEvent = ({
             {event._formattedDate} <br />({event._daysAgo})
           </td>
           <td className="text-center">
+            End date goes here
+          </td>
+          <td className="text-center">
             <span className="badge badge-secondary">{event._status}</span>
           </td>
           {/* <td className="text-center">
