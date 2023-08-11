@@ -65,6 +65,53 @@ const ListingAllEvent = ({
           </td>
         </tr>
       ))}
+
+
+
+      <tr>
+        <td className="text-center">1</td>
+        <td className="text-left">
+          <b>EventName</b>
+        </td>
+        <td className="text-center">EventCode</td>
+        <td className="text-center">
+          <input type="date" className="form-control" placeholder="Enter" value="2005-12-05" />
+        </td>
+        <td className="text-center">
+          <input type="date" className="form-control" placeholder="Enter" value="2005-12-05" />
+        </td>
+        <td className="text-center">
+          <span className="badge badge-secondary">status</span>
+        </td>
+        <td className="text-center">
+          <b className="m-0">$ totalSales</b>
+        </td>
+        <td className="text-center">$ ownerEarnings</td>
+        <td className="text-center">$ platformEarnings</td>
+        <td className="text-center">
+          <div className="popupStoreButton">
+            <div
+              className="btn btn-light btn-sm"
+              // onClick={(e) => onClickAllPopupStore(event)}
+            >
+              View
+            </div>
+          </div>
+        </td>
+        <td className="text-center">
+          <div className="bankInfoButton">
+            <div
+              className="btn btn-light btn-sm"
+              // onClick={(e) => onClickBankInfo(event)}
+            >
+              View
+            </div>
+          </div>
+        </td>
+        <td className="text-center">
+          <div className="bankInfoButton"><div className="btn btn-light btn-sm">View</div></div>
+        </td>
+      </tr>
       {/* **************************************** MODALS - POPUP STORE */}
       {/*<PopupStore {...eventVisiblePopupStore} onDismiss={_hideAllPopupStore}/>*/}
     </>
