@@ -30,7 +30,7 @@ const PopupStore = ({
     }
   }, [selectedEvent?.EventID]);
 
-  // console.log('isPopupStoreModalVisible :>> ', isPopupStoreModalVisible);
+  const popupStoreBaseURL = `${process.env.REACT_APP_USER_APP_BASE_URL}/popup-store/`;
 
   if (selectedEvent) {
     return (
@@ -71,7 +71,9 @@ const PopupStore = ({
                   </div>
                   <div className="storeDetails">
                     <div className="storeName">{store?.PopupName}</div>
-                    <div className="storeDesc">{store?.PopupDesc}</div>
+                    <div className="storeDesc">
+                      <a href={`${popupStoreBaseURL}/${store?.PopupCode}`} target="_blank" onClick={e => e.stopPropagation()}>Store link</a>
+                    </div>
 
                     <div className="amountRaised">
                       <div className="amount"> ${store?._totalFromAllOrders} raised of ${store?.PopupGoal} ({

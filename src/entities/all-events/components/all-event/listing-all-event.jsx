@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import EventStatusbadge from "../event-status-badge/event-status-badge";
 
 const ListingAllEvent = ({
   onClickBankInfo = () => {},
@@ -20,11 +21,13 @@ const ListingAllEvent = ({
             <b>{event.EventName}</b>
           </td>
           <td className="text-center">{event.EventCode}</td>
+          <td className="text-center">{event._formattedDate}</td>
           <td className="text-center">
-            {event._formattedDate} <br />({event._daysAgo})
-          </td>
-          <td className="text-center">
-            <span className="badge badge-secondary">{event._status}</span>
+            <EventStatusbadge
+              status={event._status}
+              formattedStartDate={event._formattedStartDate}
+              formattedEndDate={event._formattedEndDate}
+            />
           </td>
           {/* <td className="text-center">
             <input type="date" className="form-control" />
@@ -58,7 +61,14 @@ const ListingAllEvent = ({
             </div>
           </td>
           <td className="text-center">
-            <div className="bankInfoButton"><div className="btn btn-light btn-sm" onClick={(e) => onSalesInfoClick(event)} >View</div></div>
+            <div className="bankInfoButton">
+              <div
+                className="btn btn-light btn-sm"
+                onClick={(e) => onSalesInfoClick(event)}
+              >
+                View
+              </div>
+            </div>
           </td>
         </tr>
       ))}

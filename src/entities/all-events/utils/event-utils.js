@@ -65,6 +65,12 @@ const EventUtils = {
         _formattedDate: moment(parseInt(event.CreatedOn)).format(
           Standard.dateFormat
         ),
+        _formattedStartDate: moment(parseInt(event.StartDate)).format(
+          Standard.dateFormat
+        ),
+        _formattedEndDate: moment(parseInt(event.EndDate)).format(
+          Standard.dateFormat
+        ),
         _status: EventUtils._getStatus(event.StartDate, event.EndDate),
         _daysAgo: EventUtils._getDaysAgo(parseInt(event.CreatedOn)),
       };
