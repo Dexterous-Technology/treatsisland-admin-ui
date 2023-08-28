@@ -52,7 +52,7 @@ const SalesModalContent = React.forwardRef(
           // Round off to 2 decimal places
           Math.round(parseFloat(parseFloat(order?.totalSales) || 0) * 100) /
             100,
-          order?.ShipstationOrderId || "N/A",
+          order?.OrderID || "N/A",
           "",
           // Round off to 2 decimal places
           Math.round(parseFloat(parseFloat(order?.ownerEarnings) || 0) * 100) /
@@ -337,7 +337,7 @@ const SalesModalContent = React.forwardRef(
 
                       <td>
                         <div className="totalAmount">
-                          {order?.ShipstationOrderId || "N/A"}
+                          {order?.OrderID || "N/A"}
                         </div>
                       </td>
                     </tr>
