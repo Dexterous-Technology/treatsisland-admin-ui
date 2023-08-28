@@ -5,13 +5,70 @@ import moment from "moment";
 import Standard from "../../../../const/standards";
 import { useReactToPrint } from "react-to-print";
 import CustomerViewer from "./components/customer-viewer/customer-viewer";
+import { CSVLink, CSVDownload } from "react-csv";
 
 const SalesModalContent = React.forwardRef(
   ({ selectedEvent, print, hideSalesInfoModal }, ref) => {
     const [showCustomerDetails, setShowCustomerDetails] = useState(false);
     const [isPrinting, setIsPrinting] = useState(false);
+    const [csvData, setCsvData] = useState([]);
 
-    console.log("selectedEvent 92123332:>> ", selectedEvent);
+    const _prepareCsvData = () => {
+      let csvData = [];
+      // Example data structure
+      // const csvData = [
+      //   ["firstname", "lastname", "email"],
+      //   ["Ahmed", "Tomi", "ah@smthing.co.com"],
+      //   ["Raed", "Labes", "rl@smthing.co.com"],
+      //   ["Yezzi", "Min l3b", "ymin@cocococo.com"]
+      // ];
+      csvData.push([
+        "Supporter name",
+        "Purchase date",
+        "Items purchased",
+        "Candy price",
+        "Shipping fee",
+        "Stripe fee",
+        "Total amount",
+        "Ship station order ID",
+        "Ship Verified",
+        "Due Organizer",
+        "Due Treats",
+      ]);
+      selectedEvent?.orders.forEach((order) => {
+        let orderItems = "";
+        order?.orderItems.forEach((orderItem) => {
+          orderItems += `${orderItem?.product?.Product} x ${orderItem?.Quantity} \n`;
+        });
+        csvData.push([
+          order?.customer?.Name,
+          moment(parseInt(order?.customer?.CreatedOn)).format(
+            Standard.dateTimeFormat
+          ),
+          orderItems,
+          order?._totalOrderValue || 0,
+          order?.DeliveryCost || 0,
+          order?.PaymentGatewayCharges || 0,
+          // Round off to 2 decimal places
+          Math.round(parseFloat(parseFloat(order?.totalSales) || 0) * 100) /
+            100,
+          order?.OrderID || "N/A",
+          "",
+          // Round off to 2 decimal places
+          Math.round(parseFloat(parseFloat(order?.ownerEarnings) || 0) * 100) /
+            100,
+          // Round off to 2 decimal places
+          Math.round(
+            parseFloat(parseFloat(order?.platformEarnings) || 0) * 100
+          ) / 100,
+        ]);
+      });
+      setCsvData(csvData);
+    };
+
+    useEffect(() => {
+      _prepareCsvData();
+    }, [selectedEvent]);
 
     const _onPrint = () => {
       setIsPrinting(true);
@@ -36,6 +93,17 @@ const SalesModalContent = React.forwardRef(
           </div>
 
           <div className="buttons text-right">
+            <div className="btn mr-3">
+              <CSVLink
+                data={csvData}
+                filename={`sales-${selectedEvent?.EventName}-${moment().format(
+                  Standard.dateTimeFormat
+                )}.csv`}
+              >
+                Download CSV
+              </CSVLink>
+            </div>
+
             <div className="btn btn-primary" onClick={_onPrint}>
               Print list
             </div>
@@ -269,7 +337,7 @@ const SalesModalContent = React.forwardRef(
 
                       <td>
                         <div className="totalAmount">
-                          {order?.ShipstationOrderId || "N/A"}
+                          {order?.OrderID || "N/A"}
                         </div>
                       </td>
                     </tr>
