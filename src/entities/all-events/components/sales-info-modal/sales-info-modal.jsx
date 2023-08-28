@@ -30,10 +30,10 @@ const SalesModalContent = React.forwardRef(
         "Shipping fee",
         "Stripe fee",
         "Total amount",
-        "Due Organizer",
-        "Due Treats",
         "Ship station order ID",
         "Ship Verified",
+        "Due Organizer",
+        "Due Treats",
       ]);
       selectedEvent?.orders.forEach((order) => {
         let orderItems = "";
@@ -52,6 +52,8 @@ const SalesModalContent = React.forwardRef(
           // Round off to 2 decimal places
           Math.round(parseFloat(parseFloat(order?.totalSales) || 0) * 100) /
             100,
+          order?.ShipstationOrderId || "N/A",
+          "",
           // Round off to 2 decimal places
           Math.round(parseFloat(parseFloat(order?.ownerEarnings) || 0) * 100) /
             100,
@@ -59,8 +61,6 @@ const SalesModalContent = React.forwardRef(
           Math.round(
             parseFloat(parseFloat(order?.platformEarnings) || 0) * 100
           ) / 100,
-          order?.ShipstationOrderId || "N/A",
-          "",
         ]);
       });
       setCsvData(csvData);
