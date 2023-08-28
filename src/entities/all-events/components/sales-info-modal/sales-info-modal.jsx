@@ -11,6 +11,8 @@ const SalesModalContent = React.forwardRef(
     const [showCustomerDetails, setShowCustomerDetails] = useState(false);
     const [isPrinting, setIsPrinting] = useState(false);
 
+    console.log("selectedEvent 92123332:>> ", selectedEvent);
+
     const _onPrint = () => {
       setIsPrinting(true);
       setTimeout(() => {
@@ -21,7 +23,7 @@ const SalesModalContent = React.forwardRef(
       }, 5000);
     };
     return (
-      <div className="popupSalesWrapper" >
+      <div className="popupSalesWrapper">
         <div className="popupInner" ref={ref}>
           <div className="popupHeader">
             <div className="left">
@@ -39,7 +41,7 @@ const SalesModalContent = React.forwardRef(
             </div>
           </div>
 
-          <div className="tableInnerWrapper" >
+          <div className="tableInnerWrapper">
             <div class="table-responsive">
               <table class="table">
                 <col width="40px" />
@@ -50,6 +52,9 @@ const SalesModalContent = React.forwardRef(
                 <col width="200px" />
                 <col width="200px" />
                 <col width="200px" />
+                <col width="200px" />
+                <col width="200px" />
+
                 <col width="300px" />
 
                 <thead>
@@ -131,6 +136,30 @@ const SalesModalContent = React.forwardRef(
                       className="small font-weight-bold text-center"
                     >
                       <div className="innerWrapper d-flex align-center justify-content-center">
+                        Amount owned to organizer
+                        <div className="tableSort ml-1 d-grid">
+                          {/* <i className="fa fa-chevron-up"></i>
+                          <i className="fa fa-chevron-down"></i> */}
+                        </div>
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
+                        To Treats Island
+                        <div className="tableSort ml-1 d-grid">
+                          {/* <i className="fa fa-chevron-up"></i>
+                          <i className="fa fa-chevron-down"></i> */}
+                        </div>
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-center">
                         Ship station order ID
                         {/* <div className="tableSort ml-1 d-grid">
                           <i className="fa fa-chevron-up"></i>
@@ -162,17 +191,17 @@ const SalesModalContent = React.forwardRef(
                           {order?.orderItems.map((orderItem, index) => (
                             <div className="item" key={index}>
                               <div className="image-wrapper">
-                                {
-                                  isPrinting? (<></>): (
-                                    <img
-                                      src={
-                                        orderItem?.product?.imageLink ||
-                                        "https://placehold.co/600x400"
-                                      }
-                                      alt=""
-                                    />
-                                  )
-                                }
+                                {isPrinting ? (
+                                  <></>
+                                ) : (
+                                  <img
+                                    src={
+                                      orderItem?.product?.imageLink ||
+                                      "https://placehold.co/600x400"
+                                    }
+                                    alt=""
+                                  />
+                                )}
                               </div>
                               <div className="productName">
                                 {orderItem?.product?.Product}
@@ -198,18 +227,47 @@ const SalesModalContent = React.forwardRef(
                         </div>
                       </td>
                       <td>
-                      <div className="totalAmount">
-                      $ {
-                        // Round off to 2 decimal places
-                        (Math.round((
-                          (parseFloat(parseFloat(order?._totalOrderValue) || 0) + (parseFloat(order?.DeliveryCost) || 0) + (parseFloat(order?.PaymentGatewayCharges) || 0))
-                        ) * 100) / 100)
-                        
-                          
-                        }
+                        <div className="totalAmount">
+                          ${" "}
+                          {
+                            // Round off to 2 decimal places
+                            Math.round(
+                              parseFloat(parseFloat(order?.totalSales) || 0) *
+                                100
+                            ) / 100
+                          }
                         </div>
-                        </td>
-                        <td>
+                      </td>
+
+                      <td>
+                        <div className="totalAmount">
+                          ${" "}
+                          {
+                            // Round off to 2 decimal places
+                            Math.round(
+                              parseFloat(
+                                parseFloat(order?.ownerEarnings) || 0
+                              ) * 100
+                            ) / 100
+                          }
+                        </div>
+                      </td>
+
+                      <td>
+                        <div className="totalAmount">
+                          ${" "}
+                          {
+                            // Round off to 2 decimal places
+                            Math.round(
+                              parseFloat(
+                                parseFloat(order?.platformEarnings) || 0
+                              ) * 100
+                            ) / 100
+                          }
+                        </div>
+                      </td>
+
+                      <td>
                         <div className="totalAmount">
                           {order?.ShipstationOrderId || "N/A"}
                         </div>
