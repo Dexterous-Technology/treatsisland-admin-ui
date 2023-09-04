@@ -77,7 +77,10 @@ const EventUtils = {
       _formattedEndDate: moment(parseInt(copyOfEvent.EndDate)).format(
         Standard.dateFormat
       ),
-      _status: EventUtils._getStatus(copyOfEvent.StartDate, copyOfEvent.EndDate),
+      _status: EventUtils._getStatus(
+        copyOfEvent.StartDate,
+        copyOfEvent.EndDate
+      ),
       _daysAgo: EventUtils._getDaysAgo(parseInt(copyOfEvent.CreatedOn)),
     };
     if (formattedEvent.orders?.length) {
@@ -143,6 +146,13 @@ const EventUtils = {
     );
     copyOfEvents[eventIndex] = formattedEvent;
     store.dispatch(setEvents(copyOfEvents));
+    try {
+      ApiCalls.event.admin.updateEventDate({
+        eventId: updatedEvent.EventID,
+        startDate: newStartDate,
+        endDate: newEndDate,
+      });
+    } catch (error) {}
   },
 };
 

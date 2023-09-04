@@ -13,11 +13,12 @@ const EventStatusbadge = ({
   startDate: _startDate,
   endDate: _endDate,
   eventOrganizer,
-  event
+  event,
 }) => {
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
   const [isDatePickerVisible, setIsDatePickerVisible] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const _generateClassName = (status) => {
     switch (status) {
@@ -38,11 +39,12 @@ const EventStatusbadge = ({
 
   const _reset = () => {
     setIsDatePickerVisible(false);
+    setErrorMessage("");
   };
 
   useEffect(() => {
     if (_startDate && _endDate) {
-      console.log('_startDate 8989891:>> ', _startDate);
+      console.log("_startDate 8989891:>> ", _startDate);
       setStartDate(parseInt(_startDate));
       setEndDate(parseInt(_endDate));
     }
@@ -50,12 +52,16 @@ const EventStatusbadge = ({
 
   const _submit = (e) => {
     e.preventDefault();
-    console.log('startDate :>> ', startDate);
-    console.log('endDate :>> ', endDate);
+    // If no valid date or endDate is less than startDate
+    if (!startDate || !endDate || endDate < startDate) {
+      setErrorMessage("Please enter valid dates");
+      return;
+    } else {
+      setErrorMessage("");
+    }
     EventUtils.updateEventDate(event, startDate, endDate);
     setIsDatePickerVisible(false);
   };
-
 
   const cName = _generateClassName(status);
   return (
@@ -118,6 +124,11 @@ const EventStatusbadge = ({
                             showTimeSelect
                           />
                         </div>
+                        {errorMessage?.length? (
+                          <div className="alert alert-danger">
+                            {errorMessage}
+                          </div>
+                        ): <></>}
                         <div className="text-center">
                           <button
                             type="button"
@@ -125,7 +136,11 @@ const EventStatusbadge = ({
                           >
                             Dismiss
                           </button>
-                          <button type="submit" className="btn btn-primary" onClick={_submit}>
+                          <button
+                            type="submit"
+                            className="btn btn-primary"
+                            onClick={_submit}
+                          >
                             Submit
                           </button>
                         </div>

@@ -27,6 +27,7 @@ const EventApi = {
   },
   admin: {
     loadAllEvents: () => AdminHttpClient.get(`/get-all-events`),
+    updateEventDate: (payload) => AdminHttpClient.put(`/update-event-date`, payload),
   },
 
   //super admin all events
