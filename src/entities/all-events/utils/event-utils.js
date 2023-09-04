@@ -23,7 +23,7 @@ const EventUtils = {
         EventUtils._sortAndStoreEvents(formattedEvents);
       }
     } catch (error) {
-      console.log('error :>> ', error);
+      console.log("error :>> ", error);
       store.dispatch(setEvents([]));
     }
     store.dispatch(toggleAdminLoader(false));
@@ -59,39 +59,47 @@ const EventUtils = {
     // Add formatted date
     // Add status based on start and end date
     // Add how many days ago created
-    return events.map((event) => {
-      const formattedEvent = {
-        ...event,
-        _formattedDate: moment(parseInt(event.CreatedOn)).format(
-          Standard.dateFormat
-        ),
-        _formattedStartDate: moment(parseInt(event.StartDate)).format(
-          Standard.dateFormat
-        ),
-        _formattedEndDate: moment(parseInt(event.EndDate)).format(
-          Standard.dateFormat
-        ),
-        _status: EventUtils._getStatus(event.StartDate, event.EndDate),
-        _daysAgo: EventUtils._getDaysAgo(parseInt(event.CreatedOn)),
-      };
-      if (formattedEvent.orders?.length) {
-        for (let order of formattedEvent.orders) {
+    return events.map((event) => EventUtils._formatEvent(event));
+  },
+  _formatEvent: (event) => {
+    // Add formatted date
+    // Add status based on start and end date
+    // Add how many days ago created
+    const copyOfEvent = JSON.parse(JSON.stringify(event));
+    const formattedEvent = {
+      ...copyOfEvent,
+      _formattedDate: moment(parseInt(copyOfEvent.CreatedOn)).format(
+        Standard.dateFormat
+      ),
+      _formattedStartDate: moment(parseInt(copyOfEvent.StartDate)).format(
+        Standard.dateFormat
+      ),
+      _formattedEndDate: moment(parseInt(copyOfEvent.EndDate)).format(
+        Standard.dateFormat
+      ),
+      _status: EventUtils._getStatus(
+        copyOfEvent.StartDate,
+        copyOfEvent.EndDate
+      ),
+      _daysAgo: EventUtils._getDaysAgo(parseInt(copyOfEvent.CreatedOn)),
+    };
+    if (formattedEvent.orders?.length) {
+      for (let order of formattedEvent.orders) {
+        order._totalOrderValue = EventUtils._generateTotalOrderValue(order);
+      }
+    }
+    if (formattedEvent?._storeDetails?.length) {
+      for (let store of formattedEvent._storeDetails) {
+        console.log("store :>> ", store);
+        store._totalFromAllOrders = EventUtils._generateTotalFromAllOrders(
+          store.orders
+        );
+        for (let order of store.orders) {
           order._totalOrderValue = EventUtils._generateTotalOrderValue(order);
         }
       }
-      if (formattedEvent?._storeDetails?.length) {
-        for (let store of formattedEvent._storeDetails) {
-          console.log('store :>> ', store);
-          store._totalFromAllOrders = EventUtils._generateTotalFromAllOrders(
-            store.orders
-          );
-          for (let order of store.orders) {
-            order._totalOrderValue = EventUtils._generateTotalOrderValue(order);
-          }
-        }
-      }
-      return formattedEvent;
-    });
+    }
+    return formattedEvent;
   },
   _getStatus: (startDate, endDate) => {
     const start = new Date(parseInt(startDate));
@@ -122,6 +130,29 @@ const EventUtils = {
       total += EventUtils._generateTotalOrderValue(order);
     });
     return total;
+  },
+  updateEventDate: (event, newStartDate, newEndDate) => {
+    // First update in redux
+    const updatedEvent = {
+      ...event,
+      StartDate: newStartDate,
+      EndDate: newEndDate,
+    };
+    const formattedEvent = EventUtils._formatEvent(updatedEvent);
+    const { events } = store.getState().adminStore;
+    const copyOfEvents = JSON.parse(JSON.stringify(events));
+    const eventIndex = events.findIndex(
+      (event) => event.EventID === updatedEvent.EventID
+    );
+    copyOfEvents[eventIndex] = formattedEvent;
+    store.dispatch(setEvents(copyOfEvents));
+    try {
+      ApiCalls.event.admin.updateEventDate({
+        eventId: updatedEvent.EventID,
+        startDate: newStartDate,
+        endDate: newEndDate,
+      });
+    } catch (error) {}
   },
 };
 
