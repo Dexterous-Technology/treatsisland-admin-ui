@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDatePicker from "react-datepicker";
 import "./event-status-badge.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import OutsideClickHandler from "react-outside-click-handler";
+import EventUtils from "../../utils/event-utils";
 
 const EventStatusbadge = ({
   status,
@@ -12,6 +13,7 @@ const EventStatusbadge = ({
   startDate: _startDate,
   endDate: _endDate,
   eventOrganizer,
+  event
 }) => {
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
@@ -37,6 +39,23 @@ const EventStatusbadge = ({
   const _reset = () => {
     setIsDatePickerVisible(false);
   };
+
+  useEffect(() => {
+    if (_startDate && _endDate) {
+      console.log('_startDate 8989891:>> ', _startDate);
+      setStartDate(parseInt(_startDate));
+      setEndDate(parseInt(_endDate));
+    }
+  }, [isDatePickerVisible]);
+
+  const _submit = (e) => {
+    e.preventDefault();
+    console.log('startDate :>> ', startDate);
+    console.log('endDate :>> ', endDate);
+    EventUtils.updateEventDate(event, startDate, endDate);
+    setIsDatePickerVisible(false);
+  };
+
 
   const cName = _generateClassName(status);
   return (
@@ -86,8 +105,8 @@ const EventStatusbadge = ({
                           <label htmlFor="endDate">End Date</label>
                           <ReactDatePicker
                             selected={
-                              startDate
-                                ? moment(startDate).toDate()
+                              endDate
+                                ? moment(endDate).toDate()
                                 : moment().add(0, "days").toDate()
                             }
                             onChange={(date) => {
@@ -106,7 +125,7 @@ const EventStatusbadge = ({
                           >
                             Dismiss
                           </button>
-                          <button type="submit" className="btn btn-primary">
+                          <button type="submit" className="btn btn-primary" onClick={_submit}>
                             Submit
                           </button>
                         </div>

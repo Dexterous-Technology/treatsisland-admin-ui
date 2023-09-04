@@ -30,6 +30,7 @@ const ListingAllEvent = ({
               startDate={event.StartDate}
               endDate={event.EndDate}
               eventOrganizer={event.EventName}
+              event={event}
             />
           </td>
           {/* <td className="text-center">
