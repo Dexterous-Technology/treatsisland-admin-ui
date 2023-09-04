@@ -1,7 +1,22 @@
 import React from "react";
+import ReactDatePicker from "react-datepicker";
 import "./event-status-badge.scss";
+import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+import OutsideClickHandler from "react-outside-click-handler";
 
-const EventStatusbadge = ({ status, formattedStartDate, formattedEndDate }) => {
+const EventStatusbadge = ({
+  status,
+  formattedStartDate,
+  formattedEndDate,
+  startDate: _startDate,
+  endDate: _endDate,
+  eventOrganizer,
+}) => {
+  const [startDate, setStartDate] = React.useState("");
+  const [endDate, setEndDate] = React.useState("");
+  const [isDatePickerVisible, setIsDatePickerVisible] = React.useState(false);
+
   const _generateClassName = (status) => {
     switch (status) {
       case "Completed":
@@ -15,12 +30,97 @@ const EventStatusbadge = ({ status, formattedStartDate, formattedEndDate }) => {
     }
   };
 
+  const _toggleDatePicker = () => {
+    setIsDatePickerVisible(!isDatePickerVisible);
+  };
+
+  const _reset = () => {
+    setIsDatePickerVisible(false);
+  };
+
   const cName = _generateClassName(status);
   return (
-    <>  
-      <span className={cName}>{status}</span>
-      <div className="dateRange">{formattedStartDate}</div>
-      <div className="dateRange">{formattedEndDate}</div>
+    <>
+      <div className={`statusWrapper`}>
+        <div className="left">
+          <span className={cName}>{status}</span>
+          <div className="dateRange">{formattedStartDate}</div>
+          <div className="dateRange">{formattedEndDate}</div>
+        </div>
+        <div className="right">
+          {/* Bootstap pencil icon as a button */}
+          <button
+            className="btn btn-outline-secondary btn-sm"
+            onClick={_toggleDatePicker}
+          >
+            <i className="fa fa-pencil"></i>
+          </button>
+          {isDatePickerVisible ? (
+            <>
+              <OutsideClickHandler onOutsideClick={_reset}>
+                <div className="dateEditorPopup">
+                  <div className="card">
+                    <div className="">
+                      <h3 className="text-center title">{eventOrganizer}</h3>
+                    </div>
+                    <div className="card-body">
+                      <form>
+                        <div className="form-group">
+                          <label htmlFor="startDate">Start Date</label>
+                          <ReactDatePicker
+                            selected={
+                              startDate
+                                ? moment(startDate).toDate()
+                                : moment().add(0, "days").toDate()
+                            }
+                            onChange={(date) => {
+                              setStartDate(+moment(date).toDate());
+                            }}
+                            timeInputLabel="Time:"
+                            dateFormat="MM/dd/yyyy h:mm aa"
+                            showTimeInput
+                            showTimeSelect
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="endDate">End Date</label>
+                          <ReactDatePicker
+                            selected={
+                              startDate
+                                ? moment(startDate).toDate()
+                                : moment().add(0, "days").toDate()
+                            }
+                            onChange={(date) => {
+                              setEndDate(+moment(date).toDate());
+                            }}
+                            timeInputLabel="Time:"
+                            dateFormat="MM/dd/yyyy h:mm aa"
+                            showTimeInput
+                            showTimeSelect
+                          />
+                        </div>
+                        <div className="text-center">
+                          <button
+                            type="button"
+                            className="btn btn-secondary mr-2"
+                          >
+                            Dismiss
+                          </button>
+                          <button type="submit" className="btn btn-primary">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </OutsideClickHandler>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
     </>
   );
 };

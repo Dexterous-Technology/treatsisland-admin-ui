@@ -27,6 +27,9 @@ const ListingAllEvent = ({
               status={event._status}
               formattedStartDate={event._formattedStartDate}
               formattedEndDate={event._formattedEndDate}
+              startDate={event.StartDate}
+              endDate={event.EndDate}
+              eventOrganizer={event.EventName}
             />
           </td>
           {/* <td className="text-center">

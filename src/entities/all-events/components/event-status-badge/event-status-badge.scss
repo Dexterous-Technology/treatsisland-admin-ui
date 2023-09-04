@@ -1,4 +1,57 @@
-.dateRange {
-    font-weight: 600;
-    font-size: 0.7rem;
+.statusWrapper {
+    .dateRange {
+        font-weight: 600;
+        font-size: 0.7rem;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // .dateEditorPopup {
+    //     display: none;
+    // }
+
+
+    .right {
+        position: relative;
+
+        .dateEditorPopup {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: white;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+            min-width: 500px;
+            min-height: 200px;
+            padding: 10px;
+            z-index: 100;
+
+
+            .form-group {
+                display: flex;
+                label {
+                    color: black !important;
+                    width: 150px;
+                }
+            }
+
+            .title {
+                font-weight: 600;
+                font-size: 1rem;
+                margin-bottom: 10px;
+                color: black;
+                margin-top: 0.8rem;
+                margin-bottom: 0rem;
+            }
+
+            .react-datepicker-popper {
+                width: 300px;
+            }
+
+        }
+
+    }
+
 }
