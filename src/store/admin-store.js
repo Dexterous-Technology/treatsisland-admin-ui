@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  sortedProducts:[],
   events: [],
   isLoaderActive: false,
   productSotringOptions: {
@@ -20,6 +21,9 @@ export const adminStoreSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       state.products = action.payload;
+    },
+    setSortedProducts: (state, action) => {
+      state.sortedProducts = action.payload;
     },
     setEvents: (state, action) => {
       state.events = action.payload;
@@ -51,6 +55,7 @@ export const adminStoreSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   setProducts,
+  setSortedProducts,
   setEvents,
   clearAdminStore,
   toggleAdminLoader,

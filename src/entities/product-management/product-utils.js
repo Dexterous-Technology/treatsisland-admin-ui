@@ -1,7 +1,12 @@
 import { cloneDeep } from "lodash";
 import ApiCalls from "../../api";
 import { store } from "../../store";
-import { setProducts, toggleAdminLoader } from "../../store/admin-store";
+import {
+  setProducts,
+  toggleAdminLoader,
+  setSortedProducts,
+  setProductSortingOptions
+} from "../../store/admin-store";
 import { EventEmitter } from "../../utils/event-emitter";
 import EventNames from "../../const/event-names";
 
@@ -17,7 +22,9 @@ const ProductUtils = {
     try {
       const { data } = await ApiCalls.product.public.getAllProducts();
       if (data?.data?.allProducts?.length) {
-        // Sort and store
+        // Store all Products without sorting
+        ProductUtils._storeAllProducts(data.data.allProducts);
+        // Sort and store Products
         ProductUtils._sortAndStoreProducts(data.data.allProducts);
       }
     } catch (error) {
@@ -82,7 +89,9 @@ const ProductUtils = {
     // Sort and store
     ProductUtils._sortAndStoreProducts(newProducts);
     // Also grab the product to send as payload
-    const product = copyProducts.find((product) => product.ProductID === productId);
+    const product = copyProducts.find(
+      (product) => product.ProductID === productId
+    );
     const copyOfProduct = cloneDeep(product);
     copyOfProduct.isActive = isActive.toString();
     try {
@@ -94,21 +103,39 @@ const ProductUtils = {
   _sortAndStoreProducts: (products) => {
     // Filter out the inactive products
     products = products.filter((product) => product.isLatestVersion === "true");
-    // Sort the products by ProductName
+    // Sort the products as per productSotringOptions
     const sortedProducts = ProductUtils._sortProducts(products);
-    store.dispatch(setProducts(sortedProducts));
+    store.dispatch(setSortedProducts(sortedProducts));
   },
   _sortProducts: (products) => {
+    const {
+      adminStore: { productSotringOptions },
+    } = store.getState();
+    const { sortBy, sortOrder } = productSotringOptions;
     return products.sort((a, b) => {
-      if (a.Product < b.Product) {
-        return -1;
+      const first =
+        typeof a[sortBy] === "string" ? a[sortBy].toLowerCase() : a[sortBy];
+      const second =
+        typeof b[sortBy] === "string" ? b[sortBy].toLowerCase() : b[sortBy];
+      if (first < second) {
+        return sortOrder === "asc" ? -1 : 1;
       }
-      if (a.Product > b.Product) {
-        return 1;
+      if (first > second) {
+        return sortOrder === "desc" ? -1 : 1;
       }
       return 0;
     });
   },
+  _storeAllProducts: (products) => {
+    store.dispatch(setProducts(products));
+  },
+  applySort:({sortBy, sortOrder})=>{
+    store.dispatch(setProductSortingOptions({sortBy, sortOrder}));
+    const {
+      adminStore: { products },
+    } = store.getState();
+    ProductUtils._sortAndStoreProducts(products);
+  }
 };
 
 export default ProductUtils;
