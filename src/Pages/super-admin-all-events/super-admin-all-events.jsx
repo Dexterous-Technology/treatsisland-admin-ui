@@ -234,6 +234,9 @@ const SuperAdminAllEvents = () => {
                       />
 
 
+
+
+                      {/* ******************************* DEMO DATA FOR TABLE */}
                       <tr>
                         <td className="text-center">99</td>
                         <td className="text-left">
@@ -279,13 +282,14 @@ const SuperAdminAllEvents = () => {
                           </div>
                         </td>
                       </tr>
+                      {/* ******************************* /DEMO DATA FOR TABLE */}
 
 
                     </tbody>
                   </table>
                   
 
-
+                  {/* ******************************** MORE INFO MODAL */}
                   <div className={"modalMoreInfo " + (moreInfo ? "show" : "")}>
                     <div className="overlay" onClick={(e) => setMoreInfo(false)}></div>
                     <div className="modalInner">
@@ -352,6 +356,7 @@ const SuperAdminAllEvents = () => {
                       </div>
                     </div>
                   </div>
+                  {/* ******************************** /MORE INFO MODAL */}
 
                 </div>
               </div>
