@@ -7,6 +7,7 @@ import BankInfoPopup from "../../entities/all-events/components/bank-info/bank-i
 import PopupStore from "../../entities/all-events/components/popup-store/popup-store";
 import EventUtils from "../../entities/all-events/utils/event-utils";
 import SalesInfoModal from "../../entities/all-events/components/sales-info-modal/sales-info-modal";
+import EventStatusbadge from "../../entities/all-events/components/event-status-badge/event-status-badge";
 
 const SuperAdminAllEvents = () => {
   const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
@@ -46,6 +47,9 @@ const SuperAdminAllEvents = () => {
   useEffect(() => {
     _loadEvents();
   }, []);
+
+
+  const [moreInfo,  setMoreInfo] = useState(false);
 
   return (
     <div id="wrapper" className="superAdminDashboardWrapper all-events">
@@ -205,13 +209,13 @@ const SuperAdminAllEvents = () => {
                           {" "}
                           Popup stores{" "}
                         </th>
-                        <th
+                        {/* <th
                           scope="col"
                           className="small font-weight-bold text-center"
                         >
                           {" "}
                           Bank info{" "}
-                        </th>
+                        </th> */}
                         <th
                           scope="col"
                           className="small font-weight-bold text-center"
@@ -228,8 +232,127 @@ const SuperAdminAllEvents = () => {
                         onClickAllPopupStore={_showPopupStoreModal}
                         onSalesInfoClick={_showSalesInfoModal}
                       />
+
+
+                      <tr>
+                        <td className="text-center">99</td>
+                        <td className="text-left">
+                          <div className="moreInfoToggle" onClick={(e) => setMoreInfo(true)}>
+                            <b title="Event name's event">Event name's event</b>
+                            <span className="moreInfo" title="More information"><i className="fa fa-info-circle"></i></span>
+                          </div>
+                        </td>
+                        <td className="text-center">kakaka</td>
+                        <td className="text-center">5th nov 2023</td>
+                        <td className="text-center">
+                          <EventStatusbadge
+                            status={"active"}
+                            formattedStartDate={"5th nov 2023"}
+                            formattedEndDate={"10th nov 2023"}
+                            // startDate={event.StartDate}
+                            // endDate={event.EndDate}
+                            eventOrganizer={"EventName"}
+                            // event={event}
+                          />
+                        </td>
+                        <td className="text-center"> <b className="m-0">$ 500</b> </td>
+                        <td className="text-center">$ 200</td>
+                        <td className="text-center">$ 300</td>
+                        <td className="text-center">
+                          <div className="popupStoreButton">
+                            <div
+                              className="btn btn-light btn-sm"
+                              // onClick={(e) => onClickAllPopupStore(event)}
+                            >
+                              View
+                            </div>
+                          </div>
+                        </td>
+                        <td className="text-center">
+                          <div className="bankInfoButton">
+                            <div
+                              className="btn btn-light btn-sm"
+                              // onClick={(e) => onSalesInfoClick(event)}
+                            >
+                              View
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+
                     </tbody>
                   </table>
+                  
+
+
+                  <div className={"modalMoreInfo " + (moreInfo ? "show" : "")}>
+                    <div className="overlay" onClick={(e) => setMoreInfo(false)}></div>
+                    <div className="modalInner">
+                      <div className="closeModal">
+                        <div className="modalTitle">More info for Event name's event</div>
+                        <i className="fa fa-times" onClick={(e) => setMoreInfo(false)}></i>
+                      </div>
+
+                      <div className="modalContent">
+                        <div className="modalSection">
+                          <div className="modalSectionTitle">Contact details</div>
+                          <div className="item">
+                            <span className="label">Email address:</span>
+                            <span className="data">email@address.com</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+                          <div className="item">
+                            <span className="label">Cellphone:</span>
+                            <span className="data">+9191919191</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+                        </div>
+
+
+                        <div className="modalSection">
+                          <div className="modalSectionTitle">Organisation details</div>
+                          <div className="item">
+                            <span className="label">Organisation name:</span>
+                            <span className="data">John Doe's Organisation</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+                          <div className="item">
+                            <span className="label">Type of organisation:</span>
+                            <span className="data">type</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+                        </div>
+
+
+                        <div className="modalSection">
+                          <div className="modalSectionTitle">Bank details</div>
+                          <div className="item">
+                            <span className="label">Full name:</span>
+                            <span className="data">John doe</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+                          <div className="item">
+                            <span className="label">Bank name:</span>
+                            <span className="data">John doe's bank</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+                          <div className="item">
+                            <span className="label">Bank account number:</span>
+                            <span className="data">123456789</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+                          <div className="item">
+                            <span className="label">Bank routing number:</span>
+                            <span className="data">545543.1</span>
+                            <span className="copy"><i className="far fa-copy"></i></span>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <SalesInfoModal />
