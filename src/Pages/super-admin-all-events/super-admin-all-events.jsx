@@ -325,8 +325,7 @@ const SuperAdminAllEvents = () => {
                                 </span>
                                 <TextWithCopy
                                   text={
-                                    moreInfoModal?._organization
-                                      .OrganizationType
+                                    moreInfoModal?._organization?.OrganizationType?.OrganizationType
                                   }
                                 />
                               </div>
