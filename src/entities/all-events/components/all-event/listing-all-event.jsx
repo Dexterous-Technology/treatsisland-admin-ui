@@ -6,6 +6,7 @@ const ListingAllEvent = ({
   onClickBankInfo = () => {},
   onClickAllPopupStore = () => {},
   onSalesInfoClick = () => {},
+  onClickMoreInfo = () => {},
 }) => {
   const { events } = useSelector((state) => state.adminStore);
 
@@ -19,6 +20,9 @@ const ListingAllEvent = ({
           <td className="text-center">{index + 1}</td>
           <td className="text-left">
             <b>{event.EventName}</b>
+            <span className="moreInfo" title="More information"
+              onClick={(e) => onClickMoreInfo(event)}
+            ><i className="fa fa-info-circle"></i></span>
           </td>
           <td className="text-center">{event.EventCode}</td>
           <td className="text-center">{event._formattedDate}</td>

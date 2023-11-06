@@ -74,9 +74,9 @@ const BankInfoPopup = ({ isVisible, onModalDismiss, selectedEvent }) => {
               </>
             ) : (
               <>
-              <div className="noDetailsWrapper">
-                <h6>No payout details information</h6>
-              </div>
+                <div className="noDetailsWrapper">
+                  <h6>No payout details information</h6>
+                </div>
               </>
             )}
           </div>
