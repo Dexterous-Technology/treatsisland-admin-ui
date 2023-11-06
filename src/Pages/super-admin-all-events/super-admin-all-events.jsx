@@ -261,62 +261,6 @@ const SuperAdminAllEvents = () => {
                         onSalesInfoClick={_showSalesInfoModal}
                         onClickMoreInfo={_showMoreInfoModal}
                       />
-
-                      {/* ******************************* DEMO DATA FOR TABLE */}
-                      <tr>
-                        <td className="text-center">99</td>
-                        <td className="text-left">
-                          <div
-                            className="moreInfoToggle"
-                            onClick={(e) => setMoreInfo(true)}
-                          >
-                            <b title="Event name's event">Event name's event</b>
-                            <span className="moreInfo" title="More information">
-                              <i className="fa fa-info-circle"></i>
-                            </span>
-                          </div>
-                        </td>
-                        <td className="text-center">kakaka</td>
-                        <td className="text-center">5th nov 2023</td>
-                        <td className="text-center">
-                          <EventStatusbadge
-                            status={"active"}
-                            formattedStartDate={"5th nov 2023"}
-                            formattedEndDate={"10th nov 2023"}
-                            // startDate={event.StartDate}
-                            // endDate={event.EndDate}
-                            eventOrganizer={"EventName"}
-                            // event={event}
-                          />
-                        </td>
-                        <td className="text-center">
-                          {" "}
-                          <b className="m-0">$ 500</b>{" "}
-                        </td>
-                        <td className="text-center">$ 200</td>
-                        <td className="text-center">$ 300</td>
-                        <td className="text-center">
-                          <div className="popupStoreButton">
-                            <div
-                              className="btn btn-light btn-sm"
-                              // onClick={(e) => onClickAllPopupStore(event)}
-                            >
-                              View
-                            </div>
-                          </div>
-                        </td>
-                        <td className="text-center">
-                          <div className="bankInfoButton">
-                            <div
-                              className="btn btn-light btn-sm"
-                              // onClick={(e) => onSalesInfoClick(event)}
-                            >
-                              View
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      {/* ******************************* /DEMO DATA FOR TABLE */}
                     </tbody>
                   </table>
 
