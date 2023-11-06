@@ -9,9 +9,29 @@ import EventUtils from "../../entities/all-events/utils/event-utils";
 import SalesInfoModal from "../../entities/all-events/components/sales-info-modal/sales-info-modal";
 import EventStatusbadge from "../../entities/all-events/components/event-status-badge/event-status-badge";
 
+const TextWithCopy = ({ text }) => {
+  const _copyToClipboard = () => {
+    navigator.clipboard.writeText(text);
+  };
+
+  return (
+    <>
+      <span className="data">{text?.length ? text : "NA"}</span>
+      {text?.length ? (
+        <span className="copy" onClick={_copyToClipboard}>
+          <i className="far fa-copy"></i>
+        </span>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+};
+
 const SuperAdminAllEvents = () => {
   const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
     useState(false);
+  const [moreInfoModal, setMoreInfoModal] = useState(null);
 
   const [bankInfoModalOptions, setBankInfoModalOptions] = useState({
     isVisible: false,
@@ -36,6 +56,15 @@ const SuperAdminAllEvents = () => {
     EventUtils.showEventPopups(event);
   };
 
+  const _showMoreInfoModal = (event) => {
+    console.log("event :>> ", event);
+    setMoreInfoModal(event);
+  };
+
+  const _hideMoreInfoModal = () => {
+    setMoreInfoModal(null);
+  };
+
   const _showSalesInfoModal = (event) => {
     EventUtils.showSalesInfoModal(event);
   };
@@ -48,8 +77,7 @@ const SuperAdminAllEvents = () => {
     _loadEvents();
   }, []);
 
-
-  const [moreInfo,  setMoreInfo] = useState(false);
+  const [moreInfo, setMoreInfo] = useState(false);
 
   return (
     <div id="wrapper" className="superAdminDashboardWrapper all-events">
@@ -231,18 +259,21 @@ const SuperAdminAllEvents = () => {
                         onClickBankInfo={_showBankInfoModal}
                         onClickAllPopupStore={_showPopupStoreModal}
                         onSalesInfoClick={_showSalesInfoModal}
+                        onClickMoreInfo={_showMoreInfoModal}
                       />
-
-
-
 
                       {/* ******************************* DEMO DATA FOR TABLE */}
                       <tr>
                         <td className="text-center">99</td>
                         <td className="text-left">
-                          <div className="moreInfoToggle" onClick={(e) => setMoreInfo(true)}>
+                          <div
+                            className="moreInfoToggle"
+                            onClick={(e) => setMoreInfo(true)}
+                          >
                             <b title="Event name's event">Event name's event</b>
-                            <span className="moreInfo" title="More information"><i className="fa fa-info-circle"></i></span>
+                            <span className="moreInfo" title="More information">
+                              <i className="fa fa-info-circle"></i>
+                            </span>
                           </div>
                         </td>
                         <td className="text-center">kakaka</td>
@@ -258,7 +289,10 @@ const SuperAdminAllEvents = () => {
                             // event={event}
                           />
                         </td>
-                        <td className="text-center"> <b className="m-0">$ 500</b> </td>
+                        <td className="text-center">
+                          {" "}
+                          <b className="m-0">$ 500</b>{" "}
+                        </td>
                         <td className="text-center">$ 200</td>
                         <td className="text-center">$ 300</td>
                         <td className="text-center">
@@ -283,81 +317,172 @@ const SuperAdminAllEvents = () => {
                         </td>
                       </tr>
                       {/* ******************************* /DEMO DATA FOR TABLE */}
-
-
                     </tbody>
                   </table>
-                  
 
                   {/* ******************************** MORE INFO MODAL */}
-                  <div className={"modalMoreInfo " + (moreInfo ? "show" : "")}>
-                    <div className="overlay" onClick={(e) => setMoreInfo(false)}></div>
-                    <div className="modalInner">
-                      <div className="closeModal">
-                        <div className="modalTitle">More info for Event name's event</div>
-                        <i className="fa fa-times" onClick={(e) => setMoreInfo(false)}></i>
-                      </div>
-
-                      <div className="modalContent">
-                        <div className="modalSection">
-                          <div className="modalSectionTitle">Contact details</div>
-                          <div className="item">
-                            <span className="label">Email address:</span>
-                            <span className="data">email@address.com</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
+                  <div
+                    className={"modalMoreInfo " + (moreInfoModal ? "show" : "")}
+                  >
+                    {moreInfoModal ? (
+                      <>
+                        <div
+                          className="overlay"
+                          onClick={_hideMoreInfoModal}
+                        ></div>
+                        <div className="modalInner">
+                          <div className="closeModal">
+                            <div className="modalTitle">
+                              More info for Event name's event
+                            </div>
+                            <i
+                              className="fa fa-times"
+                              onClick={_hideMoreInfoModal}
+                            ></i>
                           </div>
-                          <div className="item">
-                            <span className="label">Cellphone:</span>
-                            <span className="data">+9191919191</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
+
+                          <div className="modalContent">
+                            <div className="modalSection">
+                              <div className="modalSectionTitle">
+                                Contact details
+                              </div>
+                              <div className="item">
+                                <span className="label">Email address:</span>
+                                <TextWithCopy
+                                  text={moreInfoModal?._user.Email}
+                                />
+                              </div>
+                              <div className="item">
+                                <span className="label">Cellphone:</span>
+                                <TextWithCopy
+                                  text={moreInfoModal?._user.MobileNumber}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="modalSection">
+                              <div className="modalSectionTitle">
+                                Organisation details
+                              </div>
+                              <div className="item">
+                                <span className="label">
+                                  Organisation name:
+                                </span>
+                                <TextWithCopy
+                                  text={
+                                    moreInfoModal?._organization
+                                      .OrganizationName
+                                  }
+                                />
+                              </div>
+                              <div className="item">
+                                <span className="label">
+                                  Type of organisation:
+                                </span>
+                                <TextWithCopy
+                                  text={
+                                    moreInfoModal?._organization
+                                      .OrganizationType
+                                  }
+                                />
+                              </div>
+                            </div>
+
+                            <div className="modalSection">
+                              <div className="modalSectionTitle">
+                                Bank details
+                              </div>
+                              {moreInfoModal?._payoutDetails?.PayoutType ===
+                              "Mail check" ? (
+                                <>
+                                  <div className="item">
+                                    <span className="label">Full name:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.Fullname
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">Street:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.Street
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">City:</span>
+                                    <TextWithCopy
+                                      text={moreInfoModal?._payoutDetails?.City}
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">State:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.State
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">Zip:</span>
+                                    <TextWithCopy
+                                      text={moreInfoModal?._payoutDetails?.Zip}
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="item">
+                                    <span className="label">Full name:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.Fullname
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">Bank name:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.BankName
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">
+                                      Bank account number:
+                                    </span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails
+                                          ?.BankAccountNumber
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">
+                                      Bank routing number:
+                                    </span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails
+                                          ?.BankRoutingNumber
+                                      }
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </div>
                           </div>
                         </div>
-
-
-                        <div className="modalSection">
-                          <div className="modalSectionTitle">Organisation details</div>
-                          <div className="item">
-                            <span className="label">Organisation name:</span>
-                            <span className="data">John Doe's Organisation</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
-                          </div>
-                          <div className="item">
-                            <span className="label">Type of organisation:</span>
-                            <span className="data">type</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
-                          </div>
-                        </div>
-
-
-                        <div className="modalSection">
-                          <div className="modalSectionTitle">Bank details</div>
-                          <div className="item">
-                            <span className="label">Full name:</span>
-                            <span className="data">John doe</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
-                          </div>
-                          <div className="item">
-                            <span className="label">Bank name:</span>
-                            <span className="data">John doe's bank</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
-                          </div>
-                          <div className="item">
-                            <span className="label">Bank account number:</span>
-                            <span className="data">123456789</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
-                          </div>
-                          <div className="item">
-                            <span className="label">Bank routing number:</span>
-                            <span className="data">545543.1</span>
-                            <span className="copy"><i className="far fa-copy"></i></span>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   {/* ******************************** /MORE INFO MODAL */}
-
                 </div>
               </div>
               <SalesInfoModal />
