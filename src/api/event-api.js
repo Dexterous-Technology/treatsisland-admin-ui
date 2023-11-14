@@ -1,6 +1,11 @@
 import { HttpClient } from "../clients/http-client";
 
-const { ProtectedHttpClient, PublicHttpClient, AdminHttpClient, UrlHttpClient } = HttpClient;
+const {
+  ProtectedHttpClient,
+  PublicHttpClient,
+  AdminHttpClient,
+  UrlHttpClient,
+} = HttpClient;
 
 const EventApi = {
   public: {
@@ -27,7 +32,10 @@ const EventApi = {
   },
   admin: {
     loadAllEvents: () => AdminHttpClient.get(`/get-all-events`),
-    updateEventDate: (payload) => AdminHttpClient.put(`/update-event-date`, payload),
+    updateEventDate: (payload) =>
+      AdminHttpClient.put(`/update-event-date`, payload),
+    archiveEvent: (eventId) =>
+      AdminHttpClient.put(`/archive-event`, { eventId }),
   },
 
   //super admin all events

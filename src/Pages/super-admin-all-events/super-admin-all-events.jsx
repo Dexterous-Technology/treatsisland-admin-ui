@@ -148,6 +148,14 @@ const SuperAdminAllEvents = () => {
                           scope="col"
                           className="small font-weight-bold text-center"
                         >
+                          <div className="innerWrapper d-flex align-center">
+                            Actions
+                            </div>
+                        </th>
+                        <th
+                          scope="col"
+                          className="small font-weight-bold text-center"
+                        >
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Event code
                             <div className="tableSort ml-1 d-grid">

@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import EventStatusbadge from "../event-status-badge/event-status-badge";
-
+import EventUtils from "../../utils/event-utils";
+import "./listing-all-event.scss";
 const ListingAllEvent = ({
   onClickBankInfo = () => {},
   onClickAllPopupStore = () => {},
@@ -10,19 +11,39 @@ const ListingAllEvent = ({
 }) => {
   const { events } = useSelector((state) => state.adminStore);
 
+  const showArchiveWarning = (event) => {
+    if (window.confirm("Are you sure you want to archive this event?")) {
+      EventUtils.archiveEvent(event);
+    }
+  }
+
+  const activeEvents = events.filter((event) => event.IsActive === 1);
+
   return (
     <>
-      {events.map((event, index) => (
+      {activeEvents.map((event, index) => (
         <tr key={event.EventID}>
           {/* <td className="text-center">
             <input type="checkbox" disabled/>
           </td> */}
           <td className="text-center">{index + 1}</td>
           <td className="text-left">
-            <b>{event.EventName}</b>
+            <b>{event.EventName}</b> &nbsp;
             <span className="moreInfo" title="More information"
               onClick={(e) => onClickMoreInfo(event)}
             ><i className="fa fa-info-circle"></i></span>
+            &nbsp;
+            
+          
+
+          </td>
+          <td>
+          <span className="archiveBtn" title="Archive"
+              onClick={(e) => showArchiveWarning(event)}
+            ><i className="fa fa-archive"></i> {" "}
+              Archive
+            
+            </span>
           </td>
           <td className="text-center">{event.EventCode}</td>
           <td className="text-center">{event._formattedDate}</td>
@@ -58,16 +79,7 @@ const ListingAllEvent = ({
               </div>
             </div>
           </td>
-          <td className="text-center">
-            <div className="bankInfoButton">
-              <div
-                className="btn btn-light btn-sm"
-                onClick={(e) => onClickBankInfo(event)}
-              >
-                View
-              </div>
-            </div>
-          </td>
+          
           <td className="text-center">
             <div className="bankInfoButton">
               <div
@@ -78,6 +90,7 @@ const ListingAllEvent = ({
               </div>
             </div>
           </td>
+          
         </tr>
       ))}
       {/* **************************************** MODALS - POPUP STORE */}

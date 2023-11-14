@@ -154,6 +154,24 @@ const EventUtils = {
       });
     } catch (error) {}
   },
+  archiveEvent: (event) => {
+    // First update in redux
+    const updatedEvent = {
+      ...event,
+      IsActive: 0,
+    };
+    const formattedEvent = EventUtils._formatEvent(updatedEvent);
+    const { events } = store.getState().adminStore;
+    const copyOfEvents = JSON.parse(JSON.stringify(events));
+    const eventIndex = events.findIndex(
+      (event) => event.EventID === updatedEvent.EventID
+    );
+    copyOfEvents[eventIndex] = formattedEvent;
+    store.dispatch(setEvents(copyOfEvents));
+    try {
+      ApiCalls.event.admin.archiveEvent(updatedEvent.EventID);
+    } catch (error) {}
+  },
 };
 
 export default EventUtils;
