@@ -8,7 +8,7 @@ import PopupStore from "../../entities/all-events/components/popup-store/popup-s
 import EventUtils from "../../entities/all-events/utils/event-utils";
 import SalesInfoModal from "../../entities/all-events/components/sales-info-modal/sales-info-modal";
 import EventStatusbadge from "../../entities/all-events/components/event-status-badge/event-status-badge";
-
+import { useSelector } from "react-redux";
 const TextWithCopy = ({ text }) => {
   const _copyToClipboard = () => {
     navigator.clipboard.writeText(text);
@@ -29,6 +29,9 @@ const TextWithCopy = ({ text }) => {
 };
 
 const SuperAdminAllEvents = () => {
+  const { eventSotringOptions } = useSelector((state) => state.adminStore);
+  const {sortBy, sortOrder} = eventSotringOptions
+
   const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
     useState(false);
   const [moreInfoModal, setMoreInfoModal] = useState(null);
@@ -72,6 +75,10 @@ const SuperAdminAllEvents = () => {
   const _loadEvents = () => {
     EventUtils.loadAllEvents();
   };
+
+  const _applySort = (sortBy, sortOrder)=>{
+    EventUtils.applySort({sortBy, sortOrder})
+  }
 
   useEffect(() => {
     _loadEvents();
@@ -139,9 +146,13 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center">
                             Event organizer
                             <div className="tableSort ml-1 d-grid">
+                              <i onClick={()=>_applySort('EventName', 'asc')} className={sortBy==='EventName' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                              <i onClick={()=>_applySort('EventName', 'desc')} className={sortBy==='EventName' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
+                            </div>
+                            {/* <div className="tableSort ml-1 d-grid">
                               <i className="fa fa-chevron-up"></i>
                               <i className="fa fa-chevron-down"></i>
-                            </div>
+                            </div> */}
                           </div>
                         </th>
                         <th
