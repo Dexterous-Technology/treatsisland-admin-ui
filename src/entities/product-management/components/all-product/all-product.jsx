@@ -8,7 +8,7 @@ import ToggleButton from "../../../../core/form-elements/toggle-button/toggle-bu
 const ListingAllProduct = ({ onDismiss = () => {} }) => {
   const [modalProductEdit, setModalProductEdit] = useState(true);
   const [productId, setproductId] = useState(5);
-  const { products } = useSelector((state) => state.adminStore);
+  const { sortedProducts } = useSelector((state) => state.adminStore);
 
   const _productEditModal = () => {
     onDismiss({
@@ -35,10 +35,9 @@ const ListingAllProduct = ({ onDismiss = () => {} }) => {
   useEffect(() => {
     _loadProducts();
   }, []);
-
   return (
     <>
-      {products.map((product, index) => (
+      {sortedProducts.map((product, index) => (
         <tr key={product.ProductID}>
           <td className="text-center">{index + 1}</td>
           <td className="text-center">

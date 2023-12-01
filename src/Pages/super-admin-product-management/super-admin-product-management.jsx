@@ -6,11 +6,17 @@ import "../super-admin-all-events/super-admin-dashboard.scss";
 import ListingAllProduct from "../../entities/product-management/components/all-product/all-product";
 import ProductEditor from "../../entities/product-management/components/product-editor/product-editor";
 import ProductUtils from "../../entities/product-management/product-utils";
-
+import { useSelector } from "react-redux";
 const SuperAdminProductManagement = () => {
+  const { productSotringOptions } = useSelector((state) => state.adminStore);
+  const {sortBy, sortOrder} = productSotringOptions
   const _addProduct = () => {
     ProductUtils.showProductEditorToAdd();
   };
+
+  const _applySort = (sortBy, sortOrder)=>{
+    ProductUtils.applySort({sortBy, sortOrder})
+  }
 
   return (
     <div id="wrapper" className="superAdminDashboardWrapper product-management">
@@ -71,8 +77,8 @@ const SuperAdminProductManagement = () => {
                           <div className="innerWrapper d-flex align-center">
                             Product name
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                              <i onClick={()=>_applySort('Product', 'asc')} className={sortBy==='Product' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                              <i onClick={()=>_applySort('Product', 'desc')} className={sortBy==='Product' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
                             </div>
                           </div>
                         </th>
@@ -80,8 +86,8 @@ const SuperAdminProductManagement = () => {
                           <div className="innerWrapper d-flex align-center">
                             Description
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                              <i onClick={()=>_applySort('Description', 'asc')} className={sortBy==='Description' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                              <i onClick={()=>_applySort('Description', 'desc')} className={sortBy==='Description' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
                             </div>
                           </div>
                         </th>
@@ -116,8 +122,8 @@ const SuperAdminProductManagement = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Price
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                            <i onClick={()=>_applySort('Price', 'asc')} className={sortBy==='Price' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                              <i onClick={()=>_applySort('Price', 'desc')} className={sortBy==='Price' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
                             </div>
                           </div>
                         </th>

@@ -7,10 +7,34 @@ import BankInfoPopup from "../../entities/all-events/components/bank-info/bank-i
 import PopupStore from "../../entities/all-events/components/popup-store/popup-store";
 import EventUtils from "../../entities/all-events/utils/event-utils";
 import SalesInfoModal from "../../entities/all-events/components/sales-info-modal/sales-info-modal";
+import EventStatusbadge from "../../entities/all-events/components/event-status-badge/event-status-badge";
+import { useSelector } from "react-redux";
+const TextWithCopy = ({ text }) => {
+  const _copyToClipboard = () => {
+    navigator.clipboard.writeText(text);
+  };
+
+  return (
+    <>
+      <span className="data">{text?.length ? text : "NA"}</span>
+      {text?.length ? (
+        <span className="copy" onClick={_copyToClipboard}>
+          <i className="far fa-copy"></i>
+        </span>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+};
 
 const SuperAdminAllEvents = () => {
+  const { eventSotringOptions } = useSelector((state) => state.adminStore);
+  const {sortBy, sortOrder} = eventSotringOptions
+
   const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
     useState(false);
+  const [moreInfoModal, setMoreInfoModal] = useState(null);
 
   const [bankInfoModalOptions, setBankInfoModalOptions] = useState({
     isVisible: false,
@@ -35,6 +59,15 @@ const SuperAdminAllEvents = () => {
     EventUtils.showEventPopups(event);
   };
 
+  const _showMoreInfoModal = (event) => {
+    console.log("event :>> ", event);
+    setMoreInfoModal(event);
+  };
+
+  const _hideMoreInfoModal = () => {
+    setMoreInfoModal(null);
+  };
+
   const _showSalesInfoModal = (event) => {
     EventUtils.showSalesInfoModal(event);
   };
@@ -43,9 +76,15 @@ const SuperAdminAllEvents = () => {
     EventUtils.loadAllEvents();
   };
 
+  const _applySort = (sortBy, sortOrder)=>{
+    EventUtils.applySort({sortBy, sortOrder})
+  }
+
   useEffect(() => {
     _loadEvents();
   }, []);
+
+  const [moreInfo, setMoreInfo] = useState(false);
 
   return (
     <div id="wrapper" className="superAdminDashboardWrapper all-events">
@@ -107,10 +146,22 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center">
                             Event organizer
                             <div className="tableSort ml-1 d-grid">
+                              <i onClick={()=>_applySort('EventName', 'asc')} className={sortBy==='EventName' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                              <i onClick={()=>_applySort('EventName', 'desc')} className={sortBy==='EventName' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
+                            </div>
+                            {/* <div className="tableSort ml-1 d-grid">
                               <i className="fa fa-chevron-up"></i>
                               <i className="fa fa-chevron-down"></i>
-                            </div>
+                            </div> */}
                           </div>
+                        </th>
+                        <th
+                          scope="col"
+                          className="small font-weight-bold text-center"
+                        >
+                          <div className="innerWrapper d-flex align-center">
+                            Actions
+                            </div>
                         </th>
                         <th
                           scope="col"
@@ -205,13 +256,13 @@ const SuperAdminAllEvents = () => {
                           {" "}
                           Popup stores{" "}
                         </th>
-                        <th
+                        {/* <th
                           scope="col"
                           className="small font-weight-bold text-center"
                         >
                           {" "}
                           Bank info{" "}
-                        </th>
+                        </th> */}
                         <th
                           scope="col"
                           className="small font-weight-bold text-center"
@@ -227,9 +278,173 @@ const SuperAdminAllEvents = () => {
                         onClickBankInfo={_showBankInfoModal}
                         onClickAllPopupStore={_showPopupStoreModal}
                         onSalesInfoClick={_showSalesInfoModal}
+                        onClickMoreInfo={_showMoreInfoModal}
                       />
                     </tbody>
                   </table>
+
+                  {/* ******************************** MORE INFO MODAL */}
+                  <div
+                    className={"modalMoreInfo " + (moreInfoModal ? "show" : "")}
+                  >
+                    {moreInfoModal ? (
+                      <>
+                        <div
+                          className="overlay"
+                          onClick={_hideMoreInfoModal}
+                        ></div>
+                        <div className="modalInner">
+                          <div className="closeModal">
+                            <div className="modalTitle">
+                              More info for Event name's event
+                            </div>
+                            <i
+                              className="fa fa-times"
+                              onClick={_hideMoreInfoModal}
+                            ></i>
+                          </div>
+
+                          <div className="modalContent">
+                            <div className="modalSection">
+                              <div className="modalSectionTitle">
+                                Contact details
+                              </div>
+                              <div className="item">
+                                <span className="label">Email address:</span>
+                                <TextWithCopy
+                                  text={moreInfoModal?._user.Email}
+                                />
+                              </div>
+                              <div className="item">
+                                <span className="label">Cellphone:</span>
+                                <TextWithCopy
+                                  text={moreInfoModal?._user.MobileNumber}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="modalSection">
+                              <div className="modalSectionTitle">
+                                Organisation details
+                              </div>
+                              <div className="item">
+                                <span className="label">
+                                  Organisation name:
+                                </span>
+                                <TextWithCopy
+                                  text={
+                                    moreInfoModal?._organization
+                                      .OrganizationName
+                                  }
+                                />
+                              </div>
+                              <div className="item">
+                                <span className="label">
+                                  Type of organisation:
+                                </span>
+                                <TextWithCopy
+                                  text={
+                                    moreInfoModal?._organization?.OrganizationType?.OrganizationType
+                                  }
+                                />
+                              </div>
+                            </div>
+
+                            <div className="modalSection">
+                              <div className="modalSectionTitle">
+                                Bank details
+                              </div>
+                              {moreInfoModal?._payoutDetails?.PayoutType ===
+                              "Mail check" ? (
+                                <>
+                                  <div className="item">
+                                    <span className="label">Full name:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.Fullname
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">Street:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.Street
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">City:</span>
+                                    <TextWithCopy
+                                      text={moreInfoModal?._payoutDetails?.City}
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">State:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.State
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">Zip:</span>
+                                    <TextWithCopy
+                                      text={moreInfoModal?._payoutDetails?.Zip}
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="item">
+                                    <span className="label">Full name:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.Fullname
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">Bank name:</span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails?.BankName
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">
+                                      Bank account number:
+                                    </span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails
+                                          ?.BankAccountNumber
+                                      }
+                                    />
+                                  </div>
+                                  <div className="item">
+                                    <span className="label">
+                                      Bank routing number:
+                                    </span>
+                                    <TextWithCopy
+                                      text={
+                                        moreInfoModal?._payoutDetails
+                                          ?.BankRoutingNumber
+                                      }
+                                    />
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  {/* ******************************** /MORE INFO MODAL */}
                 </div>
               </div>
               <SalesInfoModal />

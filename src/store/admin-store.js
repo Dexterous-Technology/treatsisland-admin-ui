@@ -2,10 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
+  sortedProducts:[],
   events: [],
   isLoaderActive: false,
   productSotringOptions: {
     sortBy: "Product",
+    sortOrder: "asc",
+  },
+  eventSotringOptions: {
+    sortBy: "EventName",
     sortOrder: "asc",
   },
   selectedEvent: null,
@@ -21,6 +26,9 @@ export const adminStoreSlice = createSlice({
     setProducts: (state, action) => {
       state.products = action.payload;
     },
+    setSortedProducts: (state, action) => {
+      state.sortedProducts = action.payload;
+    },
     setEvents: (state, action) => {
       state.events = action.payload;
     },
@@ -29,6 +37,9 @@ export const adminStoreSlice = createSlice({
     },
     setSelectedEvent: (state, action) => {
       state.selectedEvent = action.payload;
+    },
+    setEventSortingOptions: (state, action) => {
+      state.eventSotringOptions = action.payload;
     },
     setSelectedPopUp: (state, action) => {
       state.selectedPopUp = action.payload;
@@ -51,11 +62,13 @@ export const adminStoreSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   setProducts,
+  setSortedProducts,
   setEvents,
   clearAdminStore,
   toggleAdminLoader,
   setProductSortingOptions,
   setSelectedEvent,
+  setEventSortingOptions,
   setSelectedPopUp,
   togglePopupStoreModal,
   setSelectedOrder,
