@@ -9,6 +9,10 @@ const initialState = {
     sortBy: "Product",
     sortOrder: "asc",
   },
+  eventSotringOptions: {
+    sortBy: "EventName",
+    sortOrder: "asc",
+  },
   selectedEvent: null,
   selectedPopUp: null,
   selectedOrder: null,
@@ -33,6 +37,9 @@ export const adminStoreSlice = createSlice({
     },
     setSelectedEvent: (state, action) => {
       state.selectedEvent = action.payload;
+    },
+    setEventSortingOptions: (state, action) => {
+      state.eventSotringOptions = action.payload;
     },
     setSelectedPopUp: (state, action) => {
       state.selectedPopUp = action.payload;
@@ -61,6 +68,7 @@ export const {
   toggleAdminLoader,
   setProductSortingOptions,
   setSelectedEvent,
+  setEventSortingOptions,
   setSelectedPopUp,
   togglePopupStoreModal,
   setSelectedOrder,

@@ -6,6 +6,7 @@ import {
   setEvents,
   setSelectedEvent,
   toggleAdminLoader,
+  setEventSortingOptions,
   togglePopupStoreModal,
 } from "../../../store/admin-store";
 import { EventEmitter } from "../../../utils/event-emitter";
@@ -45,12 +46,21 @@ const EventUtils = {
     store.dispatch(setEvents(sortedEvents));
   },
   _sortEvent: (events) => {
-    return events.sort((a, b) => {
-      if (a.CreatedOn > b.CreatedOn) {
-        return -1;
+    const {
+      adminStore: { eventSotringOptions },
+    } = store.getState();
+    const { sortBy, sortOrder } = eventSotringOptions;
+
+    return events.slice().sort((a, b) => {
+      const first =
+        typeof a[sortBy] === "string" ? a[sortBy].toLowerCase() : a[sortBy];
+      const second =
+        typeof b[sortBy] === "string" ? b[sortBy].toLowerCase() : b[sortBy];
+      if (first < second) {
+        return sortOrder === "asc" ? -1 : 1;
       }
-      if (a.CreatedOn < b.CreatedOn) {
-        return 1;
+      if (first > second) {
+        return sortOrder === "desc" ? -1 : 1;
       }
       return 0;
     });
@@ -172,6 +182,15 @@ const EventUtils = {
       ApiCalls.event.admin.archiveEvent(updatedEvent.EventID);
     } catch (error) {}
   },
+
+  applySort:({sortBy, sortOrder})=>{
+    store.dispatch(setEventSortingOptions({sortBy, sortOrder}));
+    const {
+      adminStore: { events },
+    } = store.getState();
+    EventUtils._sortAndStoreEvents(events);
+  },
+
 };
 
 export default EventUtils;
