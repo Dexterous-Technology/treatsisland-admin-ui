@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "treatsisland-d238a"
+  },
+  "targets": {
+    "treatsisland-d238a": {
+      "hosting": {
+        "dev": [
+          "treats-island-admin-dev"
+        ],
+        "prod": [
+          "treatsisland-admin"
+        ]
+      }
+    }
   }
 }

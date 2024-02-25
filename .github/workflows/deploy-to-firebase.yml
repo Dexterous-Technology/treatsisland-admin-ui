@@ -1,0 +1,52 @@
+name: Deploy to Firebase
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.18.2'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Setup Environment Variables
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/master" ]; then
+            echo "REACT_APP_API_BASE_URL=https://api.treatsislandcandy.store" >> $GITHUB_ENV
+            echo "REACT_APP_PREMIUM_CANDY_STORE_CODE=_-cst5bOec" >> $GITHUB_ENV
+            echo "REACT_APP_USER_APP_BASE_URL=https://treatsislandcandy.store" >> $GITHUB_ENV
+          else
+            echo "REACT_APP_API_BASE_URL=https://admin-treatsisland.dextech-qa.com" >> $GITHUB_ENV
+            echo "REACT_APP_PREMIUM_CANDY_STORE_CODE=_-cst5bOec" >> $GITHUB_ENV
+            echo "REACT_APP_USER_APP_BASE_URL=https://admin-treatsisland.dextech-qa.com" >> $GITHUB_ENV
+          fi
+
+      - name: Build
+        run: npm run build
+
+      - name: Determine Firebase Deploy Args
+        id: deploy_args
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/master" ]; then
+            echo "::set-output name=args::deploy --only hosting:prod"
+          else
+            echo "::set-output name=args::deploy --only hosting:dev"
+          fi
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: ${{ steps.deploy_args.outputs.args }}
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
