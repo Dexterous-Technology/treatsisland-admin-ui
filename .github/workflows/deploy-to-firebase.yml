@@ -38,7 +38,7 @@ jobs:
       - name: Determine Firebase Deploy Args
         id: deploy_args
         run: |
-          if [ "${{ github.ref }}" == "refs/heads/master" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "::set-output name=args::deploy --only hosting:prod"
           else
             echo "::set-output name=args::deploy --only hosting:dev"
