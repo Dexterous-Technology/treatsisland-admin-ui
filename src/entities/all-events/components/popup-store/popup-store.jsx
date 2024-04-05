@@ -30,7 +30,7 @@ const PopupStore = ({
     }
   }, [selectedEvent?.EventID]);
 
-  const popupStoreBaseURL = `${process.env.REACT_APP_USER_APP_BASE_URL}/popup-store/`;
+  const popupStoreBaseURL = `${process.env.REACT_APP_USER_APP_BASE_URL}/popup-store`;
 
   if (selectedEvent) {
     return (

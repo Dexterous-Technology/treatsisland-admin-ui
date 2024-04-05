@@ -22,14 +22,14 @@ jobs:
 
       - name: Setup Environment Variables
         run: |
-          if [ "${{ github.ref }}" == "refs/heads/master" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "REACT_APP_API_BASE_URL=https://api.treatsislandcandy.store" >> $GITHUB_ENV
             echo "REACT_APP_PREMIUM_CANDY_STORE_CODE=_-cst5bOec" >> $GITHUB_ENV
             echo "REACT_APP_USER_APP_BASE_URL=https://treatsislandcandy.store" >> $GITHUB_ENV
           else
             echo "REACT_APP_API_BASE_URL=https://admin-treatsisland.dextech-qa.com" >> $GITHUB_ENV
             echo "REACT_APP_PREMIUM_CANDY_STORE_CODE=_-cst5bOec" >> $GITHUB_ENV
-            echo "REACT_APP_USER_APP_BASE_URL=https://admin-treatsisland.dextech-qa.com" >> $GITHUB_ENV
+            echo "REACT_APP_USER_APP_BASE_URL=https://treatsisland-dev.web.app" >> $GITHUB_ENV
           fi
 
       - name: Build
