@@ -235,6 +235,14 @@ const SalesModalContent = React.forwardRef(
                         </div> */}
                       </div>
                     </th>
+                    <th
+                      scope="col"
+                      className="small font-weight-bold text-center"
+                    >
+                      <div className="innerWrapper d-flex align-center justify-content-flex-start">
+                      Popup Name
+                      </div>
+                    </th>
                   </tr>
                 </thead>
 
@@ -338,6 +346,11 @@ const SalesModalContent = React.forwardRef(
                       <td>
                         <div className="totalAmount">
                           {order?.OrderID || "N/A"}
+                        </div>
+                      </td>
+                      <td>
+                        <div className="">
+                          {order?.popupName}
                         </div>
                       </td>
                     </tr>
