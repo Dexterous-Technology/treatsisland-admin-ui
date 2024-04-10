@@ -182,8 +182,8 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Created
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                            <i onClick={()=>_applySort('CreatedOn', 'asc')} className={sortBy==='CreatedOn' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                            <i onClick={()=>_applySort('CreatedOn', 'desc')} className={sortBy==='CreatedOn' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
                             </div>
                           </div>
                         </th>
