@@ -79,6 +79,7 @@ const SalesModalContent = React.forwardRef(
         setIsPrinting(false);
       }, 5000);
     };
+    const popupStoreBaseURL = `${process.env.REACT_APP_USER_APP_BASE_URL}/popup-store`;
     return (
       <div className="popupSalesWrapper">
         <div className="popupInner" ref={ref}>
@@ -350,7 +351,8 @@ const SalesModalContent = React.forwardRef(
                       </td>
                       <td>
                         <div className="">
-                          {order?.popupName}
+                          <a href={`${popupStoreBaseURL}/${order?.popupCode}`} target="_blank" 
+                          onClick={e => e.stopPropagation()}>{order?.popupName}</a>
                         </div>
                       </td>
                     </tr>
