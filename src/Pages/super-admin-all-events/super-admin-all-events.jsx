@@ -170,8 +170,8 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Event code
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                              <i onClick={()=>_applySort('EventCode', 'asc')} className={sortBy==='EventCode' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                              <i onClick={()=>_applySort('EventCode', 'desc')} className={sortBy==='EventCode' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
                             </div>
                           </div>
                         </th>
@@ -182,8 +182,8 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Created
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                            <i onClick={()=>_applySort('CreatedOn', 'asc')} className={sortBy==='CreatedOn' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                            <i onClick={()=>_applySort('CreatedOn', 'desc')} className={sortBy==='CreatedOn' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
                             </div>
                           </div>
                         </th>
@@ -194,8 +194,8 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Status
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                              {/* <i onClick={()=>_applySort('PaymentStatus', 'asc')} className={sortBy==='PaymentStatus' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i> */}
+                              {/* <i onClick={()=>_applySort('PaymentStatus', 'desc')} className={sortBy==='PaymentStatus' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i> */}
                             </div>
                           </div>
                         </th>
@@ -230,8 +230,8 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Total sales
                             <div className="tableSort ml-1 d-grid">
-                              <i className="fa fa-chevron-up"></i>
-                              <i className="fa fa-chevron-down"></i>
+                            <i onClick={()=>_applySort('totalSales', 'asc')} className={sortBy==='totalSales' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
+                            <i onClick={()=>_applySort('totalSales', 'desc')} className={sortBy==='totalSales' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
                             </div>
                           </div>
                         </th>
@@ -240,7 +240,7 @@ const SuperAdminAllEvents = () => {
                           className="small font-weight-bold text-center"
                         >
                           {" "}
-                          Amount owned to organizer{" "}
+                          Amount owned to organizer2{" "}
                         </th>
                         <th
                           scope="col"
