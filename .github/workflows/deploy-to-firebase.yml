@@ -23,7 +23,7 @@ jobs:
       - name: Setup Environment Variables
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            echo "REACT_APP_API_BASE_URL=https://treatisland-admin.onrender.com" >> $GITHUB_ENV
+            echo "REACT_APP_API_BASE_URL=https://stingray-app-lv8zd.ondigitalocean.app" >> $GITHUB_ENV
             echo "REACT_APP_PREMIUM_CANDY_STORE_CODE=_-cst5bOec" >> $GITHUB_ENV
             echo "REACT_APP_USER_APP_BASE_URL=https://treatsislandcandy.store" >> $GITHUB_ENV
           else
