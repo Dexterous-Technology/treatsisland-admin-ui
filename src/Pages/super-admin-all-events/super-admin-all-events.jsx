@@ -27,7 +27,7 @@ const TextWithCopy = ({ text }) => {
     </>
   );
 };
-
+let isLoadingEvents = false;
 const SuperAdminAllEvents = () => {
   const { eventSotringOptions } = useSelector((state) => state.adminStore);
   const {sortBy, sortOrder} = eventSotringOptions
@@ -72,8 +72,11 @@ const SuperAdminAllEvents = () => {
     EventUtils.showSalesInfoModal(event);
   };
 
-  const _loadEvents = () => {
-    EventUtils.loadAllEvents();
+  const _loadEvents = async () => {
+    if (isLoadingEvents) return;
+    isLoadingEvents = true;
+    await EventUtils.loadAllEvents();
+    isLoadingEvents = false;
   };
 
   const _applySort = (sortBy, sortOrder)=>{

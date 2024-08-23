@@ -17,8 +17,8 @@ const EventUtils = {
     store.dispatch(toggleAdminLoader(true));
     try {
       const { data } = await ApiCalls.event.loadAllAdminEvents();
-      if (data?.data?.allEvents?.length) {
-        const formattedEvents = EventUtils._formatEvents(data?.data?.allEvents);
+      if (data?.data?.events?.length) {
+        const formattedEvents = EventUtils._formatEvents(data?.data?.events);
         // Sort and store
         console.log("formattedEvents :>> ", formattedEvents);
         EventUtils._sortAndStoreEvents(formattedEvents);
@@ -43,7 +43,7 @@ const EventUtils = {
   _sortAndStoreEvents: (events) => {
     // Sort the events by ProductName
     const sortedEvents = EventUtils._sortEvent(events);
-    store.dispatch(setEvents(sortedEvents));
+    store.dispatch(setEvents(events));
   },
   _sortEvent: (events) => {
     const {
