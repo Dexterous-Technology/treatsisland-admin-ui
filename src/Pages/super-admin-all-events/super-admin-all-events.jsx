@@ -30,7 +30,8 @@ const TextWithCopy = ({ text }) => {
 let isLoadingEvents = false;
 const SuperAdminAllEvents = () => {
   const { eventSotringOptions } = useSelector((state) => state.adminStore);
-  const {sortBy, sortOrder} = eventSotringOptions
+  const [isLoading, setIsLoading] = useState(false);
+  const { sortBy, sortOrder } = eventSotringOptions;
 
   const [isPopupStoreModalVisible, setIsPopupStoreModalVisible] =
     useState(false);
@@ -75,13 +76,15 @@ const SuperAdminAllEvents = () => {
   const _loadEvents = async () => {
     if (isLoadingEvents) return;
     isLoadingEvents = true;
+    setIsLoading(true);
     await EventUtils.loadAllEvents();
     isLoadingEvents = false;
+    setIsLoading(false);
   };
 
-  const _applySort = (sortBy, sortOrder)=>{
-    EventUtils.applySort({sortBy, sortOrder})
-  }
+  const _applySort = (sortBy, sortOrder) => {
+    EventUtils.applySort({ sortBy, sortOrder });
+  };
 
   useEffect(() => {
     _loadEvents();
@@ -91,6 +94,8 @@ const SuperAdminAllEvents = () => {
 
   return (
     <div id="wrapper" className="superAdminDashboardWrapper all-events">
+      
+      
       {/* ************************** SIDEBAR */}
       <Sidebar />
       {/* ************************** /SIDEBAR */}
@@ -100,7 +105,25 @@ const SuperAdminAllEvents = () => {
           <Topbar />
 
           {/* ************************** CONTENT */}
-          <div className="container-fluid">
+          {
+        isLoading? (
+          <>
+          <div className="fullscreenLoaderWrapper">
+        <div className="fullscreenLoader"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: '100vh'
+        }}>
+          <div className="spinner-border text-primary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+          </>
+        ): (<>
+           <div className="container-fluid">
             <div className="contentInnerWrapper">
               <div className="pageTitle">All events</div>
 
@@ -149,8 +172,22 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center">
                             Event organizer
                             <div className="tableSort ml-1 d-grid">
-                              <i onClick={()=>_applySort('EventName', 'asc')} className={sortBy==='EventName' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
-                              <i onClick={()=>_applySort('EventName', 'desc')} className={sortBy==='EventName' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
+                              <i
+                                onClick={() => _applySort("EventName", "asc")}
+                                className={
+                                  sortBy === "EventName" && sortOrder === "asc"
+                                    ? "fa fa-chevron-up active-sort"
+                                    : "fa fa-chevron-up"
+                                }
+                              ></i>
+                              <i
+                                onClick={() => _applySort("EventName", "desc")}
+                                className={
+                                  sortBy === "EventName" && sortOrder === "desc"
+                                    ? "fa fa-chevron-down active-sort"
+                                    : "fa fa-chevron-down"
+                                }
+                              ></i>
                             </div>
                             {/* <div className="tableSort ml-1 d-grid">
                               <i className="fa fa-chevron-up"></i>
@@ -164,7 +201,7 @@ const SuperAdminAllEvents = () => {
                         >
                           <div className="innerWrapper d-flex align-center">
                             Actions
-                            </div>
+                          </div>
                         </th>
                         <th
                           scope="col"
@@ -173,8 +210,22 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Event code
                             <div className="tableSort ml-1 d-grid">
-                              <i onClick={()=>_applySort('EventCode', 'asc')} className={sortBy==='EventCode' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
-                              <i onClick={()=>_applySort('EventCode', 'desc')} className={sortBy==='EventCode' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
+                              <i
+                                onClick={() => _applySort("EventCode", "asc")}
+                                className={
+                                  sortBy === "EventCode" && sortOrder === "asc"
+                                    ? "fa fa-chevron-up active-sort"
+                                    : "fa fa-chevron-up"
+                                }
+                              ></i>
+                              <i
+                                onClick={() => _applySort("EventCode", "desc")}
+                                className={
+                                  sortBy === "EventCode" && sortOrder === "desc"
+                                    ? "fa fa-chevron-down active-sort"
+                                    : "fa fa-chevron-down"
+                                }
+                              ></i>
                             </div>
                           </div>
                         </th>
@@ -185,8 +236,22 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Created
                             <div className="tableSort ml-1 d-grid">
-                            <i onClick={()=>_applySort('CreatedOn', 'asc')} className={sortBy==='CreatedOn' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
-                            <i onClick={()=>_applySort('CreatedOn', 'desc')} className={sortBy==='CreatedOn' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
+                              <i
+                                onClick={() => _applySort("CreatedOn", "asc")}
+                                className={
+                                  sortBy === "CreatedOn" && sortOrder === "asc"
+                                    ? "fa fa-chevron-up active-sort"
+                                    : "fa fa-chevron-up"
+                                }
+                              ></i>
+                              <i
+                                onClick={() => _applySort("CreatedOn", "desc")}
+                                className={
+                                  sortBy === "CreatedOn" && sortOrder === "desc"
+                                    ? "fa fa-chevron-down active-sort"
+                                    : "fa fa-chevron-down"
+                                }
+                              ></i>
                             </div>
                           </div>
                         </th>
@@ -233,8 +298,23 @@ const SuperAdminAllEvents = () => {
                           <div className="innerWrapper d-flex align-center justify-content-center">
                             Total sales
                             <div className="tableSort ml-1 d-grid">
-                              <i onClick={()=>_applySort('totalSales', 'asc')} className={sortBy==='totalSales' && sortOrder==='asc'? "fa fa-chevron-up active-sort":"fa fa-chevron-up"} ></i>
-                              <i onClick={()=>_applySort('totalSales', 'desc')} className={sortBy==='totalSales' && sortOrder==='desc'? "fa fa-chevron-down active-sort": "fa fa-chevron-down"}></i>
+                              <i
+                                onClick={() => _applySort("totalSales", "asc")}
+                                className={
+                                  sortBy === "totalSales" && sortOrder === "asc"
+                                    ? "fa fa-chevron-up active-sort"
+                                    : "fa fa-chevron-up"
+                                }
+                              ></i>
+                              <i
+                                onClick={() => _applySort("totalSales", "desc")}
+                                className={
+                                  sortBy === "totalSales" &&
+                                  sortOrder === "desc"
+                                    ? "fa fa-chevron-down active-sort"
+                                    : "fa fa-chevron-down"
+                                }
+                              ></i>
                             </div>
                           </div>
                         </th>
@@ -347,7 +427,8 @@ const SuperAdminAllEvents = () => {
                                 </span>
                                 <TextWithCopy
                                   text={
-                                    moreInfoModal?._organization?.OrganizationType?.OrganizationType
+                                    moreInfoModal?._organization
+                                      ?.OrganizationType?.OrganizationType
                                   }
                                 />
                               </div>
@@ -463,6 +544,9 @@ const SuperAdminAllEvents = () => {
               />
             </div>
           </div>
+          </>)
+      }
+         
           {/* ************************** /CONTENT */}
         </div>
       </div>
