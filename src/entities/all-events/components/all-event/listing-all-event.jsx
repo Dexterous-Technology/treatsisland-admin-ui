@@ -26,7 +26,7 @@ const ListingAllEvent = ({
           {/* <td className="text-center">
             <input type="checkbox" disabled/>
           </td> */}
-          <td className="text-center">{index + 1}</td>
+          <td className="text-center">{event.EventID}</td>
           <td className="text-left">
             <b>{event.EventName}</b> &nbsp;
             <span className="moreInfo" title="More information"

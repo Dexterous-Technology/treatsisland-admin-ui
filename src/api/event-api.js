@@ -39,6 +39,15 @@ const EventApi = {
   },
 
   //super admin all events
-  loadAllAdminEvents: () => UrlHttpClient.get(`/admin/get-all-events?limit=200&sortBy=EventID`),
+  loadAllAdminEvents: ({
+    limit = 10,
+    sortBy = "EventID",
+    sortOrder = "ASC",
+    page = 1,
+    search = "",
+  }) =>
+    UrlHttpClient.get(
+      `/admin/get-all-events?limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}&page=${page}&search=${search}`
+    ),
 };
 export default EventApi;
