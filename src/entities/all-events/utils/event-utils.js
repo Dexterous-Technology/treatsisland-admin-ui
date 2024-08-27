@@ -8,6 +8,7 @@ import {
   toggleAdminLoader,
   setEventSortingOptions,
   togglePopupStoreModal,
+  setEventsPagination,
 } from "../../../store/admin-store";
 import { EventEmitter } from "../../../utils/event-emitter";
 import Standard from "../../../const/standards";
@@ -16,12 +17,32 @@ const EventUtils = {
   loadAllEvents: async () => {
     store.dispatch(toggleAdminLoader(true));
     try {
-      const { data } = await ApiCalls.event.loadAllAdminEvents();
+      // Get pagination info
+      const {
+        eventsPagination
+      } = store.getState().adminStore;
+      const {
+        eventSortingOptions
+      } = store.getState().adminStore;
+      const { data } = await ApiCalls.event.loadAllAdminEvents({
+        limit: eventsPagination.pageSize,
+        sortBy: eventSortingOptions.sortBy,
+        sortOrder: eventSortingOptions.sortOrder,
+        page: eventsPagination.currentPage,
+      });
       if (data?.data?.events?.length) {
         const formattedEvents = EventUtils._formatEvents(data?.data?.events);
         // Sort and store
         console.log("formattedEvents :>> ", formattedEvents);
         EventUtils._sortAndStoreEvents(formattedEvents);
+        // Store pagination info
+        store.dispatch(
+          setEventsPagination({
+            currentPage: data?.data?.page,
+            pageSize: data?.data?.limit,
+            totalEvents: data?.data?.totalCount,
+          })
+        );
       }
     } catch (error) {
       console.log("error :>> ", error);
@@ -47,9 +68,9 @@ const EventUtils = {
   },
   _sortEvent: (events) => {
     const {
-      adminStore: { eventSotringOptions },
+      adminStore: { eventSortingOptions },
     } = store.getState();
-    const { sortBy, sortOrder } = eventSotringOptions;
+    const { sortBy, sortOrder } = eventSortingOptions;
 
     return events.slice().sort((a, b) => {
       const first =
