@@ -29,7 +29,7 @@ const TextWithCopy = ({ text }) => {
 };
 let isLoadingEvents = false;
 const SuperAdminAllEvents = () => {
-  const { eventSortingOptions } = useSelector((state) => state.adminStore);
+  const { eventSortingOptions, isLoaderActive } = useSelector((state) => state.adminStore);
   const [isLoading, setIsLoading] = useState(false);
   const { sortBy, sortOrder } = eventSortingOptions;
 
@@ -103,7 +103,7 @@ const SuperAdminAllEvents = () => {
           <Topbar />
 
           {/* ************************** CONTENT */}
-          {isLoading ? (
+          {isLoaderActive ? (
             <>
               <div className="fullscreenLoaderWrapper">
                 <div
@@ -113,6 +113,12 @@ const SuperAdminAllEvents = () => {
                     justifyContent: "center",
                     alignItems: "center",
                     height: "100vh",
+                    width: "100vw",
+                    position: "fixed",
+                    zIndex: 9999,
+                    backgroundColor: "rgba(0, 0, 0, 0.9)",
+                    top: 0,
+                    left: 0,
                   }}
                 >
                   <div className="spinner-border text-primary" role="status">
@@ -122,7 +128,9 @@ const SuperAdminAllEvents = () => {
               </div>
             </>
           ) : (
-            <>
+            <></>
+          )}
+          <>
               <div className="container-fluid">
                 <div className="contentInnerWrapper">
                   <div className="pageTitle">All events</div>
@@ -131,7 +139,7 @@ const SuperAdminAllEvents = () => {
                     <div className="table-responsive">
                       <table className="table">
                         {/* <col width="50px" /> */}
-                        <col width="30px" />
+                        <col width="60px" />
                         <col width="348px" />
                         <col width="150px" />
                         <col width="150px" />
@@ -162,8 +170,38 @@ const SuperAdminAllEvents = () => {
                               scope="col"
                               className="small font-weight-bold text-center"
                             >
-                              {" "}
-                              #{" "}
+                             <div className="innerWrapper d-flex align-center">
+                                ID
+                                <div className="tableSort ml-1 d-grid">
+                                  <i
+                                    onClick={() =>
+                                      _applySort("EventID", "asc")
+                                    }
+                                    className={
+                                      sortBy === "EventID" &&
+                                      sortOrder === "asc"
+                                        ? "fa fa-chevron-up active-sort"
+                                        : "fa fa-chevron-up"
+                                    }
+                                  ></i>
+                                  <i
+                                    onClick={() =>
+                                      _applySort("EventID", "desc")
+                                    }
+                                    className={
+                                      sortBy === "EventID" &&
+                                      sortOrder === "desc"
+                                        ? "fa fa-chevron-down active-sort"
+                                        : "fa fa-chevron-down"
+                                    }
+                                  ></i>
+                                </div>
+                                {/* <div className="tableSort ml-1 d-grid">
+                              <i className="fa fa-chevron-up"></i>
+                              <i className="fa fa-chevron-down"></i>
+                            </div> */}
+                              </div>
+
                             </th>
                             <th
                               scope="col"
@@ -315,7 +353,7 @@ const SuperAdminAllEvents = () => {
                             >
                               <div className="innerWrapper d-flex align-center justify-content-center">
                                 Total sales
-                                <div className="tableSort ml-1 d-grid">
+                                {/* <div className="tableSort ml-1 d-grid">
                                   <i
                                     onClick={() =>
                                       _applySort("totalSales", "asc")
@@ -338,7 +376,7 @@ const SuperAdminAllEvents = () => {
                                         : "fa fa-chevron-down"
                                     }
                                   ></i>
-                                </div>
+                                </div> */}
                               </div>
                             </th>
                             <th
@@ -589,7 +627,6 @@ const SuperAdminAllEvents = () => {
                 </div>
               </div>
             </>
-          )}
 
           {/* ************************** /CONTENT */}
         </div>

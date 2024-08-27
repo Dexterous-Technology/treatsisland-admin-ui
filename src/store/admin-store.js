@@ -10,8 +10,8 @@ const initialState = {
     sortOrder: "asc",
   },
   eventSortingOptions: {
-    sortBy: "EventName",
-    sortOrder: "asc",
+    sortBy: "EventID",
+    sortOrder: "desc",
   },
   eventsPagination: {
     currentPage: 1,

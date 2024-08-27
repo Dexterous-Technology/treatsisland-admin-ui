@@ -203,13 +203,17 @@ const EventUtils = {
       ApiCalls.event.admin.archiveEvent(updatedEvent.EventID);
     } catch (error) {}
   },
-
+  onNewPageSelected: (pageNumber) => {
+    console.log('pageNumber :>> ', pageNumber);
+    // Update the current page in redux
+    store.dispatch(setEventsPagination({ currentPage: pageNumber }));
+    // Load the events
+    EventUtils.loadAllEvents();
+  },
   applySort:({sortBy, sortOrder})=>{
     store.dispatch(setEventSortingOptions({sortBy, sortOrder}));
-    const {
-      adminStore: { events },
-    } = store.getState();
-    EventUtils._sortAndStoreEvents(events);
+    //  Load the events
+    EventUtils.loadAllEvents();
   },
 
 };
