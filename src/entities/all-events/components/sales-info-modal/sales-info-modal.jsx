@@ -62,7 +62,7 @@ const SalesModalContent = React.forwardRef(
           Math.round(
             parseFloat(parseFloat(order?.platformEarnings) || 0) * 100
           ) / 100,
-          order?.PopupName || "N/A",
+          order?.popupName || "N/A",
         ]);
       });
       setCsvData(csvData);
