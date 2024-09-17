@@ -117,7 +117,7 @@ const PopupStore = ({
 
               <div className="intro">
                 <div className="image-wrapper icon">
-                  <img src={selectedPopupStore?.storeLogo} alt="" />
+                  <img src={selectedPopupStore?.storeLogo?.Media} alt="" />
                 </div>
 
                 <div className="storeName">{selectedPopupStore?.PopupName}</div>
